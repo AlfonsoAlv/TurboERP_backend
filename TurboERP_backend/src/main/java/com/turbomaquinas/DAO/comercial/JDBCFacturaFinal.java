@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -196,7 +195,7 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public int creardoc(String doc) throws DataAccessException {
+	public void creardoc(String doc) throws DataAccessException {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("FACTURA_FINAL");
 
@@ -205,13 +204,6 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	
 		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
-		
-		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
-	        if (entry.getKey().compareTo("p_factura_final_id") == 0) {
-	            return (Integer) entry.getValue();
-	        }
-	    }		
-		return 0;
 	}
 
 }
