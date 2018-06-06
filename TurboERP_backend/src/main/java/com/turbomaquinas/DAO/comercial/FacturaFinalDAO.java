@@ -16,7 +16,7 @@ public interface FacturaFinalDAO {
 	public List<FacturaFinalVista> consultarFacturasPendientesPorCliente(int id, String moneda);
 	public List<Integer> consultarIdsOrdenesFactura(int id);
 	public FacturaFinalVista buscarFacturaFolio(String folio,String estado);
-	public int creardoc(String doc);
+	public void creardoc(String doc);
 	
 	
 }
