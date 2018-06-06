@@ -13,6 +13,7 @@ public class DocumentoFacturaFinal {
 	
 	public DocumentoFacturaFinal() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public DocumentoFacturaFinal(int creado_por, int formato_especial, Factura factura, List<Partida> actividades,
@@ -83,26 +84,29 @@ public class DocumentoFacturaFinal {
 		private String condiciones_pago;
 		private String comentarios;
 		private String moneda;
+		private int descuento_neto;
 		private ComprobanteRelacionado comprobantes_relacionados;
 		
 		public Factura() {
 			super();
+			// TODO Auto-generated constructor stub
 		}
 
 		public Factura(int clientes_id, int formas_pago_id, int metodos_pago_id, int uso_cfdi_id,
-				ComprobanteRelacionado comprobantes_relacionados, String condiciones_pago, String comentarios,
-				String moneda) {
+				String condiciones_pago, String comentarios, String moneda, int descuento_neto,
+				ComprobanteRelacionado comprobantes_relacionados) {
 			super();
 			this.clientes_id = clientes_id;
 			this.formas_pago_id = formas_pago_id;
 			this.metodos_pago_id = metodos_pago_id;
 			this.uso_cfdi_id = uso_cfdi_id;
-			this.comprobantes_relacionados = comprobantes_relacionados;
 			this.condiciones_pago = condiciones_pago;
 			this.comentarios = comentarios;
 			this.moneda = moneda;
+			this.descuento_neto = descuento_neto;
+			this.comprobantes_relacionados = comprobantes_relacionados;
 		}
-
+		
 		public int getClientes_id() {
 			return clientes_id;
 		}
@@ -167,7 +171,16 @@ public class DocumentoFacturaFinal {
 			this.moneda = moneda;
 		}
 
-		public static class ComprobanteRelacionado{
+		public int getDescuento_neto() {
+			return descuento_neto;
+		}
+
+		public void setDescuento_neto(int descuento_neto) {
+			this.descuento_neto = descuento_neto;
+		}
+
+
+		public static class ComprobanteRelacionado {
 			
 			private String tipo_relacion;
 			private int[] comprobantes;
@@ -313,16 +326,18 @@ public class DocumentoFacturaFinal {
 		public static class Actividad {
 			private int id;
 			private BigDecimal importe;
+			private BigDecimal descuento;
 			
 			public Actividad() {
 				super();
 				// TODO Auto-generated constructor stub
 			}
 
-			public Actividad(int id, BigDecimal importe) {
+			public Actividad(int id, BigDecimal importe, BigDecimal descuento) {
 				super();
 				this.id = id;
 				this.importe = importe;
+				this.descuento = descuento;
 			}
 
 			public int getId() {
@@ -339,6 +354,14 @@ public class DocumentoFacturaFinal {
 
 			public void setImporte(BigDecimal importe) {
 				this.importe = importe;
+			}
+
+			public BigDecimal getDescuento() {
+				return descuento;
+			}
+
+			public void setDescuento(BigDecimal descuento) {
+				this.descuento = descuento;
 			}
 			
 		}

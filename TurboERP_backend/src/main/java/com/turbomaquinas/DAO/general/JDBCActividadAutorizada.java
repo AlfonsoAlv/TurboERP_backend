@@ -246,7 +246,7 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 				+ "FROM ACTIVIDADES_AUTORIZADAS aa "
 				+ "JOIN DETALLE_COTIZACIONES d on aa.DETALLES_COTIZACIONES_id=d.id "
 				+ "JOIN ENCABEZADOS_COTIZACIONES e on e.id=d.ENCABEZADOS_COTIZACIONES_id "
-				+ "WHERE EXISTS (SELECT * FROM AUTORIZACIONES A WHERE A.id = aa.AUTORIZACIONES_id AND ORDENES_id=?) AND importe_pendiente <> 0 AND importe_baja=0";
+				+ "WHERE EXISTS (SELECT * FROM AUTORIZACIONES A WHERE A.id = aa.AUTORIZACIONES_id AND ORDENES_id=?) AND importe_a_facturar > 0 AND importe_baja=0";
 		return jdbcTemplate.query(sql,new ActividadAutorizadaFacturaRM(), id,id,id,id,id);
 	}
 
