@@ -33,6 +33,7 @@ import com.turbomaquinas.POJO.general.OrdenFactura;
 import com.turbomaquinas.POJO.general.OrdenFactura.Facturas;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
+import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
 
 @Repository
 public class JDBCOrden implements OrdenDAO {
@@ -486,6 +487,19 @@ public class JDBCOrden implements OrdenDAO {
 		List<Integer> o = jdbcTemplate.queryForList("SELECT DISTINCT(anio) FROM ORDENES where clientes_id=? ORDER BY anio DESC", 
 				Integer.class,idCliente);
 		return o;
+	}
+
+	@Override
+	public List<PagosConsultaOrdenes> PagosporOrden(int idOrden) {
+		String sql="select ff.id facturafinal_id, ff.tipo tipo_factura,ff.numero factura,ff.tipo_cambio tipo_cambio_factura, "
+				+ "ff.fecha_factura, pd.id pagodetalle_id, p.id pago_id,p.fecha_pago,p.importe,p.folio pago, "
+				+ "p.tipo_cambio_cliente tipo_cambio_fecha_pago, p.afectacion "
+				+ "from   FACTURA_FINAL ff "
+				+ "JOIN   PAGOS_DETALLE pd ON ((pd.FACTURA_FINAL_id = ff.id)) "
+				+ "JOIN   PAGOS p ON ((p.id = pd.PAGOS_id)) "
+				+ "where (FIND_IN_SET(ff.id,(SELECT IDS_FACTURAS_POR_ORDEN(?))) AND (p.activo = 1))";
+		List<PagosConsultaOrdenes> p = jdbcTemplate.query(sql,new PagosConsultaOrdenesRM(),idOrden);
+		return p;
 	}
 	
 	

@@ -11,4 +11,5 @@ public interface CiudadDAO {
 	public List<Ciudad> consultarPorEstado(int id);
 	public CiudadVista buscar(int id);
 	public List<CiudadVista> consultar();
+	public Ciudad consultarCiudadPorClaveYEstado(int id, String clave);
 }

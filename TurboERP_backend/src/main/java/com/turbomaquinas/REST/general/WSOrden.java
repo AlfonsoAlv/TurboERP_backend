@@ -38,6 +38,7 @@ import com.turbomaquinas.POJO.general.Orden;
 import com.turbomaquinas.POJO.general.OrdenFactura;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
+import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
 import com.turbomaquinas.POJO.general.SolicitudDesautorizacionAA;
 import com.turbomaquinas.POJO.produccion.AreasVista;
 import com.turbomaquinas.service.general.OrdenService;
@@ -374,6 +375,14 @@ public class WSOrden {
 		if (anios == null)
 			return new ResponseEntity<List<Integer>> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Integer>>(anios, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/pagosaplicados")
+	public ResponseEntity<List<PagosConsultaOrdenes>> pagosAplicados(@PathVariable int id){
+		List<PagosConsultaOrdenes> pco = os.pagosAplicadosOrdenes(id);
+		if (pco == null)
+			return new ResponseEntity<List<PagosConsultaOrdenes>> (HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<PagosConsultaOrdenes>>(pco, HttpStatus.OK);
 	}
 	
 }

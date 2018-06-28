@@ -34,4 +34,9 @@ public class LogicaEstado implements EstadoService{
 		return repositorioCiudad.consultarPorEstado(id);
 	}
 
+	@Override
+	public Ciudad consultarCiudadPorClaveYEstado(int id, String clave) {
+		return repositorioCiudad.consultarCiudadPorClaveYEstado(id, clave);
+	}
+
 }

@@ -30,6 +30,7 @@ import com.turbomaquinas.POJO.general.Orden;
 import com.turbomaquinas.POJO.general.OrdenFactura;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
+import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
 import com.turbomaquinas.POJO.general.SolicitudDesautorizacionAA;
 import com.turbomaquinas.POJO.produccion.AreasVista;
 
@@ -254,6 +255,11 @@ public class LogicaOrdenService implements OrdenService{
 	@Override
 	public List<Integer> anioOrdenCliente(int id) throws DataAccessException{
 		return repositorio.anioOrdenCliente(id);
+	}
+
+	@Override
+	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id) {
+		return repositorio.PagosporOrden(id);
 	}
 	
 }

@@ -16,6 +16,7 @@ import com.turbomaquinas.POJO.general.Orden;
 import com.turbomaquinas.POJO.general.OrdenFactura;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
+import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
 import com.turbomaquinas.POJO.general.SolicitudDesautorizacionAA;
 import com.turbomaquinas.POJO.produccion.AreasVista;
 
@@ -52,4 +53,5 @@ public interface OrdenService {
 	public List<CotizacionVista> consultarCotizacionesAutorizadas(int id);
 	public List<OrdenVista> OrdenesporCliente(int id,int anio);
 	public List<Integer> anioOrdenCliente(int id);
+	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id);
 }

@@ -76,4 +76,11 @@ public class JDBCCiudad implements CiudadDAO{
 		return cius;
 	}
 
+	@Override
+	public Ciudad consultarCiudadPorClaveYEstado(int id, String clave) {
+		Ciudad c = jdbcTemplate.queryForObject("SELECT * FROM turbomaquinas.CIUDADES where clave =? and ESTADOS_id = ?  ",
+				new CiudadRM(), clave, id);
+		return c;
+	}
+
 }

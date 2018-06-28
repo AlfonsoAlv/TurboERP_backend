@@ -57,4 +57,16 @@ public class WSEstado {
 		}
 		return new ResponseEntity<List<Ciudad>>(ciudades, HttpStatus.OK);
 	}
+	
+	@GetMapping("/{id}/ciudades/{clave}")
+	public ResponseEntity<Ciudad> consultarCiudadPorClaveYEstado(@PathVariable int id, @PathVariable String clave){
+		Ciudad ciudad = null;
+		try{
+			ciudad = s.consultarCiudadPorClaveYEstado(id, clave);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Ciudad>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Ciudad>(ciudad, HttpStatus.OK);
+	}
 }
