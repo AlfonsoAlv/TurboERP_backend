@@ -48,4 +48,16 @@ public class WSCronologiaOT {
 		}
 		return new ResponseEntity<List<CronologiaOT>>(c, HttpStatus.OK);
 	}
+	
+	@GetMapping("/Orden/{id}")
+	public ResponseEntity<List<CronologiaOT>> ConsultarCronologia(@PathVariable int id){
+		List<CronologiaOT> c = null;
+		try {
+			c = s.consultaCronologia(id);
+		} catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<CronologiaOT>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<CronologiaOT>>(c, HttpStatus.OK);
+	}
 }

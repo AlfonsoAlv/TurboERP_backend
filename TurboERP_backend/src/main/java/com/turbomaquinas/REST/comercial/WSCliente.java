@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.comercial.Cliente;
 import com.turbomaquinas.POJO.comercial.ClienteVista;
+import com.turbomaquinas.POJO.comercial.EquipoSolicitudFletesVista;
 import com.turbomaquinas.service.comercial.ClienteService;
 
 @RestController
@@ -125,11 +126,25 @@ public class WSCliente {
 		return new ResponseEntity<String>(tipo, HttpStatus.OK);
 	}
 	
+
+	@GetMapping("/{id}/EquipoSolicitudFletes")
+	public ResponseEntity<List<EquipoSolicitudFletesVista>> consultarEqSolicitudPorCliente(@PathVariable int id){
+		List<EquipoSolicitudFletesVista> esfl = null;
+		try {
+			esfl =  s.consultarPorCliente(id);
+		} catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<EquipoSolicitudFletesVista>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<EquipoSolicitudFletesVista>>(esfl, HttpStatus.OK);
+	}
+	
 	@GetMapping("/{numero_giro}/giro")
 	public ResponseEntity<List<ClienteVista>> consultarPorGiro(@PathVariable int numero_giro) {
 		List<ClienteVista> ctes = s.consultarPorGiro(numero_giro);
 		if (ctes == null)
 			return new ResponseEntity<List<ClienteVista>>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<ClienteVista>>(ctes, HttpStatus.OK);
+
 	}
 }

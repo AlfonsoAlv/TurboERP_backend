@@ -24,4 +24,9 @@ public class LogicaCronologiaOT implements CronologiaOTservice{
 	public List<CronologiaOT> consultarPorOrdenyTipo(int id, String tipo) {
 		return repositorio.consultarPorOrdenyTipo(id, tipo);
 	}
+
+	@Override
+	public List<CronologiaOT> consultaCronologia(int id) {
+		return repositorio.consultaCronologia(id);
+	}
 }
