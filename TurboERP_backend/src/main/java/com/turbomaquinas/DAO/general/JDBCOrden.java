@@ -494,10 +494,10 @@ public class JDBCOrden implements OrdenDAO {
 		String sql="select ff.id facturafinal_id, ff.tipo tipo_factura,ff.numero factura,ff.tipo_cambio tipo_cambio_factura, "
 				+ "ff.fecha_factura, pd.id pagodetalle_id, p.id pago_id,p.fecha_pago,p.importe,p.folio pago, "
 				+ "p.tipo_cambio_cliente tipo_cambio_fecha_pago, p.afectacion "
-				+ "from   FACTURA_FINAL ff "
-				+ "JOIN   PAGOS_DETALLE pd ON ((pd.FACTURA_FINAL_id = ff.id)) "
-				+ "JOIN   PAGOS p ON ((p.id = pd.PAGOS_id)) "
-				+ "where (FIND_IN_SET(ff.id,(SELECT IDS_FACTURAS_POR_ORDEN(?))) AND (p.activo = 1))";
+				+ "from   PAGOS p "
+				+ "JOIN   PAGOS_DETALLE pd ON ((pd.PAGOS_id = p.id)) "
+				+ "JOIN   FACTURA_FINAL ff ON ((ff.id = pd.FACTURA_FINAL_id)) "
+				+ "where (FIND_IN_SET(p.id,(SELECT IDS_PEDIDOS_POR_ORDEN(?))) AND (p.activo = 1))";
 		List<PagosConsultaOrdenes> p = jdbcTemplate.query(sql,new PagosConsultaOrdenesRM(),idOrden);
 		return p;
 	}
