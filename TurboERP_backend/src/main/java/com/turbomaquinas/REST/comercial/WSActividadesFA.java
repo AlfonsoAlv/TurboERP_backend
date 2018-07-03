@@ -75,4 +75,5 @@ public class WSActividadesFA {
 			return new ResponseEntity<List<ActividadesFA>>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<ActividadesFA>>(afal, HttpStatus.OK);
 	}
+	
 }
