@@ -439,25 +439,25 @@ public class FacturaFinalVista {
 
 
 	public static class ComprobantesRelacionados{
-		private String tipo_relacion;
+		private String tipoRelacion;
 		private int comprobantes [];
 		
 		public ComprobantesRelacionados() {
 			super();
 		}
 
-		public ComprobantesRelacionados(String tipo_relacion, int[] comprobantes) {
+		public ComprobantesRelacionados(String tipoRelacion, int[] comprobantes) {
 			super();
-			this.tipo_relacion = tipo_relacion;
+			this.tipoRelacion = tipoRelacion;
 			this.comprobantes = comprobantes;
 		}
 
-		public String getTipo_relacion() {
-			return tipo_relacion;
+		public String getTipoRelacion() {
+			return tipoRelacion;
 		}
 
-		public void setTipo_relacion(String tipo_relacion) {
-			this.tipo_relacion = tipo_relacion;
+		public void setTipoRelacion(String tipoRelacion) {
+			this.tipoRelacion = tipoRelacion;
 		}
 
 		public int[] getComprobantes() {
