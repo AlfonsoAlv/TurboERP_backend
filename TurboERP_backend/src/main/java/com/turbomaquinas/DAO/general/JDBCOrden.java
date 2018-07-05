@@ -491,17 +491,21 @@ public class JDBCOrden implements OrdenDAO {
 
 	@Override
 	public List<PagosConsultaOrdenes> PagosporOrden(int idOrden) {
-		String sql="select ff.id facturafinal_id, ff.tipo tipo_factura,ff.numero factura,ff.tipo_cambio tipo_cambio_factura, "
-				+ "ff.fecha_factura, pd.id pagodetalle_id, p.id pago_id,p.fecha_pago,p.importe,p.folio pago, "
-				+ "p.tipo_cambio_cliente tipo_cambio_fecha_pago, p.afectacion "
-				+ "from   PAGOS p "
-				+ "JOIN   PAGOS_DETALLE pd ON ((pd.PAGOS_id = p.id)) "
-				+ "JOIN   FACTURA_FINAL ff ON ((ff.id = pd.FACTURA_FINAL_id)) "
-				+ "where (FIND_IN_SET(p.id,(SELECT IDS_PEDIDOS_POR_ORDEN(?))) AND (p.activo = 1))";
-		List<PagosConsultaOrdenes> p = jdbcTemplate.query(sql,new PagosConsultaOrdenesRM(),idOrden);
-		return p;
+		
+		jdbcTemplate.setResultsMapCaseInsensitive (true);
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName ( "CONSULTAR_PAGOS_POR_ORDEN" )
+                .returningResultSet ("pagosOrden",
+                		new PagosConsultaOrdenesRM());
+        
+        Map<String, Object> inParamMap = new HashMap<String, Object>();
+		
+		inParamMap.put("p_idOrden", idOrden);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		Map m = simpleJdbcCall.execute(in);
+		
+        return (List) m.get("pagosOrden");
 	}
-	
-	
+	 
 	
 }
