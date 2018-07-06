@@ -256,6 +256,29 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 			return json;
 		}catch(Exception e){return null;}
 	}
+	
+	@Override
+	public String obtenerJSONBuscarFacturaFinal(int idFactura, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_FACTURA_FINAL");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idFactura", idFactura);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
 
 	@Override
 	public void baja(int id, int modificado_por) {
@@ -267,7 +290,9 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		inParamMap.put("p_modificado_por", modificado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	
-		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		//Map<String, Object> simpleJdbcCallResult = 
+		simpleJdbcCall.execute(in);
+		
 		/*
 		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
 			if (entry.getKey().compareTo("p_salida") == 0) {
@@ -275,5 +300,7 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	        }
 	    }*/
 	}
+
+	
 
 }

@@ -101,6 +101,11 @@ public class LogicaFacturaVarios implements FacturaVariosService {
 	public String obtenerJSONCancelarFacturaVarios(int idFactura, String modo,String justificacion) {
 		return repFV.obtenerJSONCancelarFacturaVarios(idFactura,modo,justificacion);
 	}
+	
+	@Override
+	public String obtenerJSONBuscarFacturaVarios(int id, String modo) {
+		return repFV.obtenerJSONBuscarFacturaVarios(id,modo);
+	}
 
 	@Override
 	public void timbrarDB(int id, String jsonAPI, int creado_por) {
@@ -136,5 +141,7 @@ public class LogicaFacturaVarios implements FacturaVariosService {
 		}catch(Exception e){}
 		
 	}
+
+	
 
 }

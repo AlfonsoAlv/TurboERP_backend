@@ -24,5 +24,7 @@ public interface FacturaFinalDAO {
 	public void actualizarIdAlfresco(int id, String alfresco_id);
 	public String obtenerJSONFacturaFinal(int idFactura,String modo);
 	public String obtenerJSONCancelarFacturaFinal(int idFactura, String modo,String justificacion);
+	public String obtenerJSONBuscarFacturaFinal(int idFactura, String modo);
 	public void baja(int id, int modificado_por);
+	
 }

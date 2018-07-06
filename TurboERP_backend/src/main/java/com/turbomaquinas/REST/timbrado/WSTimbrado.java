@@ -55,6 +55,7 @@ public class WSTimbrado {
 		}
         try{
         	ResponseEntity<String> response=ts.timbrarFacturaFinal(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -102,21 +103,21 @@ public class WSTimbrado {
 		//Recuperar JSON del PA TIMBRADO_FACTURA		
 		String cfdi=null;
 		try{
-			cfdi=ffs.obtenerJSONFacturaFinal(id,modo);//mandar modo
+			cfdi=ffs.obtenerJSONBuscarFacturaFinal(id,modo);//mandar modo
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
         try{
-        	ResponseEntity<String> response=lt.timbrar(cfdi);
-	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
+        	ResponseEntity<String> response=lt.buscar(cfdi);
+        	JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
 		    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
 		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
-		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
 		    }else{
 		    	return null;
 		    }
@@ -183,13 +184,13 @@ public class WSTimbrado {
 		//Recuperar JSON del PA TIMBRADO_FACTURA		
 		String cfdi=null;
 		try{
-			cfdi=fvs.obtenerJSONFacturaVarios(id,modo);//mandar modo
+			cfdi=fvs.obtenerJSONBuscarFacturaVarios(id,modo);//mandar modo
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
         try{
-        	ResponseEntity<String> response=lt.timbrar(cfdi);
+        	ResponseEntity<String> response=lt.buscar(cfdi);
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -197,7 +198,7 @@ public class WSTimbrado {
 		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
-		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
 		    }else{
 		    	return null;
 		    }

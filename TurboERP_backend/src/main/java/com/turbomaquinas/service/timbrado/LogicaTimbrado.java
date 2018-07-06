@@ -36,7 +36,7 @@ public class LogicaTimbrado implements TimbradoService{
 	
 	private String urlGenerarCfdi = "https://api.enlacefiscal.com/v6/generarCfdi";
 	private String urlCancelarCfdi = "https://api.enlacefiscal.com/v6/cancelarCfdi";
-	
+	private String urlBuscarCfdi = "https://api.enlacefiscal.com/v6/informacionCfdi";
 	
 	public HttpHeaders configurarPeticionAPIEnlaceFiscal(){
 		HttpHeaders headers = new HttpHeaders();
@@ -66,16 +66,30 @@ public class LogicaTimbrado implements TimbradoService{
 		return response;
 	}
 	
+	public ResponseEntity<String> buscar(String json){
+		//Configurar petición Headers de las API enlace fiscal
+		HttpHeaders headers=configurarPeticionAPIEnlaceFiscal();
+		//PETICIÓN A LA API
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<?> httpEntity = new HttpEntity<Object>(json, headers);
+		ResponseEntity<String> response = restTemplate.exchange(urlBuscarCfdi, HttpMethod.POST, httpEntity, String.class);
+		return response;
+	}
+	
 	
 	@Override
 	public ResponseEntity<String> timbrarFacturaFinal(String cfdi) {
 		return timbrar(cfdi);
 	}
-
 	
 	@Override
 	public ResponseEntity<String> cancelarCFDiFacturaFinal(String jsonCancelarfactura) {
 		return cancelarCFDi(jsonCancelarfactura);
+	}
+	
+	@Override
+	public ResponseEntity<String> buscarFacturaFinal(String cfdi) {
+		return buscar(cfdi);
 	}
 	
 	@Override
@@ -87,6 +101,11 @@ public class LogicaTimbrado implements TimbradoService{
 	@Transactional
 	public ResponseEntity<String> cancelarCFDiFacturaVarios(String jsonCancelarfactura) {
 		return cancelarCFDi(jsonCancelarfactura);
+	}
+	
+	@Override
+	public ResponseEntity<String> buscarFacturaVarios(String cfdi) {
+		return buscar(cfdi);
 	}
 	
 	
