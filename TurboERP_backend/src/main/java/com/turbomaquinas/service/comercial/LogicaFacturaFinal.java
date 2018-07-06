@@ -125,6 +125,11 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 	public String obtenerJSONCancelarFacturaFinal(int idFactura, String modo,String justificacion) {
 		return repFF.obtenerJSONCancelarFacturaFinal(idFactura,modo,justificacion);
 	}
+	
+	@Override
+	public String obtenerJSONBuscarFacturaFinal(int idFactura, String modo) {
+		return repFF.obtenerJSONBuscarFacturaFinal(idFactura,modo);
+	}
 
 	@Override
 	@Transactional
@@ -174,5 +179,7 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 		}catch(Exception e){System.out.println(e);}
 		
 	}
+
+	
 
 }
