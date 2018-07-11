@@ -8,6 +8,8 @@ import com.turbomaquinas.POJO.comercial.FacturaFinal;
 import com.turbomaquinas.POJO.comercial.FacturaFinalVista;
 import com.turbomaquinas.POJO.general.OrdenFactura;
 
+import twitter4j.JSONException;
+
 public interface FacturaFinalService {
 
 	public FacturaFinal actualizar(FacturaFinal ff);
@@ -29,5 +31,5 @@ public interface FacturaFinalService {
 	public String obtenerJSONBuscarFacturaFinal(int idFactura,String modo);
 	public void cancelar(int id, int modificado_por);
 	public void baja(int id, int modificado_por);
-	public void timbrarDB(int id, String jsonAPI,int creado_por);
+	public void timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException;
 }

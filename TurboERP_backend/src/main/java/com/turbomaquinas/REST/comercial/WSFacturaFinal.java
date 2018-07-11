@@ -232,7 +232,7 @@ public class WSFacturaFinal {
 			s.timbrarDB(id,jsonAPI,creado_por);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

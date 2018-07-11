@@ -49,6 +49,7 @@ public class WSTimbrado {
 		String cfdi=null;
 		try{
 			cfdi=ffs.obtenerJSONFacturaFinal(id,modo);//mandar modo
+			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
