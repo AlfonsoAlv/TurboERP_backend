@@ -52,7 +52,7 @@ public class WSTimbrado {
 			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         try{
         	ResponseEntity<String> response=ts.timbrarFacturaFinal(cfdi);
@@ -68,7 +68,7 @@ public class WSTimbrado {
 		    }else{
 		    	return null;
 		    }
-        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);}
         
 	}
 	

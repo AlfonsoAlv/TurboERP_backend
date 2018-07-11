@@ -162,19 +162,24 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 		   		tipo_cambio=repoTC.buscarPorFecha(repoS.obtenerfecha()).getTipo_cambio();	
 		   	}
 		   	repFF.actualizarTipoCambio(id,tipo_cambio);
-		   	//Insertar registro en Datos Timbrados
-			DatosTimbrados dt=new DatosTimbrados();
-		   	dt.setFolio_fiscal((String) json_AckEnlaceFiscal.getString("folioFiscalUUID"));
-		   	dt.setFecha((String) json_AckEnlaceFiscal.getString("fechaTFD"));
-		   	dt.setSello_emisor((String) json_AckEnlaceFiscal.getString("selloCFDi"));
-		   	dt.setCadena_original((String) json_AckEnlaceFiscal.getString("cadenaTFD"));
-		   	dt.setSello_sat((String) json_AckEnlaceFiscal.getString("selloSAT"));
-		   	dt.setLeyenda("leyenda");
-		   	dt.setActivo(1);
-		   	dt.setCreado_por(creado_por);
-		   	int idDatosTimbrados=repoDT.crear(dt);		    	
-		   	//Actualizar DATOS_TIMBRADO_id
-		   	repFF.actualizarIdDatosTimbrados(id, idDatosTimbrados);
+		   	
+		    //Insertar registro en Datos Timbrados
+		   	if(factura.getDatos_timbrado_id()==0){
+		   		DatosTimbrados dt=new DatosTimbrados();
+			   	dt.setFolio_fiscal((String) json_AckEnlaceFiscal.getString("folioFiscalUUID"));
+			   	dt.setFecha((String) json_AckEnlaceFiscal.getString("fechaTFD"));
+			   	dt.setSello_emisor((String) json_AckEnlaceFiscal.getString("selloCFDi"));
+			   	dt.setCadena_original((String) json_AckEnlaceFiscal.getString("cadenaTFD"));
+			   	dt.setSello_sat((String) json_AckEnlaceFiscal.getString("selloSAT"));
+			   	dt.setLeyenda("leyenda");
+			   	dt.setActivo(1);
+			   	dt.setCreado_por(creado_por);
+			   	int idDatosTimbrados=repoDT.crear(dt);		    	
+			   	//Actualizar DATOS_TIMBRADO_id
+			   	repFF.actualizarIdDatosTimbrados(id, idDatosTimbrados);
+		   	}
+		   	
+		   	
 		}
 		
 	}
