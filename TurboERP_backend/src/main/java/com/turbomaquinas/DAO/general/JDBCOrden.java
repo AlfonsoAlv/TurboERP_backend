@@ -506,6 +506,32 @@ public class JDBCOrden implements OrdenDAO {
 		
         return (List) m.get("pagosOrden");
 	}
+
+	@Override
+	public BigDecimal importePagadoporOrdenFactura(int idOrden) throws DataAccessException{
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("BUSCAR_IMPORTE_PAGADO_DE_ORDEN_POR_FACTURA");
+		
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		
+		inParamMap.put("p_idOrden", idOrden);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		
+		BigDecimal a = null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("p_s") == 0) {
+		            a=((BigDecimal)entry.getValue());
+		        }
+			}
+			return a;
+		}catch(Exception e){return null;}
+		
+	}
 	 
 	
 }

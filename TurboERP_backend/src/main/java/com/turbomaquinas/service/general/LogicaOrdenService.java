@@ -1,5 +1,6 @@
 package com.turbomaquinas.service.general;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -260,6 +261,11 @@ public class LogicaOrdenService implements OrdenService{
 	@Override
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id) {
 		return repositorio.PagosporOrden(id);
+	}
+
+	@Override
+	public BigDecimal importePagadoporFactura(int id) {
+		return repositorio.importePagadoporOrdenFactura(id);
 	}
 	
 }
