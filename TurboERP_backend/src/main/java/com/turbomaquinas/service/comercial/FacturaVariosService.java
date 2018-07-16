@@ -7,6 +7,8 @@ import com.turbomaquinas.POJO.comercial.FacturaVarios;
 import com.turbomaquinas.POJO.comercial.DetalleFacturaVariosVista;
 import com.turbomaquinas.POJO.comercial.FacturaVariosVista;
 
+import twitter4j.JSONException;
+
 public interface FacturaVariosService {
 
 	public void actualizar(FacturaVarios fv);
@@ -22,6 +24,7 @@ public interface FacturaVariosService {
 	public String obtenerJSONFacturaVarios(int idFactura,String modo);
 	public String obtenerJSONCancelarFacturaVarios(int idFactura,String modo,String justificacion);
 	public String obtenerJSONBuscarFacturaVarios(int id, String modo);
-	public void timbrarDB(int id, String jsonAPI, int creado_por);
+	public FacturaVariosVista timbrarDB(int id, String jsonAPI, int creado_por) throws JSONException;
+	public void actualizarNumero(int id, int opcion);
 	
 }

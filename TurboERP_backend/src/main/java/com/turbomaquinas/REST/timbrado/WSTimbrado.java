@@ -48,6 +48,9 @@ public class WSTimbrado {
 		//Recuperar JSON del PA TIMBRADO_FACTURA		
 		String cfdi=null;
 		try{
+			if(modo.equals("produccion") && ffs.buscar(id).getNumero()==0){
+				ffs.actualizarNumero(id,1);
+			}
 			cfdi=ffs.obtenerJSONFacturaFinal(id,modo);//mandar modo
 			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
@@ -64,11 +67,15 @@ public class WSTimbrado {
 		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+		    	ffs.actualizarNumero(id,0);
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
 		    	return null;
 		    }
-        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);}
+        }catch(Exception e){
+        	ffs.actualizarNumero(id,0);
+        	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+        }
         
 	}
 	
@@ -131,10 +138,14 @@ public class WSTimbrado {
 		//Recuperar JSON del PA TIMBRADO_FACTURA		
 		String cfdi=null;
 		try{
+			if(modo.equals("produccion") && fvs.buscar(id).getNumero()==0){
+				ffs.actualizarNumero(id,1);
+			}
 			cfdi=fvs.obtenerJSONFacturaVarios(id,modo);//mandar modo
+			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
         try{
         	ResponseEntity<String> response=ts.timbrarFacturaVarios(cfdi);
@@ -145,11 +156,15 @@ public class WSTimbrado {
 		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+		    	fvs.actualizarNumero(id,0);
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
 		    	return null;
 		    }
-        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        }catch(Exception e){
+        	fvs.actualizarNumero(id,0);
+        	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+        }
         
 	}
 	

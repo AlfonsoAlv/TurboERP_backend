@@ -195,4 +195,14 @@ public class JDBCFacturaVarios implements FacturaVariosDAO {
 		}catch(Exception e){return null;}
 	}
 	
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		String sql="UPDATE FACTURA_VARIOS SET numero = ULTIMO_NUM_FACT_FINAL(tipo) WHERE id = ?";
+		if(opcion==0){
+			sql="UPDATE FACTURA_VARIOS SET numero = NULL WHERE id = ?";
+		}
+		//System.out.println(opcion);
+		jdbcTemplate.update(sql,id);
+	}
+	
 }

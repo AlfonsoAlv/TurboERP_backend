@@ -159,14 +159,15 @@ public class WSFacturaVarios {
 	}
 	
 	@PutMapping("{id}/timbrado")
-	public ResponseEntity<Void> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+	public ResponseEntity<FacturaVariosVista> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+		FacturaVariosVista factura=null;
 		try {
-			s.timbrarDB(id,jsonAPI,creado_por);
+			factura=s.timbrarDB(id,jsonAPI,creado_por);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<FacturaVariosVista>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<FacturaVariosVista>(factura,HttpStatus.OK);
 	}
 	
 }
