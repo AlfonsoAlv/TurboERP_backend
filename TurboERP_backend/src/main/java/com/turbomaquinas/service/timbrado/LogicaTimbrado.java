@@ -29,9 +29,10 @@ public class LogicaTimbrado implements TimbradoService{
 	@Autowired
 	DatosTimbradosDAO repoDT;
 	
-	private String user="AAA010101AAA";
-	private String pass="7aa16d2e055554fcf3d182758db23c91";
-	private String userpass = user+":"+pass;
+	private String user="TUR6208201E7";
+	private String token_pass="2e23bc76222f8a7c33e509dc41399fc9";
+	private String api_key="e9aT1ajrRh1NyRkzOtDoN1ZEGmIsEKuJ6f3FYyLh";
+	private String userpass = user+":"+token_pass;
 	private String headerValue = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));	
 	
 	private String urlGenerarCfdi = "https://api.enlacefiscal.com/v6/generarCfdi";
@@ -42,7 +43,7 @@ public class LogicaTimbrado implements TimbradoService{
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Authorization", headerValue);
-        headers.add("x-api-key", "7aa16d2e055554fcf3d182758db23c91");
+        headers.add("x-api-key", api_key);
         return headers;
 	}
 	
