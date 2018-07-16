@@ -24,6 +24,7 @@ public interface FacturaFinalService {
 	public List<FacturaFinalVista> consultarPorEstado(String estado);
 	public List<FacturaFinalVista> consultarPorIds(List<Integer> lista);
 	public void actualizarEstado(int id,String estado);
+	public void actualizarNumero(int id,int numero);
 	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo);
 	public void actualizarIdAlfresco(int id, String alfresco_id);
 	public String obtenerJSONFacturaFinal(int idFactura,String modo);
@@ -31,5 +32,6 @@ public interface FacturaFinalService {
 	public String obtenerJSONBuscarFacturaFinal(int idFactura,String modo);
 	public void cancelar(int id, int modificado_por);
 	public void baja(int id, int modificado_por);
-	public void timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException;
+	public FacturaFinalVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException;
+	
 }

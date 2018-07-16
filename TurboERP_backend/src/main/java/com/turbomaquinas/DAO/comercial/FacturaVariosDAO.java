@@ -22,5 +22,6 @@ public interface FacturaVariosDAO {
 	public String obtenerJSONCancelarFacturaVarios(int idFactura, String modo,String justificacion);
 	public String obtenerJSONBuscarFacturaVarios(int id, String modo);
 	public List<FacturaVariosVista> consultarPorEstado(String estado);
+	public void actualizarNumero(int id, int opcion);
 	
 }

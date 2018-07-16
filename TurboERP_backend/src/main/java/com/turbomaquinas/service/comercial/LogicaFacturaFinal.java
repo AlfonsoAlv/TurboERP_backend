@@ -106,6 +106,11 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 	public void actualizarEstado(int id, String estado) {
 		repFF.actualizarEstado(id,estado);
 	}
+	
+	@Override
+	public void actualizarNumero(int id,int numero) {
+		repFF.actualizarNumero(id,numero);
+	}
 
 	@Override
 	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo) {
@@ -147,16 +152,22 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 	
 	@Override
 	@Transactional
-	public void timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException {
+	public FacturaFinalVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException {
 		JSONObject jsonRespuesta = new JSONObject(jsonAPI);
 	    String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
 		String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+		
 		if(estatusDocumento.equalsIgnoreCase("aceptado")){
+			FacturaFinalVista factura=repFF.buscar(id);
 		  	//Actualizar estado de la factura a Timbrado
-		   	actualizarEstado(id, "T");
+			if(factura.getEstado_factura().equalsIgnoreCase("I")){
+				actualizarEstado(id, "T");
+				//int folioInterno=Integer.parseInt(json_AckEnlaceFiscal.getString("folioInterno"));
+				//actualizarNumero(id,folioInterno);
+			}
+		   	
 		   	//Actualizar el tipo_cambio de la Factura a cambio del dia que se genera en el JSON del PA
-		   	FacturaFinalVista factura=repFF.buscar(id);
 		   	if(factura.getTipo_cambio()==0){
 		   		float tipo_cambio=1;
 			   	if(!factura.getMoneda().equals("MXN")){
@@ -184,7 +195,7 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 		   	
 		   	
 		}
-		
+		return repFF.buscar(id);
 	}
 
 	
