@@ -55,5 +55,5 @@ public interface OrdenService {
 	public List<OrdenVista> OrdenesporCliente(int id,int anio);
 	public List<Integer> anioOrdenCliente(int id);
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id);
-	public BigDecimal importePagadoporFactura(int id);
+	public BigDecimal importePagadoporFactura(int idOrden,int idFactura);
 }
