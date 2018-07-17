@@ -303,7 +303,7 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	
 	@Override
 	public void actualizarNumero(int id, int numero) {
-		String sql="UPDATE FACTURA_FINAL SET numero = ULTIMO_NUM_FACT_VARIOS(tipo) WHERE id = ?";
+		String sql="UPDATE FACTURA_FINAL SET numero = ULTIMO_NUM_FACT_FINAL(tipo) WHERE id = ?";
 		if(numero==0){
 			sql="UPDATE FACTURA_FINAL SET numero = NULL WHERE id = ?";
 		}

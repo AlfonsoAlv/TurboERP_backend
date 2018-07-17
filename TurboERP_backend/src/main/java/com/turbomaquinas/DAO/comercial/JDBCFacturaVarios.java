@@ -197,7 +197,7 @@ public class JDBCFacturaVarios implements FacturaVariosDAO {
 	
 	@Override
 	public void actualizarNumero(int id, int opcion) {
-		String sql="UPDATE FACTURA_VARIOS SET numero = ULTIMO_NUM_FACT_FINAL(tipo) WHERE id = ?";
+		String sql="UPDATE FACTURA_VARIOS SET numero = ULTIMO_NUM_FACT_VARIOS(tipo) WHERE id = ?";
 		if(opcion==0){
 			sql="UPDATE FACTURA_VARIOS SET numero = NULL WHERE id = ?";
 		}
