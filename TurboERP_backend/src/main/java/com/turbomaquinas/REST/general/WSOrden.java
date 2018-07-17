@@ -386,9 +386,9 @@ public class WSOrden {
 		return new ResponseEntity<List<PagosConsultaOrdenes>>(pco, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}/importepagado")
-	public ResponseEntity<BigDecimal> importePagadoporFactura(@PathVariable int id){
-		BigDecimal pco = os.importePagadoporFactura(id);
+	@GetMapping("/{idO}/factura/{idF}/importepagado")
+	public ResponseEntity<BigDecimal> importePagadoporFactura(@PathVariable int idO,@PathVariable int idF){
+		BigDecimal pco = os.importePagadoporFactura(idO,idF);
 		if (pco == null)
 			return new ResponseEntity<BigDecimal> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<BigDecimal>(pco, HttpStatus.OK);

@@ -264,8 +264,8 @@ public class LogicaOrdenService implements OrdenService{
 	}
 
 	@Override
-	public BigDecimal importePagadoporFactura(int id) {
-		return repositorio.importePagadoporOrdenFactura(id);
+	public BigDecimal importePagadoporFactura(int idOrden,int idFactura) throws DataAccessException{
+		return repositorio.importePagadoporOrdenFactura(idOrden,idFactura);
 	}
 	
 }
