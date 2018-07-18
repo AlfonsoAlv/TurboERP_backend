@@ -146,7 +146,7 @@ public class LogicaFacturaVarios implements FacturaVariosService {
 			    repFV.actualizarIdDatosTimbrados(id, idDatosTimbrados);
 			}
 			
-		}
+		}//Lili
 		return repFV.buscar(id);
 		
 	}
