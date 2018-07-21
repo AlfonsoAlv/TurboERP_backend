@@ -16,5 +16,6 @@ public interface PagosDAO {
 	public void RestablecerPago(int id);
 	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio,String fecha_pagoFin);
 	public List<PagosFacturas> facturasPagadas(int idPago);
+	public String obtenerJSONTimbrado(int id, String modo);
 
 }

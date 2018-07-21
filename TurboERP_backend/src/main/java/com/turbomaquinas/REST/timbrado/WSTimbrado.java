@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.turbomaquinas.service.comercial.FacturaFinalService;
 import com.turbomaquinas.service.comercial.FacturaVariosService;
+import com.turbomaquinas.service.comercial.PagosService;
 import com.turbomaquinas.service.timbrado.LogicaTimbrado;
 import com.turbomaquinas.service.timbrado.TimbradoService;
 
@@ -42,6 +43,12 @@ public class WSTimbrado {
 	
 	@Autowired
 	FacturaVariosService fvs;
+	
+	@Autowired
+	PagosService ps;
+	
+	
+	//FACTURA FINAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@PostMapping("/facturafinal/{id}")
 	public ResponseEntity<String> timbrarFacturaFinal(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
@@ -117,7 +124,8 @@ public class WSTimbrado {
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
         try{
-        	ResponseEntity<String> response=lt.buscar(cfdi);
+        	ResponseEntity<String> response=ts.buscarFacturaFinal(cfdi);
+        	System.out.println(response.getBody());
         	JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -132,6 +140,9 @@ public class WSTimbrado {
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
 	}
+	
+	
+	//FACTURA VARIOS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@PostMapping("/facturavarios/{id}")
 	public ResponseEntity<String> timbrarFacturaVarios(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
@@ -206,7 +217,7 @@ public class WSTimbrado {
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
         try{
-        	ResponseEntity<String> response=lt.buscar(cfdi);
+        	ResponseEntity<String> response=ts.buscarFacturaVarios(cfdi);
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -219,6 +230,44 @@ public class WSTimbrado {
 		    	return null;
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        
+	}
+	
+	
+	//PAGOS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@PostMapping("/pago/{id}")
+	public ResponseEntity<String> timbrarPago(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
+		//Recuperar JSON del PA TIMBRADO_FACTURA		
+		String cfdi=null;
+		try{
+			/*if(modo.equals("produccion") && ffs.buscar(id).getNumero()==0){
+				ffs.actualizarNumero(id,1);
+			}*/
+			cfdi=ps.obtenerJSONTimbrado(id,modo);//mandar modo
+			//cfdi=cfdi+"}";
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+        try{
+        	ResponseEntity<String> response=ts.timbrarPago(cfdi);
+        	System.out.println(response.getBody());
+	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
+	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+		    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
+		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+		    	ffs.actualizarNumero(id,0);
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    }else{
+		    	return null;
+		    }
+        }catch(Exception e){
+        	ffs.actualizarNumero(id,0);
+        	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+        }
         
 	}
 	
