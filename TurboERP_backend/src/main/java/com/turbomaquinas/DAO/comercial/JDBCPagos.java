@@ -3,6 +3,7 @@ package com.turbomaquinas.DAO.comercial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -101,5 +102,30 @@ public class JDBCPagos implements PagosDAO {
 		simpleJdbcCall.execute(in);
 		
 	}
+
+	@Override
+	public String obtenerJSONTimbrado(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_TIMBRADO_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonPago") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+	
+	
 
 }

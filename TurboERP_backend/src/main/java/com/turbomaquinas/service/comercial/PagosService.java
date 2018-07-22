@@ -16,5 +16,6 @@ public interface PagosService {
 	public List<Pagos> pagosFecha(String fechainicio, String fechafin);
 	public List<PagosFacturas> facturasPorPago(int id);
 	public void restablecerPago(int id);
+	public String obtenerJSONTimbrado(int id,String modo);
 
 }

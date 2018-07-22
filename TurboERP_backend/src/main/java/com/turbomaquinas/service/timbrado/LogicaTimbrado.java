@@ -35,9 +35,11 @@ public class LogicaTimbrado implements TimbradoService{
 	private String userpass = user+":"+token_pass;
 	private String headerValue = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));	
 	
-	private String urlGenerarCfdi = "https://api.enlacefiscal.com/v6/generarCfdi";
-	private String urlCancelarCfdi = "https://api.enlacefiscal.com/v6/cancelarCfdi";
-	private String urlBuscarCfdi = "https://api.enlacefiscal.com/v6/informacionCfdi";
+	private String urlGenerarCfdiFactura = "https://api.enlacefiscal.com/v6/generarCfdi";
+	private String urlCancelarCfdiFactura = "https://api.enlacefiscal.com/v6/cancelarCfdi";
+	private String urlBuscarCfdiFactura = "https://api.enlacefiscal.com/v6/informacionCfdi";
+	
+	private String urlGenerarCfdiPago = "https://api.enlacefiscal.com/v6/generarReciboElectronicoPago";
 	
 	public HttpHeaders configurarPeticionAPIEnlaceFiscal(){
 		HttpHeaders headers = new HttpHeaders();
@@ -47,67 +49,94 @@ public class LogicaTimbrado implements TimbradoService{
         return headers;
 	}
 	
-	public ResponseEntity<String> timbrar(String json){
+	// METODOS PARA TIMBRADO DE FACTURAS
+	public ResponseEntity<String> timbrarFactura(String json){
 		//Configurar petición Headers de las API enlace fiscal
 		HttpHeaders headers=configurarPeticionAPIEnlaceFiscal();
 		//PETICIÓN A LA API
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<?> httpEntity = new HttpEntity<Object>(json, headers);
-		ResponseEntity<String> response = restTemplate.exchange(urlGenerarCfdi, HttpMethod.POST, httpEntity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(urlGenerarCfdiFactura, HttpMethod.POST, httpEntity, String.class);
 		return response;
 	}
 	
-	private ResponseEntity<String> cancelarCFDi(String json){
+	private ResponseEntity<String> cancelarCFDiFactura(String json){
 		//Configurar petición Headers de las API enlace fiscal
 		HttpHeaders headers=configurarPeticionAPIEnlaceFiscal();
 		//PETICIÓN A LA API
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<?> httpEntity = new HttpEntity<Object>(json, headers);
-		ResponseEntity<String> response = restTemplate.exchange(urlCancelarCfdi, HttpMethod.POST, httpEntity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(urlCancelarCfdiFactura, HttpMethod.POST, httpEntity, String.class);
 		return response;
 	}
 	
-	public ResponseEntity<String> buscar(String json){
+	public ResponseEntity<String> buscarFactura(String json){
 		//Configurar petición Headers de las API enlace fiscal
 		HttpHeaders headers=configurarPeticionAPIEnlaceFiscal();
 		//PETICIÓN A LA API
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<?> httpEntity = new HttpEntity<Object>(json, headers);
-		ResponseEntity<String> response = restTemplate.exchange(urlBuscarCfdi, HttpMethod.POST, httpEntity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(urlBuscarCfdiFactura, HttpMethod.POST, httpEntity, String.class);
 		return response;
 	}
 	
 	
+	// METODOS PARA TIMBRADO DE PAGOS
+	public ResponseEntity<String> timbrarPagoEF(String json){
+		//Configurar petición Headers de las API enlace fiscal
+		HttpHeaders headers=configurarPeticionAPIEnlaceFiscal();
+		//PETICIÓN A LA API
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<?> httpEntity = new HttpEntity<Object>(json, headers);
+		ResponseEntity<String> response = restTemplate.exchange(urlGenerarCfdiPago, HttpMethod.POST, httpEntity, String.class);
+		return response;
+	}
+	
+	
+	
+	
+	
+	
+	
+	// Factura Final
 	@Override
 	public ResponseEntity<String> timbrarFacturaFinal(String cfdi) {
-		return timbrar(cfdi);
+		return timbrarFactura(cfdi);
 	}
 	
 	@Override
 	public ResponseEntity<String> cancelarCFDiFacturaFinal(String jsonCancelarfactura) {
-		return cancelarCFDi(jsonCancelarfactura);
+		return cancelarCFDiFactura(jsonCancelarfactura);
 	}
 	
 	@Override
 	public ResponseEntity<String> buscarFacturaFinal(String cfdi) {
-		return buscar(cfdi);
+		return buscarFactura(cfdi);
 	}
 	
+	
+	// Factura Varios
 	@Override
 	public ResponseEntity<String> timbrarFacturaVarios(String cfdi) {
-		return timbrar(cfdi);
+		return timbrarFactura(cfdi);
 	}
 	
 	@Override
 	@Transactional
 	public ResponseEntity<String> cancelarCFDiFacturaVarios(String jsonCancelarfactura) {
-		return cancelarCFDi(jsonCancelarfactura);
+		return cancelarCFDiFactura(jsonCancelarfactura);
 	}
 	
 	@Override
 	public ResponseEntity<String> buscarFacturaVarios(String cfdi) {
-		return buscar(cfdi);
+		return buscarFactura(cfdi);
 	}
 	
+	
+	// Pagos
+	@Override
+	public ResponseEntity<String> timbrarPago(String cfdi) {
+		return timbrarPagoEF(cfdi);
+	}
 	
 }
