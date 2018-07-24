@@ -125,6 +125,18 @@ public class JDBCPagos implements PagosDAO {
 			return json;
 		}catch(Exception e){return null;}
 	}
+
+	@Override
+	public Integer obtenerUltimoIdPago() {
+		String sql = "select p.id id "
+				+ "from PAGOS p "
+				+ "where activo=1 and estado='I' "
+				+ "ORDER BY id DESC LIMIT 1";
+		
+		Integer id=jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		return id;
+	}
 	
 	
 
