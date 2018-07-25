@@ -69,6 +69,11 @@ public class LogicaPagos implements PagosService {
 	public Integer ultimoPago() {
 		return resPago.obtenerUltimoIdPago();
 	}
+
+	@Override
+	public List<Pagos> pendientesTimbrar() {
+		return resPago.pendientesTimbrar();
+	}
 	
 	
 
