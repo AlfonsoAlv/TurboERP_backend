@@ -137,6 +137,15 @@ public class JDBCPagos implements PagosDAO {
 		
 		return id;
 	}
+
+	@Override
+	public List<Pagos> pendientesTimbrar() {
+		String sql="select * "
+				+ "from PAGOS p "
+				+ "where p.activo=1 and p.estado='I' ";
+		List<Pagos> ptes = jdbcTemplate.query(sql, new PagosRM());
+		return ptes;
+	}
 	
 	
 

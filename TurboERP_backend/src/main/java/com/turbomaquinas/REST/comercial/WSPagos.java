@@ -124,4 +124,13 @@ public class WSPagos {
 		}
 		return new ResponseEntity<Integer>(up, HttpStatus.OK);
 	}
+	
+	@GetMapping("/pendientesTimbrar")
+	public ResponseEntity<List<Pagos>> consultarPtesTimbrar(){
+		
+		List<Pagos> pt = s.pendientesTimbrar();
+		if(pt.isEmpty())
+			return new ResponseEntity<List<Pagos>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Pagos>>(pt, HttpStatus.OK);
+	}
 }
