@@ -6,6 +6,8 @@ public class PagosVista {
 	
 	public int id;
 	public int folio;
+	public int numero;
+	public String tipo;
 	public Date fecha_pago;
 	public float importe;
 	public float tipo_cambio_cliente;
@@ -25,13 +27,17 @@ public class PagosVista {
 		super();
 	}
 
-	public PagosVista(int id, int folio, Date fecha_pago, float importe, float tipo_cambio_cliente, Date fecha_baja,
-			int mes_baja, int anio_baja, String observaciones, int activo, int creado_por, Date creado,
-			int modificado_por, Date modificado, int depositos_recibidos_id, String comentarios, int metodos_pago_id,
-			String mp_clave, String metodos_pago_descripcion, int bancos_id, String bancos_clave,
-			String bancos_descripcion) {
+	
+
+	public PagosVista(int id, int folio, int numero, String tipo, Date fecha_pago, float importe,
+			float tipo_cambio_cliente, Date fecha_baja, int mes_baja, int anio_baja, String observaciones, int activo,
+			int creado_por, Date creado, int modificado_por, Date modificado, int depositos_recibidos_id,
+			String comentarios) {
+		super();
 		this.id = id;
 		this.folio = folio;
+		this.numero = numero;
+		this.tipo = tipo;
 		this.fecha_pago = fecha_pago;
 		this.importe = importe;
 		this.tipo_cambio_cliente = tipo_cambio_cliente;
@@ -62,6 +68,23 @@ public class PagosVista {
 
 	public void setFolio(int folio) {
 		this.folio = folio;
+	}
+	
+	
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public Date getFecha_pago() {

@@ -125,6 +125,16 @@ public class JDBCPagos implements PagosDAO {
 			return json;
 		}catch(Exception e){return null;}
 	}
+
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		String sql="UPDATE PAGOS SET numero = ULTIMO_NUM_PAGO() WHERE id = ?";
+		if(opcion==0){
+			sql="UPDATE FACTURA_VARIOS SET numero = NULL WHERE id = ?";
+		}
+		//System.out.println(opcion);
+		jdbcTemplate.update(sql,id);
+	}
 	
 	
 
