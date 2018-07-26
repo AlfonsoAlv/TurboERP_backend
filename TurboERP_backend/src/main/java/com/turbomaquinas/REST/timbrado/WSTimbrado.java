@@ -150,7 +150,7 @@ public class WSTimbrado {
 		String cfdi=null;
 		try{
 			if(modo.equals("produccion") && fvs.buscar(id).getNumero()==0){
-				ffs.actualizarNumero(id,1);
+				fvs.actualizarNumero(id,1);
 			}
 			cfdi=fvs.obtenerJSONFacturaVarios(id,modo);//mandar modo
 			//cfdi=cfdi+"}";
@@ -240,9 +240,9 @@ public class WSTimbrado {
 		//Recuperar JSON del PA TIMBRADO_FACTURA		
 		String cfdi=null;
 		try{
-			/*if(modo.equals("produccion") && ffs.buscar(id).getNumero()==0){
-				ffs.actualizarNumero(id,1);
-			}*/
+			if(modo.equals("produccion") && ps.buscar(id).getNumero()==0){
+				ps.actualizarNumero(id,1);
+			}
 			cfdi=ps.obtenerJSONTimbrado(id,modo);//mandar modo
 			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
@@ -265,7 +265,7 @@ public class WSTimbrado {
 		    	return null;
 		    }
         }catch(Exception e){
-        	ffs.actualizarNumero(id,0);
+        	ps.actualizarNumero(id,0);
         	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
         }
         

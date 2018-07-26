@@ -75,6 +75,10 @@ public class LogicaPagos implements PagosService {
 		return resPago.pendientesTimbrar();
 	}
 	
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		resPago.actualizarNumero(id,opcion);
+	}
 	
 
 }
