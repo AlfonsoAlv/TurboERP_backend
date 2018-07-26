@@ -17,5 +17,7 @@ public interface PagosDAO {
 	public List<PagosFacturas> facturasPagadas(int idPago);
 	public String obtenerJSONTimbrado(int id, String modo);
 	public void actualizarNumero(int id, int opcion);
+	public Integer obtenerUltimoIdPago();
+	public List<Pagos> pendientesTimbrar();
 
 }

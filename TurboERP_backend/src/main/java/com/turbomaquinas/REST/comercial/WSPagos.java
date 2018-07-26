@@ -111,4 +111,26 @@ public class WSPagos {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 	}
+	
+	@GetMapping("/ultimo")
+	public ResponseEntity<Integer> buscarIdUltimoPago(){
+		
+		Integer up = 0;
+		try {
+			up = s.ultimoPago();
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Integer>(up, HttpStatus.OK);
+	}
+	
+	@GetMapping("/pendientesTimbrar")
+	public ResponseEntity<List<Pagos>> consultarPtesTimbrar(){
+		
+		List<Pagos> pt = s.pendientesTimbrar();
+		if(pt.isEmpty())
+			return new ResponseEntity<List<Pagos>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Pagos>>(pt, HttpStatus.OK);
+	}
 }

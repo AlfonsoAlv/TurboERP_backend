@@ -126,7 +126,7 @@ public class JDBCPagos implements PagosDAO {
 		}catch(Exception e){return null;}
 	}
 
-	@Override
+  @Override
 	public void actualizarNumero(int id, int opcion) {
 		String sql="UPDATE PAGOS SET numero = ULTIMO_NUM_PAGO() WHERE id = ?";
 		if(opcion==0){
@@ -134,6 +134,26 @@ public class JDBCPagos implements PagosDAO {
 		}
 		//System.out.println(opcion);
 		jdbcTemplate.update(sql,id);
+	}
+  
+	public Integer obtenerUltimoIdPago() {
+		String sql = "select p.id id "
+				+ "from PAGOS p "
+				+ "where activo=1 and estado='I' "
+				+ "ORDER BY id DESC LIMIT 1";
+		
+		Integer id=jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		return id;
+	}
+
+	@Override
+	public List<Pagos> pendientesTimbrar() {
+		String sql="select * "
+				+ "from PAGOS p "
+				+ "where p.activo=1 and p.estado='I' ";
+		List<Pagos> ptes = jdbcTemplate.query(sql, new PagosRM());
+		return ptes;
 	}
 	
 	

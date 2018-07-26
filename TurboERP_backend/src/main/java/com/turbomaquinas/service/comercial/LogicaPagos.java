@@ -64,6 +64,16 @@ public class LogicaPagos implements PagosService {
 	public String obtenerJSONTimbrado(int id, String modo) {
 		return resPago.obtenerJSONTimbrado(id,modo);
 	}
+
+	@Override
+	public Integer ultimoPago() {
+		return resPago.obtenerUltimoIdPago();
+	}
+
+	@Override
+	public List<Pagos> pendientesTimbrar() {
+		return resPago.pendientesTimbrar();
+	}
 	
 	@Override
 	public void actualizarNumero(int id, int opcion) {

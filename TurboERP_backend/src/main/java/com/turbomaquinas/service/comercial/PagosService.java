@@ -18,5 +18,7 @@ public interface PagosService {
 	public void restablecerPago(int id);
 	public String obtenerJSONTimbrado(int id,String modo);
 	public void actualizarNumero(int id, int opcion);
+	public Integer ultimoPago();
+	public List<Pagos> pendientesTimbrar();
 
 }
