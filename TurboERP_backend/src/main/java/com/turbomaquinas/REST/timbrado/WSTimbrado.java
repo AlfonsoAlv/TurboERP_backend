@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.turbomaquinas.service.comercial.FacturaFinalService;
 import com.turbomaquinas.service.comercial.FacturaVariosService;
+import com.turbomaquinas.service.comercial.NotaCreditoService;
 import com.turbomaquinas.service.comercial.PagosService;
 import com.turbomaquinas.service.timbrado.LogicaTimbrado;
 import com.turbomaquinas.service.timbrado.TimbradoService;
@@ -46,6 +47,9 @@ public class WSTimbrado {
 	
 	@Autowired
 	PagosService ps;
+	
+	@Autowired
+	NotaCreditoService ncs;
 	
 	
 	//FACTURA FINAL/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,8 +271,47 @@ public class WSTimbrado {
         }catch(Exception e){
         	ps.actualizarNumero(id,0);
         	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        
+        }        
+	}
+	
+	
+	
+	
+	
+	//Nota de Credito/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@PostMapping("/notacredito/{id}")
+	public ResponseEntity<String> timbrarNotaCredito(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
+		//Recuperar JSON del PA TIMBRADO_FACTURA		
+		String cfdi=null;
+		try{
+			if(modo.equals("produccion") && ncs.buscar(id).getNumero()==0){
+				ncs.actualizarNumero(id,1);
+			}
+			cfdi=ncs.obtenerJSONTimbrado(id,modo);
+			//cfdi=cfdi+"}";
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	    try{
+	    	ResponseEntity<String> response=ts.timbrarNotaCredito(cfdi);
+	        System.out.println(response.getBody());
+		    JSONObject jsonRespuesta = new JSONObject(response.getBody());
+		    String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+			JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+			String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+			if(estatusDocumento.equalsIgnoreCase("aceptado")){
+				return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
+			}else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+				ffs.actualizarNumero(id,0);
+			    return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+			}else{
+			   	return null;
+			}
+	    }catch(Exception e){
+	       	ncs.actualizarNumero(id,0);
+	       	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE); 
+	    }
 	}
 	
 	

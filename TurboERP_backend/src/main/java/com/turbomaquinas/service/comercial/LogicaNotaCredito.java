@@ -41,8 +41,17 @@ public class LogicaNotaCredito implements NotaCreditoService {
 
 	@Override
 	public void RestablecerNotaCredito(int id, int modificado_por) {
-		repNc.RestablecerNotaCredito(id, modificado_por);
-		
+		repNc.RestablecerNotaCredito(id, modificado_por);		
+	}
+	
+	@Override
+	public String obtenerJSONTimbrado(int id, String modo) {
+		return repNc.obtenerJSONTimbrado(id,modo);
+	}
+	
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		repNc.actualizarNumero(id,opcion);
 	}
 
 	
