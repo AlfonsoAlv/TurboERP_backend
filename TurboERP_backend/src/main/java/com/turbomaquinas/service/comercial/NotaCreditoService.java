@@ -13,6 +13,7 @@ public interface NotaCreditoService {
 	public NotaCreditoVista buscar(int id);
 	public List<NotaCreditoVista> consultar();
 	public void RestablecerNotaCredito(int id, int modificado_por);
-	
+	public void actualizarNumero(int id, int opcion);
+	public String obtenerJSONTimbrado(int id,String modo);
 
 }

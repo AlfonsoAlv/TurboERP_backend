@@ -77,8 +77,38 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 		simpleJdbcCall.execute(in);
 		
 	}
+	
+	@Override
+	public String obtenerJSONTimbrado(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_TIMBRADO_NOTA_CREDITO");
 
-
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idNotaCred", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonNotaCredito") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+	
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		String sql="UPDATE NOTAS_CREDITO SET numero = ULTIMO_NUM_NOTA_CREDITO() WHERE id = ?";
+		if(opcion==0){
+			sql="UPDATE NOTAS_CREDITO SET numero = NULL WHERE id = ?";
+		}
+		jdbcTemplate.update(sql,id);
+	}
 
 	
 

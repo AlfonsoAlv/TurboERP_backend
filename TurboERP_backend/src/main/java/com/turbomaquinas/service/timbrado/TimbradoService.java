@@ -10,5 +10,5 @@ public interface TimbradoService {
 	public ResponseEntity<String> cancelarCFDiFacturaVarios(String jsonCancelarfactura);
 	public ResponseEntity<String> buscarFacturaVarios(String cfdi);
 	public ResponseEntity<String> timbrarPago(String cfdi);
-	
+	public ResponseEntity<String> timbrarNotaCredito(String cfdi);
 }
