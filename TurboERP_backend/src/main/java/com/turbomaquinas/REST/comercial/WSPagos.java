@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.comercial.DocumentoAplicarPago;
+import com.turbomaquinas.POJO.comercial.FacturaFinalVista;
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
 import com.turbomaquinas.service.comercial.PagosService;
@@ -132,5 +134,39 @@ public class WSPagos {
 		if(pt.isEmpty())
 			return new ResponseEntity<List<Pagos>>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Pagos>>(pt, HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}/estado")
+	public ResponseEntity<Void> actualizarEstado(@PathVariable int id,@RequestParam String estado){
+		try {
+			s.actualizarEstado(id,estado);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping("{id}/timbrado")
+	public ResponseEntity<PagosVista> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+		PagosVista pagos=null;
+		//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
+		try {
+			pagos=s.timbrarDB(id,jsonAPI,creado_por);
+			//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<PagosVista>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<PagosVista>(pagos,HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/detalles")
+	public ResponseEntity<List<PagosDetalle>> consultarDetallesPago(@PathVariable int id){
+		
+		List<PagosDetalle> pd = s.detallesPago(id);
+		if(pd.isEmpty())
+			return new ResponseEntity<List<PagosDetalle>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<PagosDetalle>>(pd, HttpStatus.OK);
 	}
 }

@@ -1,11 +1,12 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PagosDetalle {
 	
 	public int id;
-	public float importe;
+	public BigDecimal importe;
 	public float tipo_cambio;
 	public int activo;
 	public int creado_por;
@@ -21,9 +22,10 @@ public class PagosDetalle {
 		super();
 	}
 
-	public PagosDetalle(int id, float importe, float tipo_cambio, int activo, int creado_por, Date creado,
+	public PagosDetalle(int id, BigDecimal importe, float tipo_cambio, int activo, int creado_por, Date creado,
 			int modificado_por, Date modificado, int factura_final_id, int factura_varios_id, int facturas_anticipo_id,
 			int pagos_id) {
+		super();
 		this.id = id;
 		this.importe = importe;
 		this.tipo_cambio = tipo_cambio;
@@ -46,11 +48,11 @@ public class PagosDetalle {
 		this.id = id;
 	}
 
-	public float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

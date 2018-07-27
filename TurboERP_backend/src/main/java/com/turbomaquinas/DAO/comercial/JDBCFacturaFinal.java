@@ -1,6 +1,7 @@
 package com.turbomaquinas.DAO.comercial;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -309,6 +310,12 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		}
 		
 		jdbcTemplate.update(sql,id);
+	}
+
+	@Override
+	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id) {
+		String sql="UPDATE FACTURA_FINAL SET parcialidad = (parcialidad + 1),importe_timbrado=(importe_timbrado+?) WHERE id=?";
+		jdbcTemplate.update(sql,impTimbrado,id);
 	}
 
 	

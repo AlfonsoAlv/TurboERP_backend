@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
 
@@ -126,7 +127,7 @@ public class JDBCPagos implements PagosDAO {
 		}catch(Exception e){return null;}
 	}
 
-  @Override
+	@Override
 	public void actualizarNumero(int id, int opcion) {
 		String sql="UPDATE PAGOS SET numero = ULTIMO_NUM_PAGO() WHERE id = ?";
 		if(opcion==0){
@@ -135,7 +136,8 @@ public class JDBCPagos implements PagosDAO {
 		//System.out.println(opcion);
 		jdbcTemplate.update(sql,id);
 	}
-  
+	
+  	@Override
 	public Integer obtenerUltimoIdPago() {
 		String sql = "select p.id id "
 				+ "from PAGOS p "
@@ -154,6 +156,25 @@ public class JDBCPagos implements PagosDAO {
 				+ "where p.activo=1 and p.estado='I' ";
 		List<Pagos> ptes = jdbcTemplate.query(sql, new PagosRM());
 		return ptes;
+	}
+
+	@Override
+	public void actualizarEstado(int id, String estado) {
+		String sql="UPDATE PAGOS SET estado = ? WHERE id = ?";
+		jdbcTemplate.update(sql,estado,id);
+	}
+
+	@Override
+	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados) {
+		String sql="UPDATE PAGOS SET DATOS_TIMBRADO_id = ? WHERE id = ?";
+		jdbcTemplate.update(sql,idDatosTimbrados,id);
+	}
+
+	@Override
+	public List<PagosDetalle> detallesPago(int id) {
+		String sql="select * from PAGOS_DETALLE pd where pd.PAGOS_id=?";
+		List<PagosDetalle> dp = jdbcTemplate.query(sql,new PagosDetalleRM(), id);
+		return dp;
 	}
 	
 	

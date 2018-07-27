@@ -22,17 +22,17 @@ public class PagosVista {
 	public Date modificado;
 	public int depositos_recibidos_id;
 	public String comentarios;
+	public String estado;
+	public int datos_timbrado_id;
 	
 	public PagosVista() {
 		super();
 	}
 
-	
-
 	public PagosVista(int id, int folio, int numero, String tipo, Date fecha_pago, float importe,
 			float tipo_cambio_cliente, Date fecha_baja, int mes_baja, int anio_baja, String observaciones, int activo,
 			int creado_por, Date creado, int modificado_por, Date modificado, int depositos_recibidos_id,
-			String comentarios) {
+			String comentarios, String estado, int datos_timbrado_id) {
 		super();
 		this.id = id;
 		this.folio = folio;
@@ -52,8 +52,10 @@ public class PagosVista {
 		this.modificado = modificado;
 		this.depositos_recibidos_id = depositos_recibidos_id;
 		this.comentarios = comentarios;
+		this.estado = estado;
+		this.datos_timbrado_id = datos_timbrado_id;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -197,6 +199,22 @@ public class PagosVista {
 
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getDatos_timbrado_id() {
+		return datos_timbrado_id;
+	}
+
+	public void setDatos_timbrado_id(int datos_timbrado_id) {
+		this.datos_timbrado_id = datos_timbrado_id;
 	}
 
 }
