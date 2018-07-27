@@ -5,18 +5,49 @@ import java.util.List;
 
 public class DocumentoFacturaFinal {
 
-	private int creado_por;
-	private int formato_especial;
-	private Factura factura;
-	private List<Partida> actividades;
-	private List<ActividadAutorizada> aa;
+	private List<Documento> factura_final;
 	
 	public DocumentoFacturaFinal() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DocumentoFacturaFinal(int creado_por, int formato_especial, Factura factura, List<Partida> actividades,
+	public DocumentoFacturaFinal(List<Documento> factura_final) {
+		super();
+		this.factura_final = factura_final;
+	}
+
+	public List<Documento> getFactura_final() {
+		return factura_final;
+	}
+
+	public void setFactura_final(List<Documento> factura_final) {
+		this.factura_final = factura_final;
+	}
+
+	@Override
+	public String toString() {
+		try {
+	        return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+	    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+}
+
+	public static class Documento {
+	private int creado_por;
+	private int formato_especial;
+	private Factura factura;
+	private List<Partida> actividades;
+	private List<ActividadAutorizada> aa;
+
+	public Documento() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Documento(int creado_por, int formato_especial, Factura factura, List<Partida> actividades,
 			List<ActividadAutorizada> aa) {
 		super();
 		this.creado_por = creado_por;
@@ -65,17 +96,9 @@ public class DocumentoFacturaFinal {
 	public void setAa(List<ActividadAutorizada> aa) {
 		this.aa = aa;
 	}
-
-	@Override
-	public String toString() {
-		try {
-	        return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
-	    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-	        e.printStackTrace();
-	    }
-	    return null;
-	}
 	
+
+
 	public static class Factura {
 		private int clientes_id;
 		private int formas_pago_id;
@@ -366,6 +389,6 @@ public class DocumentoFacturaFinal {
 			
 		}
 	}
-
+	}
 	
 }

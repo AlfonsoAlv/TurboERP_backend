@@ -122,15 +122,15 @@ public class WSFacturaFinal {
 	}
 
 	@PostMapping
-	public ResponseEntity<FacturaFinalVista> creardoc(@RequestBody DocumentoFacturaFinal[] doc){
-		FacturaFinalVista factura = null;
+	public ResponseEntity<Void> creardoc(@RequestBody DocumentoFacturaFinal doc){
+		
 		try {
-			factura = s.creardoc(doc);
+			s.creardoc(doc);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<FacturaFinalVista>(HttpStatus.CONFLICT);
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<FacturaFinalVista>(factura, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}/actividades")
