@@ -122,7 +122,7 @@ public class WSFacturaFinal {
 	}
 
 	@PostMapping
-	public ResponseEntity<FacturaFinalVista> creardoc(@RequestBody DocumentoFacturaFinal doc){
+	public ResponseEntity<FacturaFinalVista> creardoc(@RequestBody DocumentoFacturaFinal[] doc){
 		FacturaFinalVista factura = null;
 		try {
 			factura = s.creardoc(doc);
