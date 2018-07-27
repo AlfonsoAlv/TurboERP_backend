@@ -14,7 +14,7 @@ public class PagosDetalleRM implements RowMapper<PagosDetalle>{
 
 		PagosDetalle pd = new PagosDetalle();
 		pd.setId(rs.getInt("id"));
-		pd.setImporte(rs.getFloat("importe"));
+		pd.setImporte(rs.getBigDecimal("importe"));
 		pd.setTipo_cambio(rs.getFloat("tipo_cambio"));
 		pd.setActivo(rs.getInt("activo"));
 		pd.setCreado_por(rs.getInt("creado_por"));

@@ -3,6 +3,7 @@ package com.turbomaquinas.DAO.comercial;
 import java.util.List;
 
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
 
@@ -19,5 +20,8 @@ public interface PagosDAO {
 	public void actualizarNumero(int id, int opcion);
 	public Integer obtenerUltimoIdPago();
 	public List<Pagos> pendientesTimbrar();
+	public void actualizarEstado(int id,String estado);
+	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados);
+	public List<PagosDetalle> detallesPago(int id);
 
 }

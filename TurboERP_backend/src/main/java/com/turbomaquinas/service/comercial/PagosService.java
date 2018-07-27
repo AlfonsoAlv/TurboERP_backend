@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.turbomaquinas.POJO.comercial.DocumentoAplicarPago;
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
+
+import twitter4j.JSONException;
 
 public interface PagosService {
 	
@@ -20,5 +23,8 @@ public interface PagosService {
 	public void actualizarNumero(int id, int opcion);
 	public Integer ultimoPago();
 	public List<Pagos> pendientesTimbrar();
+	public PagosVista timbrarDB(int id, String jsonAPI, int creado_por) throws JSONException;
+	public void actualizarEstado(int id, String estado);
+	public List<PagosDetalle> detallesPago(int id);
 
 }

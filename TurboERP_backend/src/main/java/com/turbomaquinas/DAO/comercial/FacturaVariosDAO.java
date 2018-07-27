@@ -1,5 +1,6 @@
 package com.turbomaquinas.DAO.comercial;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.turbomaquinas.POJO.comercial.FacturaVarios;
@@ -23,5 +24,6 @@ public interface FacturaVariosDAO {
 	public String obtenerJSONBuscarFacturaVarios(int id, String modo);
 	public List<FacturaVariosVista> consultarPorEstado(String estado);
 	public void actualizarNumero(int id, int opcion);
+	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id);
 	
 }

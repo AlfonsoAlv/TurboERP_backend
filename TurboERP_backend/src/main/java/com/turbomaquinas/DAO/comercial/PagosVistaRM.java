@@ -29,6 +29,8 @@ public class PagosVistaRM implements RowMapper<PagosVista> {
 		pv.setModificado(rs.getDate("modificado"));
 		pv.setDepositos_recibidos_id(rs.getInt("depositos_recibidos_id"));
 		pv.setComentarios(rs.getString("comentarios"));
+		pv.setEstado(rs.getString("estado"));
+		pv.setDatos_timbrado_id(rs.getInt("datos_timbrado_id"));
 		return pv;	
 		}
 
