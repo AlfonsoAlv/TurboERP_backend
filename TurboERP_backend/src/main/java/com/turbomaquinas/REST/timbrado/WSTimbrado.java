@@ -278,41 +278,41 @@ public class WSTimbrado {
 	
 	
 	
-	//PAGOS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		@PostMapping("/notacredito/{id}")
-		public ResponseEntity<String> timbrarNotaCredito(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
-			//Recuperar JSON del PA TIMBRADO_FACTURA		
-			String cfdi=null;
-			try{
-				if(modo.equals("produccion") && ncs.buscar(id).getNumero()==0){
-					ncs.actualizarNumero(id,1);
-				}
-				cfdi=ncs.obtenerJSONTimbrado(id,modo);
-				//cfdi=cfdi+"}";
-			}catch(DataAccessException e){
-				bitacora.error(e.getMessage());
-				return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	//Nota de Credito/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@PostMapping("/notacredito/{id}")
+	public ResponseEntity<String> timbrarNotaCredito(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
+		//Recuperar JSON del PA TIMBRADO_FACTURA		
+		String cfdi=null;
+		try{
+			if(modo.equals("produccion") && ncs.buscar(id).getNumero()==0){
+				ncs.actualizarNumero(id,1);
 			}
-	        try{
-	        	ResponseEntity<String> response=ts.timbrarNotaCredito(cfdi);
-	        	System.out.println(response.getBody());
-		        JSONObject jsonRespuesta = new JSONObject(response.getBody());
-		        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
-			    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
-			    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
-			    if(estatusDocumento.equalsIgnoreCase("aceptado")){
-			    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
-			    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
-			    	ffs.actualizarNumero(id,0);
-			    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
-			    }else{
-			    	return null;
-			    }
-	        }catch(Exception e){
-	        	ncs.actualizarNumero(id,0);
-	        	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE); 
-	        }
+			cfdi=ncs.obtenerJSONTimbrado(id,modo);
+			//cfdi=cfdi+"}";
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	    try{
+	    	ResponseEntity<String> response=ts.timbrarNotaCredito(cfdi);
+	        System.out.println(response.getBody());
+		    JSONObject jsonRespuesta = new JSONObject(response.getBody());
+		    String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+			JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+			String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+			if(estatusDocumento.equalsIgnoreCase("aceptado")){
+				return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
+			}else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+				ffs.actualizarNumero(id,0);
+			    return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+			}else{
+			   	return null;
+			}
+	    }catch(Exception e){
+	       	ncs.actualizarNumero(id,0);
+	       	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE); 
+	    }
+	}
 	
 	
 }
