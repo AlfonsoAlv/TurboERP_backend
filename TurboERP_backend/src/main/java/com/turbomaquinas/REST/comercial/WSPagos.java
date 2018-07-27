@@ -152,8 +152,8 @@ public class WSPagos {
 		PagosVista pagos=null;
 		//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
 		try {
+			
 			pagos=s.timbrarDB(id,jsonAPI,creado_por);
-			//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<PagosVista>(HttpStatus.CONFLICT);

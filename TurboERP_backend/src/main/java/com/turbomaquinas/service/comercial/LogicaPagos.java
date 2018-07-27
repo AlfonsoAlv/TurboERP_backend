@@ -101,12 +101,15 @@ public class LogicaPagos implements PagosService {
 	@Override
 	@Transactional
 	public PagosVista timbrarDB(int id, String jsonAPI, int creado_por) throws JSONException{
+		//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
+		
 		JSONObject jsonRespuesta = new JSONObject(jsonAPI);
 	    String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
 		String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
 		
 		if(estatusDocumento.equalsIgnoreCase("aceptado")){
+			//System.out.println("B");
 			PagosVista pago=resPago.buscar(id);
 		  	//Actualizar estado de la factura a Timbrado
 			if(pago.getEstado().equalsIgnoreCase("I")){
