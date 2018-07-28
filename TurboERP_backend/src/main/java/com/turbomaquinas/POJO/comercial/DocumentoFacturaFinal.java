@@ -11,12 +11,12 @@ public class DocumentoFacturaFinal {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public DocumentoFacturaFinal(List<Documento> factura_final) {
 		super();
 		this.factura_final = factura_final;
 	}
-
+	
 	public List<Documento> getFactura_final() {
 		return factura_final;
 	}
@@ -109,6 +109,7 @@ public class DocumentoFacturaFinal {
 		private String moneda;
 		private int descuento_neto;
 		private ComprobanteRelacionado comprobantes_relacionados;
+		private Anticipo anticipo;
 		
 		public Factura() {
 			super();
@@ -117,7 +118,7 @@ public class DocumentoFacturaFinal {
 
 		public Factura(int clientes_id, int formas_pago_id, int metodos_pago_id, int uso_cfdi_id,
 				String condiciones_pago, String comentarios, String moneda, int descuento_neto,
-				ComprobanteRelacionado comprobantes_relacionados) {
+				ComprobanteRelacionado comprobantes_relacionados, Anticipo anticipo) {
 			super();
 			this.clientes_id = clientes_id;
 			this.formas_pago_id = formas_pago_id;
@@ -128,8 +129,9 @@ public class DocumentoFacturaFinal {
 			this.moneda = moneda;
 			this.descuento_neto = descuento_neto;
 			this.comprobantes_relacionados = comprobantes_relacionados;
+			this.anticipo = anticipo;
 		}
-		
+
 		public int getClientes_id() {
 			return clientes_id;
 		}
@@ -202,6 +204,14 @@ public class DocumentoFacturaFinal {
 			this.descuento_neto = descuento_neto;
 		}
 
+		public Anticipo getAnticipo() {
+			return anticipo;
+		}
+
+		public void setAnticipo(Anticipo anticipo) {
+			this.anticipo = anticipo;
+		}
+
 
 		public static class ComprobanteRelacionado {
 			
@@ -235,6 +245,35 @@ public class DocumentoFacturaFinal {
 				this.comprobantes = comprobantes;
 			}
 
+		}
+		
+		public static class Anticipo {
+			private String tipo;
+			private BigDecimal importe;
+			
+			public Anticipo() {
+				super();
+				// TODO Auto-generated constructor stub
+			}
+			public Anticipo(String tipo, BigDecimal importe) {
+				super();
+				this.tipo = tipo;
+				this.importe = importe;
+			}
+			public String getTipo() {
+				return tipo;
+			}
+			public void setTipo(String tipo) {
+				this.tipo = tipo;
+			}
+			public BigDecimal getImporte() {
+				return importe;
+			}
+			public void setImporte(BigDecimal importe) {
+				this.importe = importe;
+			}
+			
+			
 		}
 		
 	}
