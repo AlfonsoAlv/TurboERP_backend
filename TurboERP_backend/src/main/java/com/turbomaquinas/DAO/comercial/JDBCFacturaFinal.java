@@ -142,7 +142,7 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public void creardoc(String doc) throws DataAccessException {
+	public List<Integer> creardoc(String doc) throws DataAccessException {
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("CREAR_FACTURA_FINAL");
@@ -151,13 +151,22 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		inParamMap.put("arraydoc", doc);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	
-		simpleJdbcCall.execute(in);
-		/*Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		//simpleJdbcCall.execute(in);
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		List<Integer> listaIdsFactura = new ArrayList<Integer>();
+		
 		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
 	        if (entry.getKey().compareTo("p_factura_final_id") == 0) {
 	        	System.out.println((String)entry.getValue());
+	        	String[] idsFactura =((String)entry.getValue()).split(", |\\ |\\[|\\]");	        	
+	        	for(int i=0;i<idsFactura.length;i++){
+	        		if(!idsFactura[i].equals("")){
+	        			listaIdsFactura.add(Integer.parseInt(idsFactura[i].toString()));
+	        		}	
+	    		}
 	        }
-	    }*/	
+	    }
+		return listaIdsFactura;
 	}
 
 

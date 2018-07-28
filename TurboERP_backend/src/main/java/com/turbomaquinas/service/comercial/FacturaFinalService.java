@@ -19,7 +19,7 @@ public interface FacturaFinalService {
 	public List<FacturaFinalVista> consultarFacturasPendientesPorCliente(int id,String moneda);
 	public List<OrdenFactura> consultarOrdenes(int id);
 	public FacturaFinalVista buscarFacturaFolio(String folio, String estado, String tipo);
-	public void creardoc(DocumentoFacturaFinal doc);
+	public List<Integer> creardoc(DocumentoFacturaFinal doc);
 	public List<ActividadesFFVista> consultarActividadesPorFactura(int id);
 	public List<FacturaFinalVista> consultarPorEstado(String estado);
 	public List<FacturaFinalVista> consultarPorIds(List<Integer> lista);
