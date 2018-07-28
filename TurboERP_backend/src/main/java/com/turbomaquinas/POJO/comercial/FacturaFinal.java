@@ -41,6 +41,7 @@ public class FacturaFinal {
 	private int descuento_neto;
 	private int extranjero;
 	private int anticipo_relacionado;
+	private int parcialidad;
 
 	public FacturaFinal() {
 		super();
@@ -54,7 +55,7 @@ public class FacturaFinal {
 			int activo, int creado_por, Date creado, int modificado_por, Date modificado,
 			ComprobanteRelacionado comprobantes_relacionados, int datos_timbrado_id, int formas_pago_id,
 			int metodos_pago_id, int uso_cfdi_id, int clientes_id, Orden ordenes, String estado, int descuento_neto,
-			int extranjero, int anticipo_relacionado) {
+			int extranjero, int anticipo_relacionado, int parcialidad) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -92,6 +93,7 @@ public class FacturaFinal {
 		this.descuento_neto = descuento_neto;
 		this.extranjero = extranjero;
 		this.anticipo_relacionado = anticipo_relacionado;
+		this.parcialidad = parcialidad;
 	}
 
 	public int getId() {
@@ -382,6 +384,14 @@ public class FacturaFinal {
 		this.anticipo_relacionado = anticipo_relacionado;
 	}
 
+	public int getParcialidad() {
+		return parcialidad;
+	}
+
+	public void setParcialidad(int parcialidad) {
+		this.parcialidad = parcialidad;
+	}
+
 	@Override
 	public String toString() {
 		return "FacturaFinal [id=" + id + ", tipo=" + tipo + ", numero=" + numero + ", fecha_factura=" + fecha_factura
@@ -396,7 +406,7 @@ public class FacturaFinal {
 				+ formas_pago_id + ", metodos_pago_id=" + metodos_pago_id + ", uso_cfdi_id=" + uso_cfdi_id
 				+ ", clientes_id=" + clientes_id + ", ordenes=" + ordenes + ", estado=" + estado + ", descuento_neto="
 				+ descuento_neto + ", extranjero=" + extranjero + ", anticipo_relacionado=" + anticipo_relacionado
-				+ "]";
+				+ ", parcialidad=" + parcialidad + "]";
 	}
 
 	public static class ComprobanteRelacionado {

@@ -37,6 +37,7 @@ public class FacturaVarios {
 	private String predial;
 	private int conceptos_facturacion_contable_id;
 	private int nota_cargo;
+	private int parcialidad;
 	
 	public FacturaVarios() {
 		super();
@@ -49,7 +50,7 @@ public class FacturaVarios {
 			int creado_por, Date creado, int modificado_por, Date modificado, int factura_varios_id_sust,
 			int datos_timbrado_id, int formas_pago_id, int metodos_pago_id, int uso_cfdi_id, int clientes_id,
 			String estado, BigDecimal total, BigDecimal saldo, String predial, int conceptos_facturacion_contable_id,
-			int nota_cargo) {
+			int nota_cargo, int parcialidad) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -83,6 +84,7 @@ public class FacturaVarios {
 		this.predial = predial;
 		this.conceptos_facturacion_contable_id = conceptos_facturacion_contable_id;
 		this.nota_cargo = nota_cargo;
+		this.parcialidad = parcialidad;
 	}
 
 	public int getId() {
@@ -341,6 +343,14 @@ public class FacturaVarios {
 		this.nota_cargo = nota_cargo;
 	}
 
+	public int getParcialidad() {
+		return parcialidad;
+	}
+
+	public void setParcialidad(int parcialidad) {
+		this.parcialidad = parcialidad;
+	}
+
 	@Override
 	public String toString() {
 		return "FacturaVarios [id=" + id + ", tipo=" + tipo + ", numero=" + numero + ", fecha_factura=" + fecha_factura
@@ -354,7 +364,7 @@ public class FacturaVarios {
 				+ ", metodos_pago_id=" + metodos_pago_id + ", uso_cfdi_id=" + uso_cfdi_id + ", clientes_id="
 				+ clientes_id + ", estado=" + estado + ", total=" + total + ", saldo=" + saldo + ", predial=" + predial
 				+ ", conceptos_facturacion_contable_id=" + conceptos_facturacion_contable_id + ", nota_cargo="
-				+ nota_cargo + "]";
+				+ nota_cargo + ", parcialidad=" + parcialidad + "]";
 	}
 	
 }

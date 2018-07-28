@@ -49,6 +49,8 @@ public class FacturaFinalRM implements RowMapper<FacturaFinal> {
 		ff.setDescuento_neto(rs.getInt("descuento_neto"));
 		ff.setExtranjero(rs.getInt("extranjero"));
 		ff.setAnticipo_relacionado(rs.getInt("anticipo_relacionado"));
+		ff.setParcialidad(rs.getInt("parcialidad"));
+		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			ff.setComprobantes_relacionados(mapper.readValue(rs.getString("comprobantes_relacionados"), ComprobanteRelacionado.class));
