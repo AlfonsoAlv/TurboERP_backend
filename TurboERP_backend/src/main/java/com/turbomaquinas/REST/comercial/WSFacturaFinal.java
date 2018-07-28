@@ -122,15 +122,15 @@ public class WSFacturaFinal {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> creardoc(@RequestBody DocumentoFacturaFinal doc){
-		
+	public ResponseEntity<List<Integer>> creardoc(@RequestBody DocumentoFacturaFinal doc){
+		List<Integer> idsFactura=null;
 		try {
-			s.creardoc(doc);
+			idsFactura=s.creardoc(doc);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<List<Integer>>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<List<Integer>>(idsFactura,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}/actividades")

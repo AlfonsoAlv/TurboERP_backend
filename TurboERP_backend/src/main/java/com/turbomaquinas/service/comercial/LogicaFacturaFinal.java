@@ -82,8 +82,8 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 
 	@Override
 	@Transactional
-	public void creardoc(DocumentoFacturaFinal doc) throws DataAccessException {
-		repFF.creardoc(doc.toString());
+	public List<Integer> creardoc(DocumentoFacturaFinal doc) throws DataAccessException {
+		return repFF.creardoc(doc.toString());
 	}
 
 	@Override
