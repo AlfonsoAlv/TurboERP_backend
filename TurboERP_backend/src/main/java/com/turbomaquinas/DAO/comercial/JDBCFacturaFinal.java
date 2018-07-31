@@ -210,11 +210,11 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo) {
+	public FacturaFinalVista buscarUltimaFacturaPorTipoEstado(int extranjero,String estado) {
 		String sql="SELECT * FROM FACTURA_FINAL_V "
-				+ "WHERE tipo = ? and estado_factura='I' "
+				+ "WHERE extranjero = ? AND estado_factura=? AND activo=1 "
 				+ "ORDER BY id DESC LIMIT 1";
-		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),tipo);
+		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),extranjero,estado);
 	}
 
 	@Override

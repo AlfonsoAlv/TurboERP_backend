@@ -21,7 +21,7 @@ public interface FacturaFinalDAO {
 	public void actualizarEstado(int id, String estado);
 	public void actualizarTipoCambio(int id, float tipoCambio);
 	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados);
-	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo);
+	public FacturaFinalVista buscarUltimaFacturaPorTipoEstado(int extranjero,String estado);
 	public void actualizarIdAlfresco(int id, String alfresco_id);
 	public String obtenerJSONFacturaFinal(int idFactura,String modo);
 	public String obtenerJSONCancelarFacturaFinal(int idFactura, String modo,String justificacion);

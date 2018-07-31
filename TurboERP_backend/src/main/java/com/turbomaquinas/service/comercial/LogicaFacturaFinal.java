@@ -112,8 +112,8 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 	}
 
 	@Override
-	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo) {
-		return repFF.buscarUltimaFacturaPorTipo(tipo);
+	public FacturaFinalVista buscarUltimaFacturaPorTipoEstado(int extranjero,String estado) {
+		return repFF.buscarUltimaFacturaPorTipoEstado(extranjero,estado);
 	}
 
 	@Override
