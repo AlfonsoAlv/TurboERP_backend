@@ -181,11 +181,11 @@ public class WSFacturaFinal {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/{tipo}/ultima")
-	public ResponseEntity<FacturaFinalVista> buscarUltimaFacturaPorTipo(@PathVariable String tipo){
+	@GetMapping("/{extranjero}/{estado}/ultima")
+	public ResponseEntity<FacturaFinalVista> buscarUltimaFacturaPorTipoEstado(@PathVariable int extranjero,@PathVariable String estado){
 		FacturaFinalVista factura = null;
 		try{
-			factura = s.buscarUltimaFacturaPorTipo(tipo);
+			factura = s.buscarUltimaFacturaPorTipoEstado(extranjero,estado);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<FacturaFinalVista>(HttpStatus.NOT_FOUND);
