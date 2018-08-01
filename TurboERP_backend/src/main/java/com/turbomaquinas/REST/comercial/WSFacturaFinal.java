@@ -215,8 +215,8 @@ public class WSFacturaFinal {
 			return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
-	@DeleteMapping("{id}/baja")
-	public ResponseEntity<Void> baja(@PathVariable int id, @RequestParam int modificado_por){
+	@DeleteMapping("/baja")
+	public ResponseEntity<Void> baja(@RequestBody int[] id, @RequestParam int modificado_por){
 		try{
 			s.baja(id, modificado_por);
 		}catch(DataAccessException e){

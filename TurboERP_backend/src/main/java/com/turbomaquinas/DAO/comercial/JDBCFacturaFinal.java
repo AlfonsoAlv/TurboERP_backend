@@ -3,6 +3,7 @@ package com.turbomaquinas.DAO.comercial;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -293,12 +294,12 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public void baja(int id, int modificado_por) {
+	public void baja(String p_facturas_id, int modificado_por) {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("BAJA_FACTURA_FINAL");
 
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
-		inParamMap.put("p_factura_id", id);
+		inParamMap.put("p_facturas_id", p_facturas_id);
 		inParamMap.put("p_modificado_por", modificado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	

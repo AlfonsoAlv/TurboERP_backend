@@ -26,7 +26,7 @@ public interface FacturaFinalDAO {
 	public String obtenerJSONFacturaFinal(int idFactura,String modo);
 	public String obtenerJSONCancelarFacturaFinal(int idFactura, String modo,String justificacion);
 	public String obtenerJSONBuscarFacturaFinal(int idFactura, String modo);
-	public void baja(int id, int modificado_por);
+	public void baja(String p_facturas_id, int modificado_por);
 	public void actualizarNumero(int id,int numero);
 	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id);
 	

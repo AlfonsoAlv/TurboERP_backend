@@ -164,6 +164,7 @@ public class WSTimbrado {
 		}
         try{
         	ResponseEntity<String> response=ts.timbrarFacturaVarios(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
