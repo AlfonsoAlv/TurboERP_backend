@@ -216,9 +216,9 @@ public class WSFacturaFinal {
 	}
 	
 	@DeleteMapping("/baja")
-	public ResponseEntity<Void> baja(@RequestBody int[] id, @RequestParam int modificado_por){
+	public ResponseEntity<Void> baja(@RequestBody List<Integer> ids, @RequestParam int modificado_por){
 		try{
-			s.baja(id, modificado_por);
+			s.baja(ids, modificado_por);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
