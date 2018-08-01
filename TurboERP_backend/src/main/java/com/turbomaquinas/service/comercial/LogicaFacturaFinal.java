@@ -1,5 +1,6 @@
 package com.turbomaquinas.service.comercial;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,15 +140,15 @@ public class LogicaFacturaFinal implements FacturaFinalService {
 	@Override
 	@Transactional
 	public void cancelar(int id, int modificado_por) {
-		repFF.baja(id, modificado_por);	
+		// repFF.baja(id, modificado_por);	
 		repFF.actualizarEstado(id, "C");
 	}
 
 	@Override
-	public void baja(int id, int modificado_por) {
-		repFF.baja(id, modificado_por);			
+	public void baja(int[] id, int modificado_por) {
+		String p_facturas_id = Arrays.toString(id);
+		repFF.baja(p_facturas_id, modificado_por);			
 	}
-
 	
 	@Override
 	@Transactional
