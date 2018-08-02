@@ -176,6 +176,66 @@ public class JDBCPagos implements PagosDAO {
 		List<PagosDetalle> dp = jdbcTemplate.query(sql,new PagosDetalleRM(), id);
 		return dp;
 	}
+
+	@Override
+	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_CANCELACION_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		inParamMap.put("p_justificacion",justificacion);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonCancelacion") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public String obtenerJSONBuscarPagos(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public void cancelar(int id, int modificado_por) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("RESTABLECER_PAGO");
+		
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		
+		inParamMap.put("id", id);
+		inParamMap.put("p_modificado_por", modificado_por);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);
+	}
 	
 	
 
