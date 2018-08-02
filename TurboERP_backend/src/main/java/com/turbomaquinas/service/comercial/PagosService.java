@@ -26,5 +26,8 @@ public interface PagosService {
 	public PagosVista timbrarDB(int id, String jsonAPI, int creado_por) throws JSONException;
 	public void actualizarEstado(int id, String estado);
 	public List<PagosDetalle> detallesPago(int id);
+	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion);
+	public String obtenerJSONBuscarPagos(int id, String modo);
+	public void cancelar(int id, int modificado_por);
 
 }

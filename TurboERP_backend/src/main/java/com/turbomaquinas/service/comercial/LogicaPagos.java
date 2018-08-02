@@ -159,6 +159,21 @@ public class LogicaPagos implements PagosService {
 	public List<PagosDetalle> detallesPago(int id) {
 		return resPago.detallesPago(id);
 	}
+
+	@Override
+	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion) {
+		return resPago.obtenerJSONCancelarPagos(id,modo,justificacion);
+	}
+
+	@Override
+	public String obtenerJSONBuscarPagos(int id, String modo) {
+		return resPago.obtenerJSONBuscarPagos(id,modo);
+	}
+
+	@Override
+	public void cancelar(int id, int modificado_por) {
+		resPago.cancelar(id, modificado_por);
+	}
 	
 
 }

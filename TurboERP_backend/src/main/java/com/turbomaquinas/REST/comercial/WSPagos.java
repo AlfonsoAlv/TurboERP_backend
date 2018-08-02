@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.comercial.DocumentoAplicarPago;
-import com.turbomaquinas.POJO.comercial.FacturaFinalVista;
 import com.turbomaquinas.POJO.comercial.Pagos;
 import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
@@ -168,5 +167,16 @@ public class WSPagos {
 		if(pd.isEmpty())
 			return new ResponseEntity<List<PagosDetalle>>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<PagosDetalle>>(pd, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("{id}/cancelacion")
+	public ResponseEntity<Void> cancelar(@PathVariable int id, @RequestParam int modificado_por){
+		try{
+			s.cancelar(id, modificado_por);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+			return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
