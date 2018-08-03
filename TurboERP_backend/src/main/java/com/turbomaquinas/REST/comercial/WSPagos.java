@@ -83,9 +83,9 @@ public class WSPagos {
 		}
 	}
 	
-	@GetMapping("/fechas")
-	public ResponseEntity<List<Pagos>> consultarPorFechas(@RequestParam String fechainicio,@RequestParam String fechafin){
-		List<Pagos> p = s.pagosFecha(fechainicio,fechafin);
+	@GetMapping("/fechas/{estado}")
+	public ResponseEntity<List<Pagos>> consultarPorFechas(@RequestParam String fechainicio,@RequestParam String fechafin,@PathVariable String estado){
+		List<Pagos> p = s.pagosFecha(fechainicio,fechafin,estado);
 		if (p.isEmpty())
 			return new ResponseEntity<List<Pagos>> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Pagos>>(p, HttpStatus.OK);

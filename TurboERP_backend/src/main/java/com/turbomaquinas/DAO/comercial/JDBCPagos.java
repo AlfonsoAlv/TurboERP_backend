@@ -60,13 +60,13 @@ public class JDBCPagos implements PagosDAO {
 	}
 
 	@Override
-	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin) throws DataAccessException{
+	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin, String estado) throws DataAccessException{
 			
 		String sql = "select *"
 				+ " from PAGOS p"
-				+ " where fecha_pago between ? and ? and activo=1 ";
+				+ " where fecha_pago between ? and ? and activo=1 and estado=?";
 		
-		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin);			
+		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin,estado);			
 		
 		return dv;
 	}
