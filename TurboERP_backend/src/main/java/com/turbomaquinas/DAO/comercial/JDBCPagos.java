@@ -227,7 +227,7 @@ public class JDBCPagos implements PagosDAO {
 	@Override
 	public void cancelar(int id, int modificado_por) {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("RESTABLECER_PAGO");
+				.withProcedureName("CANCELAR_PAGO");
 		
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
 		

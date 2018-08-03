@@ -282,12 +282,14 @@ public class WSTimbrado {
 		String cfdi=null;
 		try{
 			cfdi=ps.obtenerJSONCancelarPagos(id,modo,justificacion);
+			System.out.println(cfdi);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
 		try{
         	ResponseEntity<String> response=ts.cancelarCFDiPagos(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -315,6 +317,7 @@ public class WSTimbrado {
 		}
         try{
         	ResponseEntity<String> response=ts.buscarCFDiPagos(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
