@@ -179,4 +179,17 @@ public class WSPagos {
 		}
 			return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@GetMapping("/timbrado/{numero}")
+	public ResponseEntity<Pagos> buscarPagoTimbradoPorNumero(@PathVariable int numero){
+		
+		Pagos pb = null;
+		try {
+			pb = s.buscarPagoTimbradoPorNumero(numero);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Pagos>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Pagos>(pb, HttpStatus.OK);
+	}
 }

@@ -26,5 +26,6 @@ public interface PagosDAO {
 	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion);
 	public String obtenerJSONBuscarPagos(int id, String modo);
 	public void cancelar(int id, int modificado_por);
+	public Pagos buscarPagoTimbradoNumero(int numero);
 
 }

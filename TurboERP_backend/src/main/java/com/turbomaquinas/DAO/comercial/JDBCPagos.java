@@ -236,6 +236,15 @@ public class JDBCPagos implements PagosDAO {
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
 	}
+
+	@Override
+	public Pagos buscarPagoTimbradoNumero(int numero) throws DataAccessException{
+		String sql="SELECT * "
+				+ "FROM PAGOS p "
+				+ "where numero=? and activo=1 and estado='T' ";
+		Pagos pagoNumero = jdbcTemplate.queryForObject(sql, new PagosRM(),numero);
+		return pagoNumero;
+	}
 	
 	
 

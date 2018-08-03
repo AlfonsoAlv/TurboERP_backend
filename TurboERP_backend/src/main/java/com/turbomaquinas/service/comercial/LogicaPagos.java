@@ -174,6 +174,11 @@ public class LogicaPagos implements PagosService {
 	public void cancelar(int id, int modificado_por) {
 		resPago.cancelar(id, modificado_por);
 	}
+
+	@Override
+	public Pagos buscarPagoTimbradoPorNumero(int numero) {
+		return resPago.buscarPagoTimbradoNumero(numero);
+	}
 	
 
 }
