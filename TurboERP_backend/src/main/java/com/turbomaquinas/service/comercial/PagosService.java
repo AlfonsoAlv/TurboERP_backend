@@ -16,7 +16,7 @@ public interface PagosService {
 	public PagosVista buscar(int id);
 	public List<PagosVista> consultar();
 	public void aplicarPagos(DocumentoAplicarPago doc);
-	public List<Pagos> pagosFecha(String fechainicio, String fechafin);
+	public List<Pagos> pagosFecha(String fechainicio, String fechafin,String estado);
 	public List<PagosFacturas> facturasPorPago(int id);
 	public void restablecerPago(int id);
 	public String obtenerJSONTimbrado(int id,String modo);
@@ -29,5 +29,6 @@ public interface PagosService {
 	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion);
 	public String obtenerJSONBuscarPagos(int id, String modo);
 	public void cancelar(int id, int modificado_por);
+	public Pagos buscarPagoTimbradoPorNumero(int numero);
 
 }

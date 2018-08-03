@@ -61,9 +61,9 @@ public class LogicaPagos implements PagosService {
 	}
 
 	@Override
-	public List<Pagos> pagosFecha(String fechainicio, String fechafin) throws DataAccessException {
+	public List<Pagos> pagosFecha(String fechainicio, String fechafin,String estado) throws DataAccessException {
 		
-		return resPago.pagoRangoFecha(fechainicio, fechafin);
+		return resPago.pagoRangoFecha(fechainicio, fechafin,estado);
 	}
 
 	@Override
@@ -173,6 +173,11 @@ public class LogicaPagos implements PagosService {
 	@Override
 	public void cancelar(int id, int modificado_por) {
 		resPago.cancelar(id, modificado_por);
+	}
+
+	@Override
+	public Pagos buscarPagoTimbradoPorNumero(int numero) {
+		return resPago.buscarPagoTimbradoNumero(numero);
 	}
 	
 

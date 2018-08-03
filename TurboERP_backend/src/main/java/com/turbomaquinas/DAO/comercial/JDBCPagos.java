@@ -60,13 +60,13 @@ public class JDBCPagos implements PagosDAO {
 	}
 
 	@Override
-	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin) throws DataAccessException{
+	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin, String estado) throws DataAccessException{
 			
 		String sql = "select *"
 				+ " from PAGOS p"
-				+ " where fecha_pago between ? and ? and activo=1 ";
+				+ " where fecha_pago between ? and ? and activo=1 and estado=?";
 		
-		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin);			
+		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin,estado);			
 		
 		return dv;
 	}
@@ -235,6 +235,15 @@ public class JDBCPagos implements PagosDAO {
 		inParamMap.put("p_modificado_por", modificado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Pagos buscarPagoTimbradoNumero(int numero) throws DataAccessException{
+		String sql="SELECT * "
+				+ "FROM PAGOS p "
+				+ "where numero=? and activo=1 and estado='T' ";
+		Pagos pagoNumero = jdbcTemplate.queryForObject(sql, new PagosRM(),numero);
+		return pagoNumero;
 	}
 	
 	
