@@ -45,7 +45,8 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 	}
 
 	@Override
-	public int crearNotasCredito(String doc) {
+	public int crearNotasCredito(String doc) throws DataAccessException {
+		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("APLICAR_NOTAS_CREDITO");
 		

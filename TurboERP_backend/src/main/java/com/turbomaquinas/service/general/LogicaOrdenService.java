@@ -264,6 +264,9 @@ public class LogicaOrdenService implements OrdenService{
 	}
 
 	@Override
+	public List<com.turbomaquinas.POJO.general.NotasCreditoPorOrden> NotasCreditoPorOrden(int idOrden) {
+		return repositorio.NotasCreditoPorOrden(idOrden);
+
 	public BigDecimal importePagadoporFactura(int idOrden,int idFactura) throws DataAccessException{
 		return repositorio.importePagadoporOrdenFactura(idOrden,idFactura);
 	}
