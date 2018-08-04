@@ -96,12 +96,14 @@ public class WSTimbrado {
 		String cfdi=null;
 		try{
 			cfdi=ffs.obtenerJSONCancelarFacturaFinal(id,modo,justificacion);
+			//cfdi=cfdi+"}";
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
 		try{
         	ResponseEntity<String> response=ts.cancelarCFDiFacturaFinal(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -196,6 +198,7 @@ public class WSTimbrado {
 		}
 		try{
         	ResponseEntity<String> response=ts.cancelarCFDiFacturaVarios(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
@@ -223,6 +226,7 @@ public class WSTimbrado {
 		}
         try{
         	ResponseEntity<String> response=ts.buscarFacturaVarios(cfdi);
+        	System.out.println(response.getBody());
 	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
 	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
 		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
