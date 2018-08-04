@@ -33,6 +33,7 @@ import com.turbomaquinas.POJO.general.Autorizacion;
 import com.turbomaquinas.POJO.general.DTOrdenes;
 import com.turbomaquinas.POJO.general.DocumentoActividadesAutorizadas;
 import com.turbomaquinas.POJO.general.DocumentoSolicitudBajaAA;
+import com.turbomaquinas.POJO.general.NotasCreditoPorOrden;
 import com.turbomaquinas.POJO.general.OT;
 import com.turbomaquinas.POJO.general.Orden;
 import com.turbomaquinas.POJO.general.OrdenFactura;
@@ -383,6 +384,17 @@ public class WSOrden {
 		if (pco == null)
 			return new ResponseEntity<List<PagosConsultaOrdenes>> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<PagosConsultaOrdenes>>(pco, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/notas_credito_por_orden")
+	public ResponseEntity<List<NotasCreditoPorOrden>> notasCreditoPorOrden(@PathVariable int id){
+		
+		List<NotasCreditoPorOrden> ncpo = os.NotasCreditoPorOrden(id);
+		
+		if (ncpo == null)
+			return new ResponseEntity<List<NotasCreditoPorOrden>>(HttpStatus.NO_CONTENT);
+		
+		return new ResponseEntity<List<NotasCreditoPorOrden>>(ncpo, HttpStatus.OK);
 	}
 	
 }

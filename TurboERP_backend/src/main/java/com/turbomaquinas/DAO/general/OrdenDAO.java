@@ -13,6 +13,7 @@ import com.turbomaquinas.POJO.general.OrdenFactura;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
 import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
+import com.turbomaquinas.POJO.general.NotasCreditoPorOrden;
 
 public interface OrdenDAO {
 	public int crear(Orden o);
@@ -44,4 +45,6 @@ public interface OrdenDAO {
 	public List<OrdenVista> OrdenesporCliente(int idCliente,int anio);
 	public List<Integer> anioOrdenCliente(int idCliente);
 	public List<PagosConsultaOrdenes> PagosporOrden(int idOrden);
+	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
+	
 }

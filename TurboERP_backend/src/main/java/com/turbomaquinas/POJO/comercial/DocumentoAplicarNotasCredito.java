@@ -93,47 +93,104 @@ public class DocumentoAplicarNotasCredito {
 	    return null;
 	}
 	
-			public static class Facturas {
-				
-				private int idFactura;
-				private String tipoFactura;
-				private BigDecimal importe;
-				public Facturas() {
-					super();
-				}
-				public Facturas(int idFactura, String tipoFactura, BigDecimal importe) {
-					super();
-					this.idFactura = idFactura;
-					this.tipoFactura = tipoFactura;
-					this.importe = importe;
-				}
-				public int getIdFactura() {
-					return idFactura;
-				}
-				public void setIdFactura(int idFactura) {
-					this.idFactura = idFactura;
-				}
-				public String getTipoFactura() {
-					return tipoFactura;
-				}
-				public void setTipoFactura(String tipoFactura) {
-					this.tipoFactura = tipoFactura;
-				}
-				public BigDecimal getImporte() {
-					return importe;
-				}
-				public void setImporte(BigDecimal importe) {
-					this.importe = importe;
-				}
-				@Override
-				public String toString() {
-					try {
-				        return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
-				    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-				        e.printStackTrace();
-				    }
-				    return null;
-				}
+	public static class Facturas {
+		
+		private int idFactura;
+		private String tipoFactura;
+		private BigDecimal importe;
+		private List<Orden> ordenes;
+		
+		public Facturas() {
+			super();
+		}
+		public Facturas(int idFactura, String tipoFactura, BigDecimal importe, List<Orden> ordenes) {
+			super();
+			this.idFactura = idFactura;
+			this.tipoFactura = tipoFactura;
+			this.importe = importe;
+			this.ordenes = ordenes;
+		}
+		public int getIdFactura() {
+			return idFactura;
+		}
+		public void setIdFactura(int idFactura) {
+			this.idFactura = idFactura;
+		}
+		public String getTipoFactura() {
+			return tipoFactura;
+		}
+		public void setTipoFactura(String tipoFactura) {
+			this.tipoFactura = tipoFactura;
+		}
+		public BigDecimal getImporte() {
+			return importe;
+		}
+		public void setImporte(BigDecimal importe) {
+			this.importe = importe;
+		}
+		
+		public List<Orden> getOrdenes() {
+			return ordenes;
+		}
+		
+		public void setOrdenes(List<Orden> ordenes) {
+			this.ordenes = ordenes;
+		}
+		
+		@Override
+		public String toString() {
+			try {
+		        return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+		    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+		        e.printStackTrace();
+		    }
+		    return null;
+		}
+		
+		public static class Orden {
+
+			private int id;
+			private BigDecimal importe;
+
+			public Orden(int id, BigDecimal importe) {
+				super();
+				this.id = id;
+				this.importe = importe;
 			}
+
+			public Orden() {
+				super();
+				// TODO Auto-generated constructor stub
+			}
+
+			public int getId() {
+				return id;
+			}
+
+			public void setId(int id) {
+				this.id = id;
+			}
+
+			public BigDecimal getImporte() {
+				return importe;
+			}
+
+			public void setImporte(BigDecimal importe) {
+				this.importe = importe;
+			}
+
+			@Override
+			public String toString() {
+				try {
+					return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter()
+							.writeValueAsString(this);
+				} catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+		}
+		
+	}
 
 }

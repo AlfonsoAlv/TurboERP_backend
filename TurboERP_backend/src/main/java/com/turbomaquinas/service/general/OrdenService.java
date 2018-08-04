@@ -11,6 +11,7 @@ import com.turbomaquinas.POJO.general.Autorizacion;
 import com.turbomaquinas.POJO.general.DTOrdenes;
 import com.turbomaquinas.POJO.general.DocumentoActividadesAutorizadas;
 import com.turbomaquinas.POJO.general.DocumentoSolicitudBajaAA;
+import com.turbomaquinas.POJO.general.NotasCreditoPorOrden;
 import com.turbomaquinas.POJO.general.OT;
 import com.turbomaquinas.POJO.general.Orden;
 import com.turbomaquinas.POJO.general.OrdenFactura;
@@ -54,4 +55,5 @@ public interface OrdenService {
 	public List<OrdenVista> OrdenesporCliente(int id,int anio);
 	public List<Integer> anioOrdenCliente(int id);
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id);
+	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
 }

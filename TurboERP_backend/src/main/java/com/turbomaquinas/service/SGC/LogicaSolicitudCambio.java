@@ -22,8 +22,10 @@ public class LogicaSolicitudCambio implements SolicitudCambioService {
 	
 	@Override
 	public SolicitudCambioVista crear(SolicitudCambio solicitud) throws DataAccessException {
+		
 		int id = repositorio.crear(solicitud);
 		return repositorioVista.buscar(id);
+		
 	}
 
 	@Override

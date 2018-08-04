@@ -261,5 +261,10 @@ public class LogicaOrdenService implements OrdenService{
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id) {
 		return repositorio.PagosporOrden(id);
 	}
+
+	@Override
+	public List<com.turbomaquinas.POJO.general.NotasCreditoPorOrden> NotasCreditoPorOrden(int idOrden) {
+		return repositorio.NotasCreditoPorOrden(idOrden);
+	}
 	
 }

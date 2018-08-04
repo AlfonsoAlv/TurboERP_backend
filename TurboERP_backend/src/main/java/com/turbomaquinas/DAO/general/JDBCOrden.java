@@ -34,6 +34,7 @@ import com.turbomaquinas.POJO.general.OrdenFactura.Facturas;
 import com.turbomaquinas.POJO.general.OrdenFechasVista;
 import com.turbomaquinas.POJO.general.OrdenVista;
 import com.turbomaquinas.POJO.general.PagosConsultaOrdenes;
+import com.turbomaquinas.POJO.general.NotasCreditoPorOrden;
 
 @Repository
 public class JDBCOrden implements OrdenDAO {
@@ -501,7 +502,15 @@ public class JDBCOrden implements OrdenDAO {
 		List<PagosConsultaOrdenes> p = jdbcTemplate.query(sql,new PagosConsultaOrdenesRM(),idOrden);
 		return p;
 	}
-	
-	
+
+	@Override
+	public List<NotasCreditoPorOrden> NotasCreditoPorOrden(int idOrden) {
+		
+		List<NotasCreditoPorOrden> ncpo = 
+				jdbcTemplate.queryForObject("SELECT notas_credito FROM ORDENES WHERE id = ? AND activo = 1", 
+						new NotasCreditoPorOrdenRM(), idOrden);
+		
+		return ncpo;
+	}
 	
 }
