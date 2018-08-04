@@ -1,6 +1,7 @@
 package com.turbomaquinas.REST.general;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -395,6 +396,13 @@ public class WSOrden {
 			return new ResponseEntity<List<NotasCreditoPorOrden>>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<NotasCreditoPorOrden>>(ncpo, HttpStatus.OK);
+
+	@GetMapping("/{idO}/factura/{idF}/importepagado")
+	public ResponseEntity<BigDecimal> importePagadoporFactura(@PathVariable int idO,@PathVariable int idF){
+		BigDecimal pco = os.importePagadoporFactura(idO,idF);
+		if (pco == null)
+			return new ResponseEntity<BigDecimal> (HttpStatus.NOT_FOUND);
+		return new ResponseEntity<BigDecimal>(pco, HttpStatus.OK);
 	}
 	
 }

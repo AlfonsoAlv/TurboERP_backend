@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.comercial.DocumentoAplicarPago;
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
 import com.turbomaquinas.service.comercial.PagosService;
@@ -82,9 +83,9 @@ public class WSPagos {
 		}
 	}
 	
-	@GetMapping("/fechas")
-	public ResponseEntity<List<Pagos>> consultarPorFechas(@RequestParam String fechainicio,@RequestParam String fechafin){
-		List<Pagos> p = s.pagosFecha(fechainicio,fechafin);
+	@GetMapping("/fechas/{estado}")
+	public ResponseEntity<List<Pagos>> consultarPorFechas(@RequestParam String fechainicio,@RequestParam String fechafin,@PathVariable String estado){
+		List<Pagos> p = s.pagosFecha(fechainicio,fechafin,estado);
 		if (p.isEmpty())
 			return new ResponseEntity<List<Pagos>> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Pagos>>(p, HttpStatus.OK);
@@ -110,5 +111,85 @@ public class WSPagos {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
+	}
+	
+	@GetMapping("/ultimo")
+	public ResponseEntity<Integer> buscarIdUltimoPago(){
+		
+		Integer up = 0;
+		try {
+			up = s.ultimoPago();
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Integer>(up, HttpStatus.OK);
+	}
+	
+	@GetMapping("/pendientesTimbrar")
+	public ResponseEntity<List<Pagos>> consultarPtesTimbrar(){
+		
+		List<Pagos> pt = s.pendientesTimbrar();
+		if(pt.isEmpty())
+			return new ResponseEntity<List<Pagos>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Pagos>>(pt, HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}/estado")
+	public ResponseEntity<Void> actualizarEstado(@PathVariable int id,@RequestParam String estado){
+		try {
+			s.actualizarEstado(id,estado);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping("{id}/timbrado")
+	public ResponseEntity<PagosVista> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+		PagosVista pagos=null;
+		//System.out.println(id+"-"+jsonAPI+"-"+creado_por);
+		try {
+			
+			pagos=s.timbrarDB(id,jsonAPI,creado_por);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<PagosVista>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<PagosVista>(pagos,HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/detalles")
+	public ResponseEntity<List<PagosDetalle>> consultarDetallesPago(@PathVariable int id){
+		
+		List<PagosDetalle> pd = s.detallesPago(id);
+		if(pd.isEmpty())
+			return new ResponseEntity<List<PagosDetalle>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<PagosDetalle>>(pd, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("{id}/cancelacion")
+	public ResponseEntity<Void> cancelar(@PathVariable int id, @RequestParam int modificado_por){
+		try{
+			s.cancelar(id, modificado_por);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+			return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/timbrado/{numero}")
+	public ResponseEntity<Pagos> buscarPagoTimbradoPorNumero(@PathVariable int numero){
+		
+		Pagos pb = null;
+		try {
+			pb = s.buscarPagoTimbradoPorNumero(numero);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Pagos>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Pagos>(pb, HttpStatus.OK);
 	}
 }

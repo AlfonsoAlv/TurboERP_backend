@@ -65,7 +65,9 @@ public class DocumentoFacturaVarios {
 		private String observaciones;
 		private String moneda;
 		private String predial;
+		private int nota_cargo;
 		private int factura_varios_id_sust;
+		private BigDecimal iva_retenido;
 		
 		public Factura() {
 			super();
@@ -74,7 +76,7 @@ public class DocumentoFacturaVarios {
 
 		public Factura(int clientes_id, int formas_pago_id, int metodos_pago_id, int uso_cfdi_id,
 				int concepto_facturacion_contable_id, String condiciones_pago, String observaciones, String moneda,
-				String predial, int factura_varios_id_sust) {
+				String predial, int nota_cargo, int factura_varios_id_sust, BigDecimal iva_retenido) {
 			super();
 			this.clientes_id = clientes_id;
 			this.formas_pago_id = formas_pago_id;
@@ -85,8 +87,12 @@ public class DocumentoFacturaVarios {
 			this.observaciones = observaciones;
 			this.moneda = moneda;
 			this.predial = predial;
+			this.nota_cargo = nota_cargo;
 			this.factura_varios_id_sust = factura_varios_id_sust;
+			this.iva_retenido = iva_retenido;
 		}
+
+
 
 		public int getClientes_id() {
 			return clientes_id;
@@ -168,6 +174,24 @@ public class DocumentoFacturaVarios {
 			this.factura_varios_id_sust = factura_varios_id_sust;
 		}
 
+		public int getNota_cargo() {
+			return nota_cargo;
+		}
+
+		public void setNota_cargo(int nota_cargo) {
+			this.nota_cargo = nota_cargo;
+		}
+
+		public BigDecimal getIva_retenido() {
+			return iva_retenido;
+		}
+
+		public void setIva_retenido(BigDecimal iva_retenido) {
+			this.iva_retenido = iva_retenido;
+		}
+		
+		
+		
 	}
 	
 	public static class Partida {

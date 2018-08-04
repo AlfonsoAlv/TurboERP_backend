@@ -19,6 +19,8 @@ public class Pagos {
 	public int modificado_por;
 	public Date modificado;
 	public int depositos_recibidos_id;
+	public String estado;
+	public int datos_timbrado_id;
 	
 	public Pagos() {
 		super();
@@ -26,7 +28,8 @@ public class Pagos {
 
 	public Pagos(int id, int folio, Date fecha_pago, float importe, float tipo_cambio_cliente, Date fecha_baja,
 			int mes_baja, int anio_baja, String observaciones, int activo, int creado_por, Date creado,
-			int modificado_por, Date modificado, int depositos_recibidos_id) {
+			int modificado_por, Date modificado, int depositos_recibidos_id, String estado, int datos_timbrado_id) {
+		super();
 		this.id = id;
 		this.folio = folio;
 		this.fecha_pago = fecha_pago;
@@ -42,6 +45,8 @@ public class Pagos {
 		this.modificado_por = modificado_por;
 		this.modificado = modificado;
 		this.depositos_recibidos_id = depositos_recibidos_id;
+		this.estado = estado;
+		this.datos_timbrado_id = datos_timbrado_id;
 	}
 
 	public int getId() {
@@ -163,5 +168,23 @@ public class Pagos {
 	public void setDepositos_recibidos_id(int depositos_recibidos_id) {
 		this.depositos_recibidos_id = depositos_recibidos_id;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getDatos_timbrado_id() {
+		return datos_timbrado_id;
+	}
+
+	public void setDatos_timbrado_id(int datos_timbrado_id) {
+		this.datos_timbrado_id = datos_timbrado_id;
+	}
+	
+	
 
 }

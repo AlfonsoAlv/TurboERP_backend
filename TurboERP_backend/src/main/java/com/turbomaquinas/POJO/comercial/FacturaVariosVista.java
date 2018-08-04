@@ -47,12 +47,13 @@ public class FacturaVariosVista {
 	private String pais;
 	private int activo;
 	private int datos_timbrado_id;
+	private int nota_cargo;
 	
 	public FacturaVariosVista() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public FacturaVariosVista(int id, String tipo, int numero, Date fecha_factura, Date fecha_vencimiento,
 			BigDecimal subtotal, BigDecimal iva, BigDecimal total, BigDecimal importe_pagado, BigDecimal saldo,
 			String moneda, float tipo_cambio, String condiciones_pago, String observaciones, String predial,
@@ -61,7 +62,7 @@ public class FacturaVariosVista {
 			String cve_formap, String des_formap, String cve_metodop, String des_metodop, String cve_uso,
 			String des_uso, int numero_cliente, int numero_giro, String nombre, String direccion, String colonia,
 			String codigo_postal, String ciudad, int estado_id, String estado, int pais_id, String pais, int activo,
-			int datos_timbrado_id) {
+			int datos_timbrado_id, int nota_cargo) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -105,9 +106,8 @@ public class FacturaVariosVista {
 		this.pais = pais;
 		this.activo = activo;
 		this.datos_timbrado_id = datos_timbrado_id;
+		this.nota_cargo = nota_cargo;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -445,5 +445,32 @@ public class FacturaVariosVista {
 	public void setDatos_timbrado_id(int datos_timbrado_id) {
 		this.datos_timbrado_id = datos_timbrado_id;
 	}
-		
+
+	public int getNota_cargo() {
+		return nota_cargo;
+	}
+
+	public void setNota_cargo(int nota_cargo) {
+		this.nota_cargo = nota_cargo;
+	}
+
+	@Override
+	public String toString() {
+		return "FacturaVariosVista [id=" + id + ", tipo=" + tipo + ", numero=" + numero + ", fecha_factura="
+				+ fecha_factura + ", fecha_vencimiento=" + fecha_vencimiento + ", subtotal=" + subtotal + ", iva=" + iva
+				+ ", total=" + total + ", importe_pagado=" + importe_pagado + ", saldo=" + saldo + ", moneda=" + moneda
+				+ ", tipo_cambio=" + tipo_cambio + ", condiciones_pago=" + condiciones_pago + ", observaciones="
+				+ observaciones + ", predial=" + predial + ", estado_factura=" + estado_factura + ", desc_estado_fact="
+				+ desc_estado_fact + ", factura_varios_id_sust=" + factura_varios_id_sust + ", numero_sustitucion="
+				+ numero_sustitucion + ", tipo_sustitucion=" + tipo_sustitucion
+				+ ", des_conceptos_facturacion_contable=" + des_conceptos_facturacion_contable + ", clientes_id="
+				+ clientes_id + ", folio_fiscal=" + folio_fiscal + ", cve_formap=" + cve_formap + ", des_formap="
+				+ des_formap + ", cve_metodop=" + cve_metodop + ", des_metodop=" + des_metodop + ", cve_uso=" + cve_uso
+				+ ", des_uso=" + des_uso + ", numero_cliente=" + numero_cliente + ", numero_giro=" + numero_giro
+				+ ", nombre=" + nombre + ", direccion=" + direccion + ", colonia=" + colonia + ", codigo_postal="
+				+ codigo_postal + ", ciudad=" + ciudad + ", estado_id=" + estado_id + ", estado=" + estado
+				+ ", pais_id=" + pais_id + ", pais=" + pais + ", activo=" + activo + ", datos_timbrado_id="
+				+ datos_timbrado_id + ", nota_cargo=" + nota_cargo + "]";
+	}
+	
 }

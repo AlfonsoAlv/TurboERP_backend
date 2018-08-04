@@ -1,5 +1,6 @@
 package com.turbomaquinas.service.general;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.turbomaquinas.DAO.general.JDBCOrden.FoliosOrdenes;
@@ -56,4 +57,5 @@ public interface OrdenService {
 	public List<Integer> anioOrdenCliente(int id);
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id);
 	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
+	public BigDecimal importePagadoporFactura(int idOrden,int idFactura);
 }

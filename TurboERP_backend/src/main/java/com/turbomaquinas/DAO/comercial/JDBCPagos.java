@@ -3,6 +3,7 @@ package com.turbomaquinas.DAO.comercial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.turbomaquinas.POJO.comercial.Pagos;
+import com.turbomaquinas.POJO.comercial.PagosDetalle;
 import com.turbomaquinas.POJO.comercial.PagosFacturas;
 import com.turbomaquinas.POJO.comercial.PagosVista;
 
@@ -58,13 +60,13 @@ public class JDBCPagos implements PagosDAO {
 	}
 
 	@Override
-	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin) throws DataAccessException{
+	public List<Pagos> pagoRangoFecha(String fecha_pagoInicio, String fecha_pagoFin, String estado) throws DataAccessException{
 			
 		String sql = "select *"
 				+ " from PAGOS p"
-				+ " where fecha_pago between ? and ? and activo=1 ";
+				+ " where fecha_pago between ? and ? and activo=1 and estado=?";
 		
-		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin);			
+		List<Pagos> dv = jdbcTemplate.query(sql, new PagosRM(),fecha_pagoInicio,fecha_pagoFin,estado);			
 		
 		return dv;
 	}
@@ -101,5 +103,149 @@ public class JDBCPagos implements PagosDAO {
 		simpleJdbcCall.execute(in);
 		
 	}
+
+	@Override
+	public String obtenerJSONTimbrado(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_TIMBRADO_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonPago") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		String sql="UPDATE PAGOS SET numero = ULTIMO_NUM_PAGO() WHERE id = ?";
+		if(opcion==0){
+			sql="UPDATE FACTURA_VARIOS SET numero = NULL WHERE id = ?";
+		}
+		//System.out.println(opcion);
+		jdbcTemplate.update(sql,id);
+	}
+	
+  	@Override
+	public Integer obtenerUltimoIdPago() {
+		String sql = "select p.id id "
+				+ "from PAGOS p "
+				+ "where activo=1 and estado='I' "
+				+ "ORDER BY id DESC LIMIT 1";
+		
+		Integer id=jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		return id;
+	}
+
+	@Override
+	public List<Pagos> pendientesTimbrar() {
+		String sql="select * "
+				+ "from PAGOS p "
+				+ "where p.activo=1 and p.estado='I' ";
+		List<Pagos> ptes = jdbcTemplate.query(sql, new PagosRM());
+		return ptes;
+	}
+
+	@Override
+	public void actualizarEstado(int id, String estado) {
+		String sql="UPDATE PAGOS SET estado = ? WHERE id = ?";
+		jdbcTemplate.update(sql,estado,id);
+	}
+
+	@Override
+	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados) {
+		String sql="UPDATE PAGOS SET DATOS_TIMBRADO_id = ? WHERE id = ?";
+		jdbcTemplate.update(sql,idDatosTimbrados,id);
+	}
+
+	@Override
+	public List<PagosDetalle> detallesPago(int id) {
+		String sql="select * from PAGOS_DETALLE pd where pd.PAGOS_id=?";
+		List<PagosDetalle> dp = jdbcTemplate.query(sql,new PagosDetalleRM(), id);
+		return dp;
+	}
+
+	@Override
+	public String obtenerJSONCancelarPagos(int id, String modo, String justificacion) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_CANCELACION_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		inParamMap.put("p_justificacion",justificacion);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonCancelacion") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public String obtenerJSONBuscarPagos(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_PAGO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public void cancelar(int id, int modificado_por) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("CANCELAR_PAGO");
+		
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		
+		inParamMap.put("p_idPago", id);
+		inParamMap.put("p_modificado_por", modificado_por);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Pagos buscarPagoTimbradoNumero(int numero) throws DataAccessException{
+		String sql="SELECT * "
+				+ "FROM PAGOS p "
+				+ "where numero=? and activo=1 and estado='T' ";
+		Pagos pagoNumero = jdbcTemplate.queryForObject(sql, new PagosRM(),numero);
+		return pagoNumero;
+	}
+	
+	
 
 }

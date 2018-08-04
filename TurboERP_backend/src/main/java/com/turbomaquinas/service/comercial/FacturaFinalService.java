@@ -8,6 +8,8 @@ import com.turbomaquinas.POJO.comercial.FacturaFinal;
 import com.turbomaquinas.POJO.comercial.FacturaFinalVista;
 import com.turbomaquinas.POJO.general.OrdenFactura;
 
+import twitter4j.JSONException;
+
 public interface FacturaFinalService {
 
 	public FacturaFinal actualizar(FacturaFinal ff);
@@ -17,16 +19,19 @@ public interface FacturaFinalService {
 	public List<FacturaFinalVista> consultarFacturasPendientesPorCliente(int id,String moneda);
 	public List<OrdenFactura> consultarOrdenes(int id);
 	public FacturaFinalVista buscarFacturaFolio(String folio, String estado, String tipo);
-	public FacturaFinalVista creardoc(DocumentoFacturaFinal doc);
+	public List<Integer> creardoc(DocumentoFacturaFinal doc);
 	public List<ActividadesFFVista> consultarActividadesPorFactura(int id);
 	public List<FacturaFinalVista> consultarPorEstado(String estado);
 	public List<FacturaFinalVista> consultarPorIds(List<Integer> lista);
 	public void actualizarEstado(int id,String estado);
-	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo);
+	public void actualizarNumero(int id,int numero);
+	public FacturaFinalVista buscarUltimaFacturaPorTipoEstado(int extranjero,String estado);
 	public void actualizarIdAlfresco(int id, String alfresco_id);
 	public String obtenerJSONFacturaFinal(int idFactura,String modo);
 	public String obtenerJSONCancelarFacturaFinal(int idFactura,String modo,String justificacion);
+	public String obtenerJSONBuscarFacturaFinal(int idFactura,String modo);
 	public void cancelar(int id, int modificado_por);
-	public void baja(int id, int modificado_por);
-	public void timbrarDB(int id, String jsonAPI,int creado_por);
+	public void baja(List<Integer> id, int modificado_por);
+	public FacturaFinalVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException;
+	
 }

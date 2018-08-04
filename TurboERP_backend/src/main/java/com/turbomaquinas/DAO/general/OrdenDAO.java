@@ -46,5 +46,5 @@ public interface OrdenDAO {
 	public List<Integer> anioOrdenCliente(int idCliente);
 	public List<PagosConsultaOrdenes> PagosporOrden(int idOrden);
 	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
-	
+	public BigDecimal importePagadoporOrdenFactura(int idOrden,int idFactura);
 }

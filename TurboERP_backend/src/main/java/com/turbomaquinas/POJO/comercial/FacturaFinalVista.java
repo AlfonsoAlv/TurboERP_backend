@@ -45,6 +45,8 @@ public class FacturaFinalVista {
 	private String alfresco_id_timbrado_pdf;
 	private String alfresco_id_timbrado_xml;
 	private int datos_timbrado_id;
+	private int extranjero;
+	private int anticipo_relacionado;
 	
 	public FacturaFinalVista() {
 		super();
@@ -57,7 +59,8 @@ public class FacturaFinalVista {
 			String cve_uso, String des_uso, int numero_cliente, int numero_giro, String nombre, String direccion,
 			String colonia, String codigo_postal, String ciudad, String estado, String pais, int activo,
 			int clientes_id, ComprobantesRelacionados comprobantes_relacionados, String comentario, int creado_por,
-			String alfresco_id_previa, String alfresco_id_timbrado_pdf, String alfresco_id_timbrado_xml,int datos_timbrado_id) {
+			String alfresco_id_previa, String alfresco_id_timbrado_pdf, String alfresco_id_timbrado_xml,
+			int datos_timbrado_id, int extranjero, int anticipo_relacionado) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -99,9 +102,10 @@ public class FacturaFinalVista {
 		this.alfresco_id_previa = alfresco_id_previa;
 		this.alfresco_id_timbrado_pdf = alfresco_id_timbrado_pdf;
 		this.alfresco_id_timbrado_xml = alfresco_id_timbrado_xml;
-		this.datos_timbrado_id=datos_timbrado_id;
+		this.datos_timbrado_id = datos_timbrado_id;
+		this.extranjero = extranjero;
+		this.anticipo_relacionado = anticipo_relacionado;
 	}
-
 
 
 	public int getId() {
@@ -433,31 +437,61 @@ public class FacturaFinalVista {
 		this.datos_timbrado_id = datos_timbrado_id;
 	}
 
+	public int getExtranjero() {
+		return extranjero;
+	}
 
+	public void setExtranjero(int extranjero) {
+		this.extranjero = extranjero;
+	}
 
+	public int getAnticipo_relacionado() {
+		return anticipo_relacionado;
+	}
 
+	public void setAnticipo_relacionado(int anticipo_relacionado) {
+		this.anticipo_relacionado = anticipo_relacionado;
+	}
 
+	@Override
+	public String toString() {
+		return "FacturaFinalVista [id=" + id + ", tipo=" + tipo + ", numero=" + numero + ", fecha_factura="
+				+ fecha_factura + ", fecha_vencimiento=" + fecha_vencimiento + ", subtotal=" + subtotal + ", descuento="
+				+ descuento + ", iva=" + iva + ", iva_retenido=" + iva_retenido + ", total=" + total + ", moneda="
+				+ moneda + ", tipo_cambio=" + tipo_cambio + ", condiciones_pago=" + condiciones_pago + ", saldo="
+				+ saldo + ", folio_fiscal=" + folio_fiscal + ", estado_factura=" + estado_factura
+				+ ", desc_estado_fact=" + desc_estado_fact + ", cve_formap=" + cve_formap + ", des_formap=" + des_formap
+				+ ", cve_metodop=" + cve_metodop + ", des_metodop=" + des_metodop + ", cve_uso=" + cve_uso
+				+ ", des_uso=" + des_uso + ", numero_cliente=" + numero_cliente + ", numero_giro=" + numero_giro
+				+ ", nombre=" + nombre + ", direccion=" + direccion + ", colonia=" + colonia + ", codigo_postal="
+				+ codigo_postal + ", ciudad=" + ciudad + ", estado=" + estado + ", pais=" + pais + ", activo=" + activo
+				+ ", clientes_id=" + clientes_id + ", comprobantes_relacionados=" + comprobantes_relacionados
+				+ ", comentario=" + comentario + ", creado_por=" + creado_por + ", alfresco_id_previa="
+				+ alfresco_id_previa + ", alfresco_id_timbrado_pdf=" + alfresco_id_timbrado_pdf
+				+ ", alfresco_id_timbrado_xml=" + alfresco_id_timbrado_xml + ", datos_timbrado_id=" + datos_timbrado_id
+				+ ", extranjero=" + extranjero + ", anticipo_relacionado=" + anticipo_relacionado + "]";
+	}
 
 	public static class ComprobantesRelacionados{
-		private String tipo_relacion;
+		private String tipoRelacion;
 		private int comprobantes [];
 		
 		public ComprobantesRelacionados() {
 			super();
 		}
 
-		public ComprobantesRelacionados(String tipo_relacion, int[] comprobantes) {
+		public ComprobantesRelacionados(String tipoRelacion, int[] comprobantes) {
 			super();
-			this.tipo_relacion = tipo_relacion;
+			this.tipoRelacion = tipoRelacion;
 			this.comprobantes = comprobantes;
 		}
 
-		public String getTipo_relacion() {
-			return tipo_relacion;
+		public String getTipoRelacion() {
+			return tipoRelacion;
 		}
 
-		public void setTipo_relacion(String tipo_relacion) {
-			this.tipo_relacion = tipo_relacion;
+		public void setTipoRelacion(String tipoRelacion) {
+			this.tipoRelacion = tipoRelacion;
 		}
 
 		public int[] getComprobantes() {

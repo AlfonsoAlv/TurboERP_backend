@@ -1,5 +1,6 @@
 package com.turbomaquinas.DAO.comercial;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,6 +171,45 @@ public class JDBCFacturaVarios implements FacturaVariosDAO {
 		    }
 			return json;
 		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public String obtenerJSONBuscarFacturaVarios(int id, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_FACTURA_VARIOS");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idFactura", id);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+	
+	@Override
+	public void actualizarNumero(int id, int opcion) {
+		String sql="UPDATE FACTURA_VARIOS SET numero = ULTIMO_NUM_FACT_VARIOS(tipo) WHERE id = ?";
+		if(opcion==0){
+			sql="UPDATE FACTURA_VARIOS SET numero = NULL WHERE id = ?";
+		}
+		//System.out.println(opcion);
+		jdbcTemplate.update(sql,id);
+	}
+
+	@Override
+	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id) {
+		String sql="UPDATE FACTURA_VARIOS SET parcialidad = (parcialidad + 1),importe_timbrado=(importe_timbrado+?) WHERE id=?";
+		jdbcTemplate.update(sql,impTimbrado,id);
 	}
 	
 }

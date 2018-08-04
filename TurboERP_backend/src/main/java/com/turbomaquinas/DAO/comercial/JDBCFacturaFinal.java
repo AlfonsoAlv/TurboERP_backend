@@ -1,7 +1,9 @@
 package com.turbomaquinas.DAO.comercial;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,24 +143,35 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public int creardoc(String doc) throws DataAccessException {
+	public List<Integer> creardoc(String doc) throws DataAccessException {
+		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("CREAR_FACTURA_FINAL");
 
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
-		inParamMap.put("doc", doc);
+		inParamMap.put("arraydoc", doc);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	
+		//simpleJdbcCall.execute(in);
 		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		List<Integer> listaIdsFactura = new ArrayList<Integer>();
 		
 		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
 	        if (entry.getKey().compareTo("p_factura_final_id") == 0) {
-	            return (Integer) entry.getValue();
+	        	System.out.println((String)entry.getValue());
+	        	String[] idsFactura =((String)entry.getValue()).split(", |\\ |\\[|\\]");	        	
+	        	for(int i=0;i<idsFactura.length;i++){
+	        		if(!idsFactura[i].equals("")){
+	        			listaIdsFactura.add(Integer.parseInt(idsFactura[i].toString()));
+	        		}	
+	    		}
 	        }
-	    }		
-		return 0;
+	    }
+		return listaIdsFactura;
 	}
 
+
+	
 	@Override
 	public List<FacturaFinalVista> consultarFacturasPorIds(List<Integer> ids) {
 		String lista = null;
@@ -198,11 +211,11 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	}
 
 	@Override
-	public FacturaFinalVista buscarUltimaFacturaPorTipo(String tipo) {
+	public FacturaFinalVista buscarUltimaFacturaPorTipoEstado(int extranjero,String estado) {
 		String sql="SELECT * FROM FACTURA_FINAL_V "
-				+ "WHERE tipo = ? and estado_factura='I' "
+				+ "WHERE extranjero = ? AND estado_factura=? AND activo=1 "
 				+ "ORDER BY id DESC LIMIT 1";
-		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),tipo);
+		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),extranjero,estado);
 	}
 
 	@Override
@@ -256,18 +269,43 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 			return json;
 		}catch(Exception e){return null;}
 	}
+	
+	@Override
+	public String obtenerJSONBuscarFacturaFinal(int idFactura, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_FACTURA_FINAL");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idFactura", idFactura);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
 
 	@Override
-	public void baja(int id, int modificado_por) {
+	public void baja(String p_facturas_id, int modificado_por) {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("BAJA_FACTURA_FINAL");
 
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
-		inParamMap.put("p_factura_id", id);
+		inParamMap.put("p_facturas_id", p_facturas_id);
 		inParamMap.put("p_modificado_por", modificado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 	
-		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		//Map<String, Object> simpleJdbcCallResult = 
+		simpleJdbcCall.execute(in);
+		
 		/*
 		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
 			if (entry.getKey().compareTo("p_salida") == 0) {
@@ -275,5 +313,23 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 	        }
 	    }*/
 	}
+	
+	@Override
+	public void actualizarNumero(int id, int numero) {
+		String sql="UPDATE FACTURA_FINAL SET numero = ULTIMO_NUM_FACT_FINAL(tipo) WHERE id = ?";
+		if(numero==0){
+			sql="UPDATE FACTURA_FINAL SET numero = NULL WHERE id = ?";
+		}
+		
+		jdbcTemplate.update(sql,id);
+	}
+
+	@Override
+	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id) {
+		String sql="UPDATE FACTURA_FINAL SET parcialidad = (parcialidad + 1),importe_timbrado=(importe_timbrado+?) WHERE id=?";
+		jdbcTemplate.update(sql,impTimbrado,id);
+	}
+
+	
 
 }

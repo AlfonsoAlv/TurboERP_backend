@@ -14,6 +14,8 @@ public class PagosVistaRM implements RowMapper<PagosVista> {
 		PagosVista pv = new PagosVista();
 		pv.setId(rs.getInt("id"));
 		pv.setFolio(rs.getInt("folio"));
+		pv.setNumero(rs.getInt("numero"));
+		pv.setTipo(rs.getString("tipo"));
 		pv.setFecha_pago(rs.getDate("fecha_pago"));
 		pv.setImporte(rs.getFloat("importe"));
 		pv.setTipo_cambio_cliente(rs.getFloat("tipo_cambio_cliente"));
@@ -27,6 +29,8 @@ public class PagosVistaRM implements RowMapper<PagosVista> {
 		pv.setModificado(rs.getDate("modificado"));
 		pv.setDepositos_recibidos_id(rs.getInt("depositos_recibidos_id"));
 		pv.setComentarios(rs.getString("comentarios"));
+		pv.setEstado(rs.getString("estado"));
+		pv.setDatos_timbrado_id(rs.getInt("datos_timbrado_id"));
 		return pv;	
 		}
 

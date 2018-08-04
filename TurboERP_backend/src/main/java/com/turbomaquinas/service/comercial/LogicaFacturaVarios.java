@@ -18,6 +18,7 @@ import com.turbomaquinas.POJO.comercial.DocumentoFacturaVarios;
 import com.turbomaquinas.POJO.comercial.FacturaVarios;
 import com.turbomaquinas.POJO.comercial.FacturaVariosVista;
 
+import twitter4j.JSONException;
 import twitter4j.JSONObject;
 
 @Service
@@ -101,40 +102,60 @@ public class LogicaFacturaVarios implements FacturaVariosService {
 	public String obtenerJSONCancelarFacturaVarios(int idFactura, String modo,String justificacion) {
 		return repFV.obtenerJSONCancelarFacturaVarios(idFactura,modo,justificacion);
 	}
+	
+	@Override
+	public String obtenerJSONBuscarFacturaVarios(int id, String modo) {
+		return repFV.obtenerJSONBuscarFacturaVarios(id,modo);
+	}
 
 	@Override
-	public void timbrarDB(int id, String jsonAPI, int creado_por) {
-		try{
-			JSONObject jsonRespuesta = new JSONObject(jsonAPI);
-	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
-		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
-		    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
-		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
-		    	//Actualizar estado de la factura a Timbrado
-		    	repFV.actualizarEstado(id, "T");
-		    	//Actualizar el tipo_cambio de la Factura a cambio del dia que se genera en el JSON del PA
-		    	FacturaVariosVista factura=repFV.buscar(id);
-		    	float tipo_cambio=1;
-		    	if(!factura.getMoneda().equals("MXN")){
-		    		tipo_cambio=repoTC.buscarPorFecha(repoS.obtenerfecha()).getTipo_cambio();	
-		    	}
-		    	repFV.actualizarTipoCambio(id,tipo_cambio);
-		    	//Insertar registro en Datos Timbrados
-		    	DatosTimbrados dt=new DatosTimbrados();
-		    	dt.setFolio_fiscal((String) json_AckEnlaceFiscal.getString("folioFiscalUUID"));
-		    	dt.setFecha((String) json_AckEnlaceFiscal.getString("fechaTFD"));
-		    	dt.setSello_emisor((String) json_AckEnlaceFiscal.getString("selloCFDi"));
-		    	dt.setCadena_original((String) json_AckEnlaceFiscal.getString("cadenaTFD"));
-		    	dt.setSello_sat((String) json_AckEnlaceFiscal.getString("selloSAT"));
-		    	dt.setLeyenda("leyenda");
-		    	dt.setActivo(1);
-		    	dt.setCreado_por(creado_por);
-		    	int idDatosTimbrados=repoDT.crear(dt);
-		    	//Actualizar DATOS_TIMBRADO_id
-		    	repFV.actualizarIdDatosTimbrados(id, idDatosTimbrados);
-		    }
-		}catch(Exception e){}
+	@Transactional
+	public FacturaVariosVista timbrarDB(int id, String jsonAPI, int creado_por) throws JSONException {
+		JSONObject jsonRespuesta = new JSONObject(jsonAPI);
+	    String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+		JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+		String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+		if(estatusDocumento.equalsIgnoreCase("aceptado")){
+			FacturaVariosVista factura=repFV.buscar(id);
+		   	//Actualizar estado de la factura a Timbrado
+			if(factura.getEstado_factura().equalsIgnoreCase("I")){
+				repFV.actualizarEstado(id, "T");
+			}
+		   	//Actualizar el tipo_cambio de la Factura a cambio del dia que se genera en el JSON del PA
+			if(factura.getTipo_cambio()==0){
+				float tipo_cambio=1;
+			   	if(!factura.getMoneda().equals("MXN")){
+			   		tipo_cambio=repoTC.buscarPorFecha(repoS.obtenerfecha()).getTipo_cambio();	
+			  	}
+			   	repFV.actualizarTipoCambio(id,tipo_cambio);
+			}
+		   	
+		   	//Insertar registro en Datos Timbrados
+			if(factura.getDatos_timbrado_id()==0){
+				DatosTimbrados dt=new DatosTimbrados();
+			   	dt.setFolio_fiscal((String) json_AckEnlaceFiscal.getString("folioFiscalUUID"));
+			   	dt.setFecha((String) json_AckEnlaceFiscal.getString("fechaTFD"));
+			   	dt.setSello_emisor((String) json_AckEnlaceFiscal.getString("selloCFDi"));
+			   	dt.setCadena_original((String) json_AckEnlaceFiscal.getString("cadenaTFD"));
+			   	dt.setSello_sat((String) json_AckEnlaceFiscal.getString("selloSAT"));
+			   	dt.setLeyenda("leyenda");
+			   	dt.setActivo(1);
+			   	dt.setCreado_por(creado_por);
+			   	int idDatosTimbrados=repoDT.crear(dt);
+			    //Actualizar DATOS_TIMBRADO_id
+			    repFV.actualizarIdDatosTimbrados(id, idDatosTimbrados);
+			}
+			
+		}//Lili
+		return repFV.buscar(id);
 		
 	}
+	
+	@Override
+	public void actualizarNumero(int id,int opcion) {
+		repFV.actualizarNumero(id,opcion);
+	}
+
+	
 
 }

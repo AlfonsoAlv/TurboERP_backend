@@ -122,15 +122,15 @@ public class WSFacturaFinal {
 	}
 
 	@PostMapping
-	public ResponseEntity<FacturaFinalVista> creardoc(@RequestBody DocumentoFacturaFinal doc){
-		FacturaFinalVista factura = null;
+	public ResponseEntity<List<Integer>> creardoc(@RequestBody DocumentoFacturaFinal doc){
+		List<Integer> idsFactura=null;
 		try {
-			factura = s.creardoc(doc);
+			idsFactura=s.creardoc(doc);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<FacturaFinalVista>(HttpStatus.CONFLICT);
+			return new ResponseEntity<List<Integer>>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<FacturaFinalVista>(factura, HttpStatus.CREATED);
+		return new ResponseEntity<List<Integer>>(idsFactura,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}/actividades")
@@ -181,11 +181,11 @@ public class WSFacturaFinal {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/{tipo}/ultima")
-	public ResponseEntity<FacturaFinalVista> buscarUltimaFacturaPorTipo(@PathVariable String tipo){
+	@GetMapping("/{extranjero}/{estado}/ultima")
+	public ResponseEntity<FacturaFinalVista> buscarUltimaFacturaPorTipoEstado(@PathVariable int extranjero,@PathVariable String estado){
 		FacturaFinalVista factura = null;
 		try{
-			factura = s.buscarUltimaFacturaPorTipo(tipo);
+			factura = s.buscarUltimaFacturaPorTipoEstado(extranjero,estado);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<FacturaFinalVista>(HttpStatus.NOT_FOUND);
@@ -215,10 +215,10 @@ public class WSFacturaFinal {
 			return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
-	@DeleteMapping("{id}/baja")
-	public ResponseEntity<Void> baja(@PathVariable int id, @RequestParam int modificado_por){
+	@DeleteMapping("/baja")
+	public ResponseEntity<Void> baja(@RequestBody List<Integer> ids, @RequestParam int modificado_por){
 		try{
-			s.baja(id, modificado_por);
+			s.baja(ids, modificado_por);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -227,14 +227,14 @@ public class WSFacturaFinal {
 	}
 	
 	@PutMapping("{id}/timbrado")
-	public ResponseEntity<Void> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+	public ResponseEntity<FacturaFinalVista> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+		FacturaFinalVista factura=null;
 		try {
-			s.timbrarDB(id,jsonAPI,creado_por);
+			factura=s.timbrarDB(id,jsonAPI,creado_por);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<FacturaFinalVista>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
+		return new ResponseEntity<FacturaFinalVista>(factura,HttpStatus.OK);
+	}	
 }
