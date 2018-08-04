@@ -231,7 +231,7 @@ public class JDBCPagos implements PagosDAO {
 		
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
 		
-		inParamMap.put("id", id);
+		inParamMap.put("p_idPago", id);
 		inParamMap.put("p_modificado_por", modificado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
