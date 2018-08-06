@@ -20,7 +20,11 @@ public class InsatisfaccionClienteVista {
 	private String cliente_nombre_fiscal;
 	private String ubicacion;
 	private int personal_id;
-
+	private int numero_cliente;
+	private int numero_giro;
+	private String nombre_personal;
+	private int clientes_id;
+	
 	public InsatisfaccionClienteVista() {
 
 	}
@@ -184,6 +188,38 @@ public class InsatisfaccionClienteVista {
 				+ grado_insatisfaccion + ", ordenes_id=" + ordenes_id + ", numero_orden=" + numero_orden
 				+ ", descripcion_orden=" + descripcion_orden + ", cliente_nombre_comercial=" + cliente_nombre_comercial
 				+ ", cliente_nombre_fiscal=" + cliente_nombre_fiscal + ", personal_id=" + personal_id + "]";
+	}
+	
+	public int getNumero_cliente() {
+		return numero_cliente;
+	}
+
+	public void setNumero_cliente(int numero_cliente) {
+		this.numero_cliente = numero_cliente;
+	}
+
+	public int getNumero_giro() {
+		return numero_giro;
+	}
+
+	public void setNumero_giro(int numero_giro) {
+		this.numero_giro = numero_giro;
+	}
+
+	public String getNombre_personal() {
+		return nombre_personal;
+	}
+
+	public void setNombre_personal(String nombre_personal) {
+		this.nombre_personal = nombre_personal;
+	}
+
+	public int getClientes_id() {
+		return clientes_id;
+	}
+
+	public void setClientes_id(int clientes_id) {
+		this.clientes_id = clientes_id;
 	}
 
 }

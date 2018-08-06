@@ -82,9 +82,13 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
 				"`ubicacion`, " +
+				"ORDENES.`CLIENTES_id` AS clientes_id, " +
+				" (SELECT CLIENTES.`numero` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_cliente', " + 
+				" (SELECT (SELECT GIROS.`numero` FROM GIROS WHERE `GIROS`.`id` = CLIENTES.`GIROS_id`) FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_giro', " + 
 				" (SELECT CLIENTES.`nombre_comercial` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_comercial', " + 
 				" (SELECT CLIENTES.`nombre_fiscal` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_fiscal', " + 
 				" (SELECT CLIENTES.`PERSONAL_id` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS atc_default_id, " +
+				" (SELECT CONCAT(PERSONAL.`nombre`, ' ', PERSONAL.`paterno`, ' ' , PERSONAL.`materno`) FROM PERSONAL WHERE `PERSONAL`.`id` = `PERSONAL_id`) AS nombre_personal, " +
 				" `PERSONAL_id` " +
 				"FROM INSATISFACCIONES_CLIENTES " +
 				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
@@ -106,19 +110,82 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
-				"`ubicacion`, " +
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
+				"`ubicacion`, " +
+				"ORDENES.`CLIENTES_id` AS clientes_id, " +
+				" (SELECT CLIENTES.`numero` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_cliente', " + 
+				" (SELECT (SELECT GIROS.`numero` FROM GIROS WHERE `GIROS`.`id` = CLIENTES.`GIROS_id`) FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_giro', " + 
 				" (SELECT CLIENTES.`nombre_comercial` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_comercial', " + 
 				" (SELECT CLIENTES.`nombre_fiscal` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_fiscal', " + 
 				" (SELECT CLIENTES.`PERSONAL_id` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS atc_default_id, " +
+				" (SELECT CONCAT(PERSONAL.`nombre`, ' ', PERSONAL.`paterno`, ' ' , PERSONAL.`materno`) FROM PERSONAL WHERE `PERSONAL`.`id` = `PERSONAL_id`) AS nombre_personal, " +
 				" `PERSONAL_id` " +
 				"FROM INSATISFACCIONES_CLIENTES " +
 				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
 				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` ", 
 				new InsatisfaccionClienteVistaRM());
 
+	}
+
+	@Override
+	public InsatisfaccionClienteVista buscarPorFolio(int folio) {
+		return jdbcTemplate.queryForObject(
+				"SELECT 	`INSATISFACCIONES_CLIENTES`.`id` AS insatisfaccion_id, " +
+				"`folio`, " +
+				"`fecha_insatisfaccion`, " + 
+				"`fecha_operacion`, " +
+				"`equipo`, " +
+				"`descripcion_insatisfaccion`, " + 
+				"`tipo_insatisfaccion`, " + 
+				"`descripcion_otro`, " + 
+				"`grado_insatisfaccion`, " +
+				"`ORDENES`.`id` AS ORDENES_id, " + 
+				" ORDENES.`numero_orden`, " +
+				" ORDENES.`descripcion` AS descripcion_orden, " +
+				"`ubicacion`, " +
+				"ORDENES.`CLIENTES_id` AS clientes_id, " +
+				" (SELECT CLIENTES.`numero` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_cliente', " + 
+				" (SELECT (SELECT GIROS.`numero` FROM GIROS WHERE `GIROS`.`id` = CLIENTES.`GIROS_id`) FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_giro', " + 
+				" (SELECT CLIENTES.`nombre_comercial` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_comercial', " + 
+				" (SELECT CLIENTES.`nombre_fiscal` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_fiscal', " + 
+				" (SELECT CLIENTES.`PERSONAL_id` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS atc_default_id, " +
+				" (SELECT CONCAT(PERSONAL.`nombre`, ' ', PERSONAL.`paterno`, ' ' , PERSONAL.`materno`) FROM PERSONAL WHERE `PERSONAL`.`id` = `PERSONAL_id`) AS nombre_personal, " +
+				" `PERSONAL_id` " +
+				"FROM INSATISFACCIONES_CLIENTES " +
+				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
+				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` " + 
+				"WHERE INSATISFACCIONES_CLIENTES.folio = ?", 
+				new InsatisfaccionClienteVistaRM(), folio);
+	}
+
+	@Override
+	public void actualizarInsatisfaccionCliente(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
+		
+		jdbcTemplate.update(""
+				+ "UPDATE INSATISFACCIONES_CLIENTES "
+				+ "SET ubicacion = ?, "
+				+ "fecha_operacion = ?, "
+				+ "equipo = ?, "
+				+ "descripcion_insatisfaccion = ?, "
+				+ "tipo_insatisfaccion = ?, "
+				+ "descripcion_otro = ?, "
+				+ "grado_insatisfaccion = ?, "
+				+ "modificado_por = ?, "
+				+ "PERSONAL_id = ? "
+				+ "WHERE INSATISFACCIONES_CLIENTES.id = ?",
+				insatisfaccion.getUbicacion(),
+				insatisfaccion.getFecha_operacion(),
+				insatisfaccion.getEquipo(),
+				insatisfaccion.getDescripcion_insatisfaccion(),
+				insatisfaccion.getTipo_insatisfaccion(),
+				insatisfaccion.getDescripcion_otro(),
+				insatisfaccion.getGrado_insatisfaccion(),
+				insatisfaccion.getModificado_por(),
+				insatisfaccion.getPersonal_id(),
+				insatisfaccion.getId());
+		
 	}
 
 }

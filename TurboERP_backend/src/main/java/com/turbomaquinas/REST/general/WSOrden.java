@@ -396,6 +396,8 @@ public class WSOrden {
 			return new ResponseEntity<List<NotasCreditoPorOrden>>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<NotasCreditoPorOrden>>(ncpo, HttpStatus.OK);
+		
+	}
 
 	@GetMapping("/{idO}/factura/{idF}/importepagado")
 	public ResponseEntity<BigDecimal> importePagadoporFactura(@PathVariable int idO,@PathVariable int idF){
