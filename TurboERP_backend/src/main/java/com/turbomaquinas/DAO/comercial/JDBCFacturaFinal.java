@@ -3,7 +3,6 @@ package com.turbomaquinas.DAO.comercial;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -330,6 +329,23 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		jdbcTemplate.update(sql,impTimbrado,id);
 	}
 
-	
+	@Override
+	public void cancelar(String p_facturas_id, int modificado_por) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("CANCELAR_FACTURA_FINAL");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_facturas_id", p_facturas_id);
+		inParamMap.put("p_modificado_por", modificado_por);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public FacturaFinalVista buscarFacturaPorFolioEstado(String folio, String estado) {
+		String sql="SELECT * FROM FACTURA_FINAL_V "
+				+ "WHERE CONCAT(numero,tipo)=? AND estado_factura=?";
+		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),folio,estado);
+	}
 
 }

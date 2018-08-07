@@ -236,5 +236,17 @@ public class WSFacturaFinal {
 			return new ResponseEntity<FacturaFinalVista>(HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<FacturaFinalVista>(factura,HttpStatus.OK);
-	}	
+	}
+	
+	@GetMapping("/folio/{folio}/estado/{estado}")
+	public ResponseEntity<FacturaFinalVista> buscarFacturaPorFolioEstado(@PathVariable String folio,@PathVariable String estado){
+		FacturaFinalVista factura = null;
+		try{
+			factura = s.buscarFacturaPorFolioEstado(folio,estado);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<FacturaFinalVista>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<FacturaFinalVista>(factura, HttpStatus.OK);		
+	}
 }

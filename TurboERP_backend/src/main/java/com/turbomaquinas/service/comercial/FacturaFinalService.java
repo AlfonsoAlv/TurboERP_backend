@@ -33,5 +33,6 @@ public interface FacturaFinalService {
 	public void cancelar(int id, int modificado_por);
 	public void baja(List<Integer> id, int modificado_por);
 	public FacturaFinalVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException;
+	public FacturaFinalVista buscarFacturaPorFolioEstado(String folio, String estado);
 	
 }

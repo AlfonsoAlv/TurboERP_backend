@@ -29,5 +29,6 @@ public interface FacturaFinalDAO {
 	public void baja(String p_facturas_id, int modificado_por);
 	public void actualizarNumero(int id,int numero);
 	public void actualizarParcialidadImporteTimbrado(BigDecimal impTimbrado,int id);
-	
+	public void cancelar(String p_facturas_id, int modificado_por);
+	public FacturaFinalVista buscarFacturaPorFolioEstado(String folio, String estado);
 }
