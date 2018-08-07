@@ -4,6 +4,7 @@ package com.turbomaquinas.service.calidad;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.turbomaquinas.DAO.calidad.InsatisfaccionClienteDAO;
@@ -36,6 +37,16 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 
 		return insatisfaccionClienteDAO.consultar();
 
+	}
+
+	@Override
+	public InsatisfaccionClienteVista buscarPorFolio(int folio) {
+		return insatisfaccionClienteDAO.buscarPorFolio(folio);
+	}
+
+	@Override
+	public void actualizarInsatisfaccionCliente(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
+		insatisfaccionClienteDAO.actualizarInsatisfaccionCliente(insatisfaccion);
 	}
 	
 }

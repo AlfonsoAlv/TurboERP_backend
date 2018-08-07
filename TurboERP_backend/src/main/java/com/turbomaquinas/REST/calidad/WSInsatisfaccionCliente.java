@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,6 +75,30 @@ public class WSInsatisfaccionCliente {
 		return new ResponseEntity<InsatisfaccionClienteVista>(insatisfaccionCliente, HttpStatus.OK);
 
 	}
+	
+	@GetMapping("/folio/{folio}")
+	public ResponseEntity<InsatisfaccionClienteVista> buscarPorFolio(@PathVariable int folio) {
+
+		InsatisfaccionClienteVista insatisfaccionCliente;
+
+		try {
+			
+			insatisfaccionCliente = ics.buscarPorFolio(folio);
+			
+			if (insatisfaccionCliente == null) {
+				return new ResponseEntity<InsatisfaccionClienteVista>(HttpStatus.NOT_FOUND);
+			}
+
+		} catch (Exception e) {
+			
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<InsatisfaccionClienteVista>(HttpStatus.CONFLICT);
+		
+		}
+
+		return new ResponseEntity<InsatisfaccionClienteVista>(insatisfaccionCliente, HttpStatus.OK);
+
+	}
 
 	@PostMapping
 	public ResponseEntity<InsatisfaccionClienteVista> crear(@RequestBody InsatisfaccionCliente insatisfaccion) {
@@ -95,6 +120,21 @@ public class WSInsatisfaccionCliente {
 
 		return new ResponseEntity<InsatisfaccionClienteVista>(insatisfaccionCliente, HttpStatus.OK);
 
+	}
+	
+	@PutMapping
+	public ResponseEntity<Void> actualizarInsatisfaccionCliente (@RequestBody InsatisfaccionCliente insatisfaccion) {
+		
+		bitacora.info(insatisfaccion);
+		
+		try {
+			ics.actualizarInsatisfaccionCliente(insatisfaccion);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
 	}
 	
 }

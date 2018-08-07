@@ -16,6 +16,7 @@ public class InsatisfaccionClienteVistaRM implements RowMapper<InsatisfaccionCli
 		
 		insatisfaccion.setCliente_nombre_comercial(rs.getString("cliente_nombre_comercial"));
 		insatisfaccion.setCliente_nombre_fiscal(rs.getString("cliente_nombre_fiscal"));
+		
 		insatisfaccion.setDescripcion_insatisfaccion(rs.getString("descripcion_insatisfaccion"));
 		insatisfaccion.setDescripcion_orden(rs.getString("descripcion_orden"));
 		insatisfaccion.setDescripcion_otro(rs.getString("descripcion_otro"));
@@ -30,6 +31,10 @@ public class InsatisfaccionClienteVistaRM implements RowMapper<InsatisfaccionCli
 		insatisfaccion.setPersonal_id(rs.getInt("PERSONAL_id"));
 		insatisfaccion.setTipo_insatisfaccion(rs.getString("tipo_insatisfaccion"));
 		insatisfaccion.setUbicacion(rs.getString("ubicacion"));
+		insatisfaccion.setNumero_cliente(rs.getInt("numero_cliente"));
+		insatisfaccion.setNumero_giro(rs.getInt("numero_giro"));
+		insatisfaccion.setNombre_personal(rs.getString("nombre_personal"));
+		insatisfaccion.setClientes_id(rs.getInt("clientes_id"));
 		
 		return insatisfaccion;
 	}

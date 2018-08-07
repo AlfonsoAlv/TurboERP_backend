@@ -193,7 +193,8 @@ public class InsatisfaccionCliente {
 				+ descripcion_insatisfaccion + ", tipo_insatisfaccion=" + tipo_insatisfaccion + ", descripcion_otro="
 				+ descripcion_otro + ", grado_insatisfaccion=" + grado_insatisfaccion + ", activo=" + activo
 				+ ", creado_por=" + creado_por + ", creado=" + creado + ", modificado_por=" + modificado_por
-				+ ", modificado=" + modificado + ", ordenes_id=" + ordenes_id + ", personal_id=" + personal_id + "]";
+				+ ", modificado=" + modificado + ", ubicacion=" + ubicacion + ", ordenes_id=" + ordenes_id
+				+ ", personal_id=" + personal_id + "]";
 	}
 
 }
