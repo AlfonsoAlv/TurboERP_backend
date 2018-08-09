@@ -54,10 +54,9 @@ public class LogicaNotaCredito implements NotaCreditoService {
 		repNc.actualizarNumero(id,opcion);
 	}
 
-	
-
-	
-
-	
+	@Override
+	public NotaCreditoVista buscarPorNumero(int numero) {
+		return repNc.buscarPorNumero(numero);
+	}
 
 }
