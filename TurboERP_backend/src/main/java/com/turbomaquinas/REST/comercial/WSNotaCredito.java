@@ -49,11 +49,35 @@ public class WSNotaCredito {
 		NotaCreditoVista nc = null;
 		try {
 			nc = s.buscar(id);
+			
+			if (nc == null) {
+				return new ResponseEntity<NotaCreditoVista> (HttpStatus.NO_CONTENT);
+			}
+			
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<NotaCreditoVista> (HttpStatus.NOT_FOUND);
+			return new ResponseEntity<NotaCreditoVista> (HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<NotaCreditoVista> (nc, HttpStatus.OK);
+	}
+	
+	@GetMapping("/numero/{numero}")
+	public ResponseEntity<NotaCreditoVista> buscarPorNumero(@PathVariable int numero) {
+		
+		NotaCreditoVista nc = null;
+		try {
+			nc = s.buscarPorNumero(numero);
+			
+			if (nc == null) {
+				return new ResponseEntity<NotaCreditoVista> (HttpStatus.NO_CONTENT);
+			}
+			
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<NotaCreditoVista> (HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<NotaCreditoVista> (nc, HttpStatus.OK);
+		
 	}
 
 	@GetMapping

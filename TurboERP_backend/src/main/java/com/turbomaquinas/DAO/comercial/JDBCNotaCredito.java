@@ -111,6 +111,13 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 		jdbcTemplate.update(sql,id);
 	}
 
+	@Override
+	public NotaCreditoVista buscarPorNumero(int numero) {
+		NotaCreditoVista nc = jdbcTemplate.queryForObject("SELECT * FROM NOTAS_CREDITO_V WHERE numero = ?", 
+				new NotaCreditoVistaRM(), numero);
+		return nc;
+	}
+
 	
 
 	

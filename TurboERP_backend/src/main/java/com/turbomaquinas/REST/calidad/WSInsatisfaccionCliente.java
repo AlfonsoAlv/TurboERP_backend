@@ -21,7 +21,7 @@ import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.service.calidad.InsatisfaccionClienteService;
 
 @RestController
-@RequestMapping("calidad/insatisfaccion-cliente")
+@RequestMapping("calidad/insatisfaccion")
 public class WSInsatisfaccionCliente {
 
 	private static final Log bitacora = LogFactory.getLog(WSInsatisfaccionCliente.class);
