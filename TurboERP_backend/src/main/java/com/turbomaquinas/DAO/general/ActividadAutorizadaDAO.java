@@ -15,7 +15,8 @@ public interface ActividadAutorizadaDAO {
 	public List<ActividadAutorizadaVista> consultar();
 	public List<ActividadAutorizadaVista> consultarPorAutorizacion(int id);
 	public List<ActividadAutorizadaVista> consultarPorCotizacion(int id);
-	public void regularizarPedidoPrepedido(int ordenId,int pedidosid, int prepedidosid, int modificadopor, String fecharegularizacion, int id);
+	//public void regularizarPedidoPrepedido(int ordenId,int pedidosid, int prepedidosid, int modificadopor, String fecharegularizacion, int id);
+	public void regularizarPedidoPrepedido(String jsonRegularizar);
 	public List<ActividadAutorizadaVista> consultarPorOrdenFiltradaPorClase(int id, String clase);
 	public List<ActividadAutorizadaVista> consultarPorOrden(int id);
 	public void actualizarSolicitudBaja(int idSolicitud, List<Integer> actividadesIds);

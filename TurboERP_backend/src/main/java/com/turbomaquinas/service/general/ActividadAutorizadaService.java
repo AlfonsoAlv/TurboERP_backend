@@ -18,6 +18,7 @@ public interface ActividadAutorizadaService {
 	public List<ActividadAutorizadaVista> consultar();
 	public List<ActividadAutorizadaVista> consultarPorAutorizacion(int id);
 	public List<ActividadAutorizadaVista> consultarPorCotizacion(int id);
+	//public void actualizarPedidoPrepedido(DocumentoAAPedidoPrepedido doc);
 	public void actualizarPedidoPrepedido(DocumentoAAPedidoPrepedido doc);
 	public List<ActividadAutorizadaVista> consultarPorOrdenFiltradaPorClase(int id, String clase);
 	public List<ActividadAutorizadaVista> consultarPorOrden(int id);

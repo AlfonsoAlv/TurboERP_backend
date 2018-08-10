@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -158,6 +161,7 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 		return apc;
 	}
 	
+	/*
 	@Override
 	public void regularizarPedidoPrepedido(int ordenId, int pedidosid, int prepedidosid, int modificadopor, String fecharegularizacion, int id) throws DataAccessException{
 		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET PEDIDOS_id=?, PRE_PEDIDOS_id=?, modificado_por=?, fecha_regularizacion=? WHERE id=?", 
@@ -165,6 +169,18 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 		
 		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET numero_referencia = ULTIMA_REF_OT(?) + 1 WHERE id=? AND numero_referencia=0", 
 				ordenId,id);
+	}*/
+	
+	@Override
+	public void regularizarPedidoPrepedido(String jsonRegularizar) throws DataAccessException{
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("REGULARIZAR_ACTIVIDADES_AUTORIZADAS");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_jsonActividades", jsonRegularizar);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
 	}
 
 	@Override

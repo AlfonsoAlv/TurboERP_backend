@@ -19,8 +19,17 @@ public class DocumentoAAPedidoPrepedido {
 		this.actividades = actividades;
 	}
 	
-	@Override
+	/*@Override
 	public String toString() {
 		return "DocumentoAAPedidoPrepedido [modificado_por=" + modificado_por + ", actividades=" + actividades + "]";
-	}
+	}*/
+	@Override
+	public String toString() {
+		try {
+	        return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+	    } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+   }
 }
