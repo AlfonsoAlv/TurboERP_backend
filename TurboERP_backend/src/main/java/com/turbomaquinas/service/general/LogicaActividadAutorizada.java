@@ -14,7 +14,6 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
 import com.turbomaquinas.POJO.general.DocumentoAAPedidoPrepedido;
-import com.turbomaquinas.POJO.general.PedidoPrepedidoAA;
 
 @Service
 public class LogicaActividadAutorizada implements ActividadAutorizadaService{
@@ -50,7 +49,8 @@ public class LogicaActividadAutorizada implements ActividadAutorizadaService{
 		return repositorio.consultarPorCotizacion(id);
 	}
 	
-	@Override
+	
+	/*@Override
 	public void actualizarPedidoPrepedido(DocumentoAAPedidoPrepedido doc) throws DataAccessException {
 		int ordenId = repositorio.buscarOrdenPorAA(doc.getActividades().get(0).getId_actividad_autorizada());
 		for (PedidoPrepedidoAA aa : doc.getActividades()) {
@@ -58,6 +58,10 @@ public class LogicaActividadAutorizada implements ActividadAutorizadaService{
 			repositorio.regularizarPedidoPrepedido(ordenId, aa.getId_pedido(), aa.getId_prepedido(), 
 					doc.getModificado_por(), fechaRegulariza, aa.getId_actividad_autorizada());
 			}
+	}*/
+	
+	public void actualizarPedidoPrepedido(DocumentoAAPedidoPrepedido doc) throws DataAccessException {
+		repositorio.regularizarPedidoPrepedido(doc.toString());
 	}
 
 	@Override

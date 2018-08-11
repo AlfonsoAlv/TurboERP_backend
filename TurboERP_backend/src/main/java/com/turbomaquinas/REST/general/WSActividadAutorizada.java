@@ -109,7 +109,7 @@ public class WSActividadAutorizada {
 	
 	@PutMapping("/pedido")
 	public ResponseEntity<Void> regularizarPedidoPrepedido(@RequestBody DocumentoAAPedidoPrepedido doc){
-		bitacora.info(doc);
+		//bitacora.info(doc);
 		try{
 			s.actualizarPedidoPrepedido(doc);
 			return new ResponseEntity<Void>(HttpStatus.OK);
