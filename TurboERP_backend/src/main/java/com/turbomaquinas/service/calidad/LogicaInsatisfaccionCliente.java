@@ -10,43 +10,43 @@ import org.springframework.stereotype.Service;
 import com.turbomaquinas.DAO.calidad.InsatisfaccionClienteDAO;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
 
 @Service
 public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService{
 
 	@Autowired
-	InsatisfaccionClienteDAO insatisfaccionClienteDAO;
+	InsatisfaccionClienteDAO repoInsatisfaccion;
 
 	@Override
-	public InsatisfaccionClienteVista crear(InsatisfaccionCliente insatisfaccion) {
-		
-		int id = insatisfaccionClienteDAO.crear(insatisfaccion);
-		
-		return insatisfaccionClienteDAO.buscar(id);
+	public InsatisfaccionClienteVista crear(InsatisfaccionCliente insatisfaccion) {		
+		int id = repoInsatisfaccion.crear(insatisfaccion);
+		return repoInsatisfaccion.buscar(id);
 	}
 
 	@Override
 	public InsatisfaccionClienteVista buscar(int id) {
-
-		return insatisfaccionClienteDAO.buscar(id);
-		
+		return repoInsatisfaccion.buscar(id);
 	}
 
 	@Override
 	public List<InsatisfaccionClienteVista> consultar() {
-
-		return insatisfaccionClienteDAO.consultar();
-
+		return repoInsatisfaccion.consultar();
 	}
 
 	@Override
 	public InsatisfaccionClienteVista buscarPorFolio(int folio) {
-		return insatisfaccionClienteDAO.buscarPorFolio(folio);
+		return repoInsatisfaccion.buscarPorFolio(folio);
 	}
 
 	@Override
 	public void actualizarInsatisfaccionCliente(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
-		insatisfaccionClienteDAO.actualizarInsatisfaccionCliente(insatisfaccion);
+		repoInsatisfaccion.actualizar(insatisfaccion);
+	}
+
+	@Override
+	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
+		repoInsatisfaccion.crearSeguimiento(seguimiento);	
 	}
 	
 }

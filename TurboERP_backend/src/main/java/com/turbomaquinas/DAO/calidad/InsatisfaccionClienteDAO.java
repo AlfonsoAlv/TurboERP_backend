@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
 
 public interface InsatisfaccionClienteDAO {
 	
@@ -11,6 +12,6 @@ public interface InsatisfaccionClienteDAO {
 	public InsatisfaccionClienteVista buscar(int id);
 	public InsatisfaccionClienteVista buscarPorFolio(int folio);
 	public List<InsatisfaccionClienteVista> consultar();
-	public void actualizarInsatisfaccionCliente(InsatisfaccionCliente insatisfaccion);
-	
+	public void actualizar(InsatisfaccionCliente insatisfaccion);
+	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento);
 }

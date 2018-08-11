@@ -14,29 +14,29 @@ import com.turbomaquinas.POJO.diagnostico.RemisionesEmbarqueVista;
 public class LogicaRemisionEmbarque implements RemisionEmbarqueService{
 	
 	@Autowired
-	RemisionEmbarqueDAO resRemision;
+	RemisionEmbarqueDAO repoRemision;
 
 	@Override
 	public void aplicarRemisionEmbarque(DocumentoRemisionEmbarque doc) throws DataAccessException{
 		
-		resRemision.RemisionEmbarque(doc.toString());
+		repoRemision.RemisionEmbarque(doc.toString());
 		
 	}
 
 	@Override
 	public RemisionesEmbarqueVista buscar(int id) {
-		return resRemision.buscar(id);
+		return repoRemision.buscar(id);
 	}
 
 	@Override
 	public List<RemisionesEmbarqueVista> consultarREPorOrden(int idOrden) {
-		return resRemision.buscarRemisionOrden(idOrden);
+		return repoRemision.buscarRemisionOrden(idOrden);
 	}
 
 	@Override
 	public List<RemisionesEmbarqueVista> remisionEmbarqueFecha(String fechainicio, String fechafin) {
 		
-		return resRemision.remisionEmbarqueRangoFecha(fechainicio, fechafin);
+		return repoRemision.remisionEmbarqueRangoFecha(fechainicio, fechafin);
 	}
 
 }
