@@ -14,4 +14,5 @@ public interface InsatisfaccionClienteService {
 	public List<InsatisfaccionClienteVista> consultar();
 	public void actualizarInsatisfaccionCliente (InsatisfaccionCliente insatisfaccion);
 	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento);
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id);
 }

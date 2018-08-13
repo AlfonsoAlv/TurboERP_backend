@@ -14,4 +14,5 @@ public interface InsatisfaccionClienteDAO {
 	public List<InsatisfaccionClienteVista> consultar();
 	public void actualizar(InsatisfaccionCliente insatisfaccion);
 	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento);
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id);
 }

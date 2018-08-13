@@ -48,5 +48,10 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
 		repoInsatisfaccion.crearSeguimiento(seguimiento);	
 	}
+
+	@Override
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
+		return repoInsatisfaccion.consultarSeguimientos(id);
+	}
 	
 }

@@ -220,4 +220,10 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		insert.execute(datos);
 	}
 
+	@Override
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
+		String sql = "SELECT * FROM SEGUIMIENTO_INSATISFACCION WHERE INSATISFACCIONES_CLIENTES_id = ?";
+		return jdbcTemplate.query(sql, new SeguimientoInsatisfaccionRM(), id);
+	}
+
 }

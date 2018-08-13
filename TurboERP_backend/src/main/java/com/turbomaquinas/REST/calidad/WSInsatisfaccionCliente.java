@@ -113,4 +113,19 @@ public class WSInsatisfaccionCliente {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@GetMapping("/{id}/seguimientos")
+	public ResponseEntity<List<SeguimientoInsatisfaccion>> consultarSeguimientos(@PathVariable int id) {
+		List<SeguimientoInsatisfaccion> lista = new ArrayList<>();
+		try {
+			lista = ics.consultarSeguimientos(id);
+			if (lista.isEmpty()) {
+				return new ResponseEntity<List<SeguimientoInsatisfaccion>>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<SeguimientoInsatisfaccion>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<SeguimientoInsatisfaccion>>(lista, HttpStatus.OK);
+	}
+	
 }
