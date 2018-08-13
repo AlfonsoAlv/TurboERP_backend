@@ -10,9 +10,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
 
 @Repository
 public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
@@ -161,7 +161,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void actualizarInsatisfaccionCliente(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
+	public void actualizar(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
 		
 		jdbcTemplate.update(""
 				+ "UPDATE INSATISFACCIONES_CLIENTES "
@@ -186,6 +186,38 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				insatisfaccion.getPersonal_id(),
 				insatisfaccion.getId());
 		
+	}
+
+	@Override
+	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
+		SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
+		List<String> columnas = new ArrayList<>();
+		columnas.add("fecha");
+		columnas.add("descripcion");
+		columnas.add("tipo");
+		columnas.add("trabajo_realizar");
+		columnas.add("creado_por");
+		columnas.add("creado");
+		columnas.add("modificado_por");
+		columnas.add("modificado");
+		columnas.add("INSATISFACCIONES_CLIENTES_id");
+		
+		insert.setTableName("SEGUIMIENTO_INSATISFACCION");
+		insert.setColumnNames(columnas);
+		
+		Map<String, Object> datos = new HashMap<>();
+		
+		datos.put("fecha", seguimiento.getFecha());
+		datos.put("descripcion", seguimiento.getDescripcion());
+		datos.put("tipo", seguimiento.getTipo());
+		datos.put("trabajo_realizar", seguimiento.getTrabajo_realizar());
+		datos.put("creado_por", seguimiento.getCreado_por());
+		datos.put("creado", seguimiento.getCreado());
+		datos.put("modificado_por", seguimiento.getModificado_por());
+		datos.put("modificado", seguimiento.getModificado());
+		datos.put("INSATISFACCIONES_CLIENTES_id", seguimiento.getInsatisfacciones_clientes_id());
+		
+		insert.execute(datos);
 	}
 
 }
