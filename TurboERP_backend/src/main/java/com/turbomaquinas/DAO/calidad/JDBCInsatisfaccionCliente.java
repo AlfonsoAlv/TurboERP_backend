@@ -197,9 +197,6 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		columnas.add("tipo");
 		columnas.add("trabajo_realizar");
 		columnas.add("creado_por");
-		columnas.add("creado");
-		columnas.add("modificado_por");
-		columnas.add("modificado");
 		columnas.add("INSATISFACCIONES_CLIENTES_id");
 		
 		insert.setTableName("SEGUIMIENTO_INSATISFACCION");
@@ -212,9 +209,6 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		datos.put("tipo", seguimiento.getTipo());
 		datos.put("trabajo_realizar", seguimiento.getTrabajo_realizar());
 		datos.put("creado_por", seguimiento.getCreado_por());
-		datos.put("creado", seguimiento.getCreado());
-		datos.put("modificado_por", seguimiento.getModificado_por());
-		datos.put("modificado", seguimiento.getModificado());
 		datos.put("INSATISFACCIONES_CLIENTES_id", seguimiento.getInsatisfacciones_clientes_id());
 		
 		insert.execute(datos);
