@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Pedido {
@@ -8,7 +9,7 @@ public class Pedido {
 	private String numero;
 	private Date fecha_pedido;
 	private String comentarios;
-	private Float importe;
+	private BigDecimal importe;
 	private int revision;
 	private int sustituye_id;
 	private int activo;
@@ -23,7 +24,7 @@ public class Pedido {
 		super();
 	}
 
-	public Pedido(int id, String numero, String comentarios, Float importe, int revision, int sustituye_id, int activo,
+	public Pedido(int id, String numero, String comentarios, BigDecimal importe, int revision, int sustituye_id, int activo,
 			int creado_por, Date creado, int modificado_por, Date modificado, String alfresco_id) {
 		this.id = id;
 		this.numero = numero;
@@ -72,11 +73,11 @@ public class Pedido {
 		this.comentarios = comentarios;
 	}
 
-	public Float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(Float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

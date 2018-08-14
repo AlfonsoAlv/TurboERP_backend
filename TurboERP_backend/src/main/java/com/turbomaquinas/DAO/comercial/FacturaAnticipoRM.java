@@ -19,11 +19,11 @@ public class FacturaAnticipoRM implements RowMapper<FacturaAnticipo> {
 		fa.setFecha_anticipo(rs.getDate("fecha_anticipo"));
 		fa.setFecha_vencimiento(rs.getDate("fecha_vencimiento"));
 		fa.setDescripcion(rs.getString("descripcion"));
-		fa.setSubtotal(rs.getFloat("subtotal"));
-		fa.setIva(rs.getFloat("iva"));
-		fa.setIva_retenido(rs.getFloat("iva_retenido"));
-		fa.setImporte_pagado(rs.getFloat("importe_pagado"));
-		fa.setSaldo(rs.getFloat("saldo"));
+		fa.setSubtotal(rs.getBigDecimal("subtotal"));
+		fa.setIva(rs.getBigDecimal("iva"));
+		fa.setIva_retenido(rs.getBigDecimal("iva_retenido"));
+		fa.setImporte_pagado(rs.getBigDecimal("importe_pagado"));
+		fa.setSaldo(rs.getBigDecimal("saldo"));
 		fa.setMoneda(rs.getString("moneda"));
 		fa.setTipo_cambio(rs.getFloat("tipo_cambio"));
 		fa.setCondiciones_pago(rs.getString("condiciones_pago"));

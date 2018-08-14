@@ -14,7 +14,7 @@ public class DepositoRecibidoRM implements RowMapper<DepositoRecibido>{
 		DepositoRecibido d = new DepositoRecibido();
 		d.setId(rs.getInt("id"));
 		d.setComentarios(rs.getString("comentarios"));
-		d.setImporte_deposito(rs.getFloat("importe_deposito"));
+		d.setImporte_deposito(rs.getBigDecimal("importe_deposito"));
 		d.setFecha_deposito(rs.getDate("fecha_deposito"));
 		d.setCuenta_emisor(rs.getString("cuenta_emisor"));
 		d.setNumero_operacion(rs.getInt("numero_operacion"));

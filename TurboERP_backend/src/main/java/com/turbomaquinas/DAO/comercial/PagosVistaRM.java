@@ -17,7 +17,7 @@ public class PagosVistaRM implements RowMapper<PagosVista> {
 		pv.setNumero(rs.getInt("numero"));
 		pv.setTipo(rs.getString("tipo"));
 		pv.setFecha_pago(rs.getDate("fecha_pago"));
-		pv.setImporte(rs.getFloat("importe"));
+		pv.setImporte(rs.getBigDecimal("importe"));
 		pv.setTipo_cambio_cliente(rs.getFloat("tipo_cambio_cliente"));
 		pv.setFecha_baja(rs.getDate("fecha_baja"));
 		pv.setMes_baja(rs.getInt("mes_baja"));

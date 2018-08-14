@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class DepositoRecibidoVista {
@@ -9,7 +10,7 @@ public class DepositoRecibidoVista {
 	private String certificado_pago;
 	private String cadena_pago;
 	private String sello_pago;
-	private float importe_deposito;
+	private BigDecimal importe_deposito;
 	private Date fecha_deposito;
 	private String cuenta_emisor;
 	private int numero_operacion;
@@ -40,7 +41,7 @@ public class DepositoRecibidoVista {
 	}
 
 	public DepositoRecibidoVista(int id, String comentarios, String certificado_pago, String cadena_pago,
-			String sello_pago, float importe_deposito, Date fecha_deposito, String cuenta_emisor, int numero_operacion,
+			String sello_pago, BigDecimal importe_deposito, Date fecha_deposito, String cuenta_emisor, int numero_operacion,
 			int activo, int creado_por, Date creado, int modificado_por, Date modificado, int formas_pago_id,
 			String formas_pago_descripcion, String formas_pago_clave, int tipo_cadena_pago_id,
 			String tipo_cadena_pago_descripcion, String tipo_cadena_pago_clave, int cuentas_bancarias_id,
@@ -120,11 +121,11 @@ public class DepositoRecibidoVista {
 		this.sello_pago = sello_pago;
 	}
 
-	public float getImporte_deposito() {
+	public BigDecimal getImporte_deposito() {
 		return importe_deposito;
 	}
 
-	public void setImporte_deposito(float importe_deposito) {
+	public void setImporte_deposito(BigDecimal importe_deposito) {
 		this.importe_deposito = importe_deposito;
 	}
 

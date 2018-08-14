@@ -17,7 +17,7 @@ public class PedidoRM implements RowMapper<Pedido>  {
 		p.setNumero(rs.getString("numero"));
 		p.setFecha_pedido(rs.getDate("fecha_pedido"));
 		p.setComentarios(rs.getString("comentarios"));
-		p.setImporte(rs.getFloat("importe"));
+		p.setImporte(rs.getBigDecimal("importe"));
 		p.setRevision(rs.getInt("revision"));
 		p.setSustituye_id(rs.getInt("sustituye_id"));
 		p.setActivo(rs.getInt("activo"));

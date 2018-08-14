@@ -14,7 +14,7 @@ public class PagosDetalleVistaRM implements RowMapper<PagosDetalleVista> {
 		
 		PagosDetalleVista pdv = new PagosDetalleVista();
 		pdv.setId(rs.getInt("id"));
-		pdv.setImporte(rs.getFloat("importe"));
+		pdv.setImporte(rs.getBigDecimal("importe"));
 		pdv.setTipo_cambio(rs.getFloat("tipo_cambio"));
 		pdv.setActivo(rs.getInt("activo"));
 		pdv.setCreado_por(rs.getInt("creado_por"));

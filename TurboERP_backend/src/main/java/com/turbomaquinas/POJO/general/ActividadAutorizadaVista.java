@@ -1,5 +1,7 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
+
 public class ActividadAutorizadaVista {
 	private int id;
 	private int numero_referencia;
@@ -7,12 +9,12 @@ public class ActividadAutorizadaVista {
 	private int suministro;
 	private int planta;
 	private String clase_actividad;
-	private Float importe_autorizado;
-	private Float importe_baja;
-	private Float importe_anticipo;
-	private Float importe_factura;
-	private Float importe_pendiente;
-	private Float descuento;
+	private BigDecimal importe_autorizado;
+	private BigDecimal importe_baja;
+	private BigDecimal importe_anticipo;
+	private BigDecimal importe_factura;
+	private BigDecimal importe_pendiente;
+	private BigDecimal descuento;
 	private int activo;
 	private int solicitud_bajas_actividades_id;
 	private int solicitud_bajas_actividades_folio;
@@ -23,20 +25,20 @@ public class ActividadAutorizadaVista {
 	private int detalle_suministro;
 	private int detalle_planta;
 	private String detalle_clase_actividad;
-	private Float importe;
+	private BigDecimal importe;
 	private int pedidos_id;
 	private int ot_irregulares_id;
 	private int autorizaciones_id;
 	private String autorizaciones_folio;
 	private String pedidos_numero;
 	private String pedidos_comentarios;
-	private Float pedidos_importe;
+	private BigDecimal pedidos_importe;
 	private int revision;
 	private int sustituye_id;
 	private int pre_pedidos_id;
 	private String pre_pedidos_numero;
 	private String pre_pedidos_comentarios;
-	private Float pre_pedidos_importe;
+	private BigDecimal pre_pedidos_importe;
 	private int pre_pedidos_revision;
 	private int pre_pedidos_sustituye_id;
 	private int encabezados_cotizaciones_id;
@@ -50,14 +52,14 @@ public class ActividadAutorizadaVista {
 	}
 
 	public ActividadAutorizadaVista(int id, int numero_referencia, String tipo_actividad, int suministro, int planta,
-			String clase_actividad, Float importe_autorizado, Float importe_baja, Float importe_anticipo,
-			Float importe_factura, Float importe_pendiente, Float descuento, int activo,
+			String clase_actividad, BigDecimal importe_autorizado, BigDecimal importe_baja, BigDecimal importe_anticipo,
+			BigDecimal importe_factura, BigDecimal importe_pendiente, BigDecimal descuento, int activo,
 			int solicitud_bajas_actividades_id, int solicitud_bajas_actividades_folio, int detalle_cotizaciones_id,
 			String detalle_descripcion, int detalle_lugar, String detalle_tipo_actividad, int detalle_suministro,
-			int detalle_planta, String detalle_clase_actividad, Float importe, int pedidos_id, int ot_irregulares_id,
+			int detalle_planta, String detalle_clase_actividad, BigDecimal importe, int pedidos_id, int ot_irregulares_id,
 			int autorizaciones_id, String autorizaciones_folio, String pedidos_numero, String pedidos_comentarios,
-			Float pedidos_importe, int revision, int sustituye_id, int pre_pedidos_id, String pre_pedidos_numero,
-			String pre_pedidos_comentarios, Float pre_pedidos_importe, int pre_pedidos_revision,
+			BigDecimal pedidos_importe, int revision, int sustituye_id, int pre_pedidos_id, String pre_pedidos_numero,
+			String pre_pedidos_comentarios, BigDecimal pre_pedidos_importe, int pre_pedidos_revision,
 			int pre_pedidos_sustituye_id, int encabezados_cotizaciones_id, String encabezados_cotizaciones_descripcion,
 			int cotizaciones_id, int cotizaciones_numero, int cotizaciones_revision) {
 		super();
@@ -158,51 +160,51 @@ public class ActividadAutorizadaVista {
 		this.clase_actividad = clase_actividad;
 	}
 
-	public Float getImporte_autorizado() {
+	public BigDecimal getImporte_autorizado() {
 		return importe_autorizado;
 	}
 
-	public void setImporte_autorizado(Float importe_autorizado) {
+	public void setImporte_autorizado(BigDecimal importe_autorizado) {
 		this.importe_autorizado = importe_autorizado;
 	}
 
-	public Float getImporte_baja() {
+	public BigDecimal getImporte_baja() {
 		return importe_baja;
 	}
 
-	public void setImporte_baja(Float importe_baja) {
+	public void setImporte_baja(BigDecimal importe_baja) {
 		this.importe_baja = importe_baja;
 	}
 
-	public Float getImporte_anticipo() {
+	public BigDecimal getImporte_anticipo() {
 		return importe_anticipo;
 	}
 
-	public void setImporte_anticipo(Float importe_anticipo) {
+	public void setImporte_anticipo(BigDecimal importe_anticipo) {
 		this.importe_anticipo = importe_anticipo;
 	}
 
-	public Float getImporte_factura() {
+	public BigDecimal getImporte_factura() {
 		return importe_factura;
 	}
 
-	public void setImporte_factura(Float importe_factura) {
+	public void setImporte_factura(BigDecimal importe_factura) {
 		this.importe_factura = importe_factura;
 	}
 
-	public Float getImporte_pendiente() {
+	public BigDecimal getImporte_pendiente() {
 		return importe_pendiente;
 	}
 
-	public void setImporte_pendiente(Float importe_pendiente) {
+	public void setImporte_pendiente(BigDecimal importe_pendiente) {
 		this.importe_pendiente = importe_pendiente;
 	}
 
-	public Float getDescuento() {
+	public BigDecimal getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(Float descuento) {
+	public void setDescuento(BigDecimal descuento) {
 		this.descuento = descuento;
 	}
 
@@ -286,11 +288,11 @@ public class ActividadAutorizadaVista {
 		this.detalle_clase_actividad = detalle_clase_actividad;
 	}
 
-	public Float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(Float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 
@@ -342,11 +344,11 @@ public class ActividadAutorizadaVista {
 		this.pedidos_comentarios = pedidos_comentarios;
 	}
 
-	public Float getPedidos_importe() {
+	public BigDecimal getPedidos_importe() {
 		return pedidos_importe;
 	}
 
-	public void setPedidos_importe(Float pedidos_importe) {
+	public void setPedidos_importe(BigDecimal pedidos_importe) {
 		this.pedidos_importe = pedidos_importe;
 	}
 
@@ -390,11 +392,11 @@ public class ActividadAutorizadaVista {
 		this.pre_pedidos_comentarios = pre_pedidos_comentarios;
 	}
 
-	public Float getPre_pedidos_importe() {
+	public BigDecimal getPre_pedidos_importe() {
 		return pre_pedidos_importe;
 	}
 
-	public void setPre_pedidos_importe(Float pre_pedidos_importe) {
+	public void setPre_pedidos_importe(BigDecimal pre_pedidos_importe) {
 		this.pre_pedidos_importe = pre_pedidos_importe;
 	}
 

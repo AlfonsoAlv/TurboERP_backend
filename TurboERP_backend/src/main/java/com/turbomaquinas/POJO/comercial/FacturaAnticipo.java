@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class FacturaAnticipo {
@@ -10,11 +11,11 @@ public class FacturaAnticipo {
 	private Date fecha_anticipo;
 	private Date fecha_vencimiento;
 	private String descripcion;
-	private float subtotal;
-	private float iva;
-	private float iva_retenido;
-	private float importe_pagado;
-	private float saldo;
+	private BigDecimal subtotal;
+	private BigDecimal iva;
+	private BigDecimal iva_retenido;
+	private BigDecimal importe_pagado;
+	private BigDecimal saldo;
 	private String moneda;
 	private float tipo_cambio;
 	private String condiciones_pago;
@@ -40,7 +41,7 @@ public class FacturaAnticipo {
 	}
 
 	public FacturaAnticipo(int id, String tipo, int numero, Date fecha_anticipo, Date fecha_vencimiento,
-			String descripcion, float subtotal, float iva, float iva_retenido, float importe_pagado, float saldo,
+			String descripcion, BigDecimal subtotal, BigDecimal iva, BigDecimal iva_retenido, BigDecimal importe_pagado, BigDecimal saldo,
 			String moneda, float tipo_cambio, String condiciones_pago, Date fecha_baja, int mes_baja, int anio_baja,
 			int activo, int creado_por, Date creado, int modificado_por, Date modificado, int facturas_anticipo_id_sust,
 			int datos_timbrado_id, int productos_sat_id, int formas_pago_id, int metodos_pago_id, int uso_cfdi_id,
@@ -126,43 +127,43 @@ public class FacturaAnticipo {
 		this.descripcion = descripcion;
 	}
 
-	public float getSubtotal() {
+	public BigDecimal getSubtotal() {
 		return subtotal;
 	}
 
-	public void setSubtotal(float subtotal) {
+	public void setSubtotal(BigDecimal subtotal) {
 		this.subtotal = subtotal;
 	}
 
-	public float getIva() {
+	public BigDecimal getIva() {
 		return iva;
 	}
 
-	public void setIva(float iva) {
+	public void setIva(BigDecimal iva) {
 		this.iva = iva;
 	}
 
-	public float getIva_retenido() {
+	public BigDecimal getIva_retenido() {
 		return iva_retenido;
 	}
 
-	public void setIva_retenido(float iva_retenido) {
+	public void setIva_retenido(BigDecimal iva_retenido) {
 		this.iva_retenido = iva_retenido;
 	}
 
-	public float getImporte_pagado() {
+	public BigDecimal getImporte_pagado() {
 		return importe_pagado;
 	}
 
-	public void setImporte_pagado(float importe_pagado) {
+	public void setImporte_pagado(BigDecimal importe_pagado) {
 		this.importe_pagado = importe_pagado;
 	}
 
-	public float getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 

@@ -1,12 +1,13 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class DepositoRecibido {
 	
 	private int id;
 	private String comentarios;
-	private float importe_deposito;
+	private BigDecimal importe_deposito;
 	private Date fecha_deposito;
 	private String cuenta_emisor;
 	private int numero_operacion;
@@ -28,7 +29,7 @@ public class DepositoRecibido {
 		super();
 	}
 
-	public DepositoRecibido(int id, String comentarios, float importe_deposito, Date fecha_deposito,
+	public DepositoRecibido(int id, String comentarios, BigDecimal importe_deposito, Date fecha_deposito,
 			String cuenta_emisor, int numero_operacion, int activo, int creado_por, Date creado, int modificado_por,
 			Date modificado, int formas_pago_id, int cuentas_bancarias_id, int bancos_id_emisor, int tipos_cadena_pago,
 			String certificado_pago, String cadena_pago, String sello_pago, int PAGOS_id) {
@@ -70,11 +71,11 @@ public class DepositoRecibido {
 		this.comentarios = comentarios;
 	}
 
-	public float getImporte_deposito() {
+	public BigDecimal getImporte_deposito() {
 		return importe_deposito;
 	}
 
-	public void setImporte_deposito(float importe_deposito) {
+	public void setImporte_deposito(BigDecimal importe_deposito) {
 		this.importe_deposito = importe_deposito;
 	}
 
