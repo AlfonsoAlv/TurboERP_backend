@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Autorizacion {
@@ -8,16 +9,16 @@ public class Autorizacion {
 	private int anio;
 	private int numero;
 	private String folio;
-	private Float importe_pedido;
-	private Float importe_irregular;
-	private Float importe_total;
+	private BigDecimal importe_pedido;
+	private BigDecimal importe_irregular;
+	private BigDecimal importe_total;
 	private int ordenes_id;
 	
 	public Autorizacion() {
 		super();
 	}
 
-	public Autorizacion(int id, Date fecha, Float importe_pedido, Float importe_irregular, Float importe_total,
+	public Autorizacion(int id, Date fecha, BigDecimal importe_pedido, BigDecimal importe_irregular, BigDecimal importe_total,
 			int ordenes_id) {
 		super();
 		this.id = id;
@@ -44,27 +45,27 @@ public class Autorizacion {
 		this.fecha = fecha;
 	}
 
-	public Float getImporte_pedido() {
+	public BigDecimal getImporte_pedido() {
 		return importe_pedido;
 	}
 
-	public void setImporte_pedido(Float importe_pedido) {
+	public void setImporte_pedido(BigDecimal importe_pedido) {
 		this.importe_pedido = importe_pedido;
 	}
 
-	public Float getImporte_irregular() {
+	public BigDecimal getImporte_irregular() {
 		return importe_irregular;
 	}
 
-	public void setImporte_irregular(Float importe_irregular) {
+	public void setImporte_irregular(BigDecimal importe_irregular) {
 		this.importe_irregular = importe_irregular;
 	}
 
-	public Float getImporte_total() {
+	public BigDecimal getImporte_total() {
 		return importe_total;
 	}
 
-	public void setImporte_total(Float importe_total) {
+	public void setImporte_total(BigDecimal importe_total) {
 		this.importe_total = importe_total;
 	}
 

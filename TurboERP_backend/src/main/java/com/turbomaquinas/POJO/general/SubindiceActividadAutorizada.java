@@ -1,11 +1,12 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class SubindiceActividadAutorizada {
 	private int id;
 	private String descripcion;
-	private Float importe;
+	private BigDecimal importe;
 	private String tipo_actividad;
 	private int lugar;
 	private int activo;
@@ -19,7 +20,7 @@ public class SubindiceActividadAutorizada {
 		super();
 	}
 
-	public SubindiceActividadAutorizada(int id, String descripcion, Float importe, String tipo_actividad, int lugar,
+	public SubindiceActividadAutorizada(int id, String descripcion, BigDecimal importe, String tipo_actividad, int lugar,
 			int activo, int creado_por, Date creado, int modificado_por, Date modificado,
 			int actividades_autorizadas_id) {
 		super();
@@ -52,11 +53,11 @@ public class SubindiceActividadAutorizada {
 		this.descripcion = descripcion;
 	}
 
-	public Float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(Float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

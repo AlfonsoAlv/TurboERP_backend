@@ -1,18 +1,46 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
+
 public class OT {
 	private int id;
 	private String descripcion;
 	private int clientes_id;
 	private String moneda;
-	private float importe_autorizado;
-	private float importe_pedido;
+	private BigDecimal importe_autorizado;
+	private BigDecimal importe_pedido;
 	private String numero_orden;
 	private int cliente_no;
 	private String nombre_fiscal;
 	private String nombre_comercial;
 	private String giro;
 	
+	
+	
+	public OT(int id, String descripcion, int clientes_id, String moneda, BigDecimal importe_autorizado,
+			BigDecimal importe_pedido, String numero_orden, int cliente_no, String nombre_fiscal,
+			String nombre_comercial, String giro) {
+		super();
+		this.id = id;
+		this.descripcion = descripcion;
+		this.clientes_id = clientes_id;
+		this.moneda = moneda;
+		this.importe_autorizado = importe_autorizado;
+		this.importe_pedido = importe_pedido;
+		this.numero_orden = numero_orden;
+		this.cliente_no = cliente_no;
+		this.nombre_fiscal = nombre_fiscal;
+		this.nombre_comercial = nombre_comercial;
+		this.giro = giro;
+	}
+	
+	
+	public OT() {
+		super();
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -37,16 +65,16 @@ public class OT {
 	public void setMoneda(String moneda) {
 		this.moneda = moneda;
 	}
-	public float getImporte_autorizado() {
+	public BigDecimal getImporte_autorizado() {
 		return importe_autorizado;
 	}
-	public void setImporte_autorizado(float importe_autorizado) {
+	public void setImporte_autorizado(BigDecimal importe_autorizado) {
 		this.importe_autorizado = importe_autorizado;
 	}
-	public float getImporte_pedido() {
+	public BigDecimal getImporte_pedido() {
 		return importe_pedido;
 	}
-	public void setImporte_pedido(float importe_pedido) {
+	public void setImporte_pedido(BigDecimal importe_pedido) {
 		this.importe_pedido = importe_pedido;
 	}
 	public String getNumero_orden() {

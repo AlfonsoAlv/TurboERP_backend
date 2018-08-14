@@ -16,8 +16,8 @@ public class OTRM implements RowMapper<OT>{
 		o.setDescripcion(rs.getString("descripcion"));
 		o.setClientes_id(rs.getInt("clientes_id"));
 		o.setMoneda(rs.getString("moneda"));
-		o.setImporte_autorizado(rs.getFloat("importe_autorizado"));
-		o.setImporte_pedido(rs.getFloat("importe_pedido"));
+		o.setImporte_autorizado(rs.getBigDecimal("importe_autorizado"));
+		o.setImporte_pedido(rs.getBigDecimal("importe_pedido"));
 		o.setNumero_orden(rs.getString("numero_orden"));
 		o.setCliente_no(rs.getInt("numero_cliente"));
 		o.setNombre_comercial(rs.getString("comercial"));

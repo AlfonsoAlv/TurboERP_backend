@@ -15,7 +15,7 @@ public class SubindiceActividadAutorizadaRM implements RowMapper<SubindiceActivi
 		sa.setId(rs.getInt("id"));
 		sa.setDescripcion(rs.getString("descripcion"));
 		sa.setLugar(rs.getInt("lugar"));
-		sa.setImporte(rs.getFloat("importe"));
+		sa.setImporte(rs.getBigDecimal("importe"));
 		sa.setTipo_actividad(rs.getString("tipo_actividad"));
 		sa.setActivo(rs.getInt("activo"));
 		sa.setCreado_por(rs.getInt("creado_por"));

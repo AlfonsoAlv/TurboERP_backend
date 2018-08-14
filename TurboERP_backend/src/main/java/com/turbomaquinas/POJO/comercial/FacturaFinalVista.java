@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class FacturaFinalVista {
@@ -9,15 +10,15 @@ public class FacturaFinalVista {
 	private int numero;
 	private Date fecha_factura;
 	private Date fecha_vencimiento;
-	private float subtotal;
-	private float descuento;
-	private float iva;
-	private float iva_retenido;
-	private float total;
+	private BigDecimal subtotal;
+	private BigDecimal descuento;
+	private BigDecimal iva;
+	private BigDecimal iva_retenido;
+	private BigDecimal total;
 	private String moneda;
 	private float tipo_cambio;
 	private String condiciones_pago;
-	private float saldo;
+	private BigDecimal saldo;
 	private String folio_fiscal;
 	private String estado_factura;
 	private String desc_estado_fact;
@@ -53,8 +54,8 @@ public class FacturaFinalVista {
 	}	
 
 	public FacturaFinalVista(int id, String tipo, int numero, Date fecha_factura, Date fecha_vencimiento,
-			float subtotal, float descuento, float iva, float iva_retenido, float total, String moneda,
-			float tipo_cambio, String condiciones_pago, float saldo, String folio_fiscal, String estado_factura,
+			BigDecimal subtotal, BigDecimal descuento, BigDecimal iva, BigDecimal iva_retenido, BigDecimal total, String moneda,
+			float tipo_cambio, String condiciones_pago, BigDecimal saldo, String folio_fiscal, String estado_factura,
 			String desc_estado_fact, String cve_formap, String des_formap, String cve_metodop, String des_metodop,
 			String cve_uso, String des_uso, int numero_cliente, int numero_giro, String nombre, String direccion,
 			String colonia, String codigo_postal, String ciudad, String estado, String pais, int activo,
@@ -148,43 +149,43 @@ public class FacturaFinalVista {
 		this.fecha_vencimiento = fecha_vencimiento;
 	}
 
-	public float getSubtotal() {
+	public BigDecimal getSubtotal() {
 		return subtotal;
 	}
 
-	public void setSubtotal(float subtotal) {
+	public void setSubtotal(BigDecimal subtotal) {
 		this.subtotal = subtotal;
 	}
 
-	public float getDescuento() {
+	public BigDecimal getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(float descuento) {
+	public void setDescuento(BigDecimal descuento) {
 		this.descuento = descuento;
 	}
 
-	public float getIva() {
+	public BigDecimal getIva() {
 		return iva;
 	}
 
-	public void setIva(float iva) {
+	public void setIva(BigDecimal iva) {
 		this.iva = iva;
 	}
 
-	public float getIva_retenido() {
+	public BigDecimal getIva_retenido() {
 		return iva_retenido;
 	}
 
-	public void setIva_retenido(float iva_retenido) {
+	public void setIva_retenido(BigDecimal iva_retenido) {
 		this.iva_retenido = iva_retenido;
 	}
 
-	public float getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
 
-	public void setTotal(float total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 
@@ -212,11 +213,11 @@ public class FacturaFinalVista {
 		this.condiciones_pago = condiciones_pago;
 	}
 
-	public float getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 
