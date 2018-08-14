@@ -59,4 +59,14 @@ public class LogicaNotaCredito implements NotaCreditoService {
 		return repNc.buscarPorNumero(numero);
 	}
 
+	@Override
+	public List<NotaCreditoVista> consultarSinTimbrar() {
+		return repNc.consultarSinTimbrar();
+	}
+
+	@Override
+	public Integer buscarUltimoId() {
+		return repNc.buscarUltimoId();
+	}
+
 }

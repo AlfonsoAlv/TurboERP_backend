@@ -118,7 +118,19 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 		return nc;
 	}
 
-	
+	@Override
+	public List<NotaCreditoVista> consultarSinTimbrar() {
+		String sql="select * from NOTAS_CREDITO_V n where n.estado='I'";
+		return jdbcTemplate.query(sql, new NotaCreditoVistaRM());
+	}
 
+	@Override
+	public Integer buscarUltimoId() {
+		String sql = "select n.id id "
+				+ "from NOTAS_CREDITO n "
+				+ "where n.activo=1 and n.estado='I' "
+				+ "ORDER BY id DESC LIMIT 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	
 }

@@ -16,5 +16,6 @@ public interface NotaCreditoService {
 	public void actualizarNumero(int id, int opcion);
 	public String obtenerJSONTimbrado(int id,String modo);
 	public NotaCreditoVista buscarPorNumero(int numero);
-
+	public List<NotaCreditoVista> consultarSinTimbrar();
+	public Integer buscarUltimoId();
 }

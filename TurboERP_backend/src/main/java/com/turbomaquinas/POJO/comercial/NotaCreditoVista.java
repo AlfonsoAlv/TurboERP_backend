@@ -29,6 +29,7 @@ public class NotaCreditoVista {
 	private int notas_credito_id_sust;
 	private List<DocumentoAplicarNotasCredito.Facturas> facturas;
 	private BigDecimal importe_total;
+	private String estado;
 
 	public NotaCreditoVista() {
 		super();
@@ -38,7 +39,7 @@ public class NotaCreditoVista {
 			BigDecimal tipo_cambio, Date fecha_baja, int mes_baja, int anio_baja, String descripcion, int activo,
 			int creado_por, Date creado, int datos_timbrado_id, String uuid, int conceptos_facturacion_contable_id,
 			String descripcion_conceptos_facturacion_contable, int notas_credito_id_sust, List<Facturas> facturas,
-			BigDecimal importe_total) {
+			BigDecimal importe_total, String estado) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -61,6 +62,7 @@ public class NotaCreditoVista {
 		this.notas_credito_id_sust = notas_credito_id_sust;
 		this.facturas = facturas;
 		this.importe_total = importe_total;
+		this.estado = estado;
 	}
 
 	public int getId() {
@@ -229,6 +231,14 @@ public class NotaCreditoVista {
 
 	public void setImporte_total(BigDecimal importe_total) {
 		this.importe_total = importe_total;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Override

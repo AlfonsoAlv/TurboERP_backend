@@ -84,7 +84,7 @@ public class WSNotaCredito {
 	public ResponseEntity<List<NotaCreditoVista>> consultar(){
 		
 		List<NotaCreditoVista> lnc = s.consultar();
-		if (lnc == null )
+		if (lnc.isEmpty())
 			return new ResponseEntity<List<NotaCreditoVista>> (HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<NotaCreditoVista>> (lnc, HttpStatus.OK);
 	}
@@ -113,6 +113,28 @@ public class WSNotaCredito {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}	
+	}
+	
+	@GetMapping("/sintimbrar/ultimo")
+	public ResponseEntity<Integer> buscarUltimoId(){
+		
+		Integer up = 0;
+		try {
+			up = s.buscarUltimoId();
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Integer>(up, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/sintimbrar")
+	public ResponseEntity<List<NotaCreditoVista>> consultarSinTimbrar(){
+		List<NotaCreditoVista> lnc = s.consultarSinTimbrar();
+		if (lnc.isEmpty())
+			return new ResponseEntity<List<NotaCreditoVista>> (HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<NotaCreditoVista>> (lnc, HttpStatus.OK);
 	}
 
 }
