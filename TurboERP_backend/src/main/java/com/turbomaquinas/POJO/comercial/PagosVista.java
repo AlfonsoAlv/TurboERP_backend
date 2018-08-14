@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PagosVista {
@@ -9,7 +10,7 @@ public class PagosVista {
 	public int numero;
 	public String tipo;
 	public Date fecha_pago;
-	public float importe;
+	public BigDecimal importe;
 	public float tipo_cambio_cliente;
 	public Date fecha_baja;
 	public int mes_baja;
@@ -29,7 +30,7 @@ public class PagosVista {
 		super();
 	}
 
-	public PagosVista(int id, int folio, int numero, String tipo, Date fecha_pago, float importe,
+	public PagosVista(int id, int folio, int numero, String tipo, Date fecha_pago, BigDecimal importe,
 			float tipo_cambio_cliente, Date fecha_baja, int mes_baja, int anio_baja, String observaciones, int activo,
 			int creado_por, Date creado, int modificado_por, Date modificado, int depositos_recibidos_id,
 			String comentarios, String estado, int datos_timbrado_id) {
@@ -97,11 +98,11 @@ public class PagosVista {
 		this.fecha_pago = fecha_pago;
 	}
 
-	public float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

@@ -1,11 +1,13 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
+
 public class Facturas {
 
 	private int id;
 	private String tipo;
 	private int numero;
-	private float saldo;
+	private BigDecimal saldo;
 	private String moneda;
 	private int clientes_id;
 	private String estado;
@@ -14,7 +16,7 @@ public class Facturas {
 		super();
 	}
 
-	public Facturas(int id, String tipo, int numero, float saldo, String moneda, int clientes_id, String estado) {
+	public Facturas(int id, String tipo, int numero, BigDecimal saldo, String moneda, int clientes_id, String estado) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -49,11 +51,11 @@ public class Facturas {
 		this.numero = numero;
 	}
 
-	public float getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 

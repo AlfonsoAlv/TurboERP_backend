@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.comercial;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OportunidadTrabajo {
@@ -12,7 +13,7 @@ public class OportunidadTrabajo {
 	private String descripcion;
 	private String comentario;
 	private String probabilidad;
-	private float monto;
+	private BigDecimal monto;
 	private String moneda;
 	private int usuario_cierre;
 	private Date fecha_cierre;
@@ -29,7 +30,7 @@ public class OportunidadTrabajo {
 }
 
 	public OportunidadTrabajo(int id, int numero, String iniciales, int anio, Date fecha_oportunidad,
-			Date fecha_posible, String descripcion, String comentario, String probabilidad, float monto, String moneda,
+			Date fecha_posible, String descripcion, String comentario, String probabilidad, BigDecimal monto, String moneda,
 			int usuario_cierre, Date fecha_cierre, int activo, int creado_por, Date creado, int modificado_por,
 			Date modificado, int clientes_id, int contactos_id) {
 		super();
@@ -127,11 +128,11 @@ public class OportunidadTrabajo {
 		this.probabilidad = probabilidad;
 	}
 
-	public float getMonto() {
+	public BigDecimal getMonto() {
 		return monto;
 	}
 
-	public void setMonto(float monto) {
+	public void setMonto(BigDecimal monto) {
 		this.monto = monto;
 	}
 
