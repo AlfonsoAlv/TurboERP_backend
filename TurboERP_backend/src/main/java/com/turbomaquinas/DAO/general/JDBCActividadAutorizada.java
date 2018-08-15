@@ -244,7 +244,7 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 				
 		}
 		lista = lista.substring(0, lista.length()-1);
-		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET OT_IRREGULARES_id=?, numero_referencia = ULTIMA_REF_OT(?) + 1 WHERE id IN ("+lista+")", 
+		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET OT_IRREGULARES_id=?, numero_referencia = ULTIMA_REF_OT(?) + 1, bandera_importe_autorizado=1 WHERE id IN ("+lista+")", 
 				idOTirregular,ordenId);
 	}
 
@@ -338,6 +338,11 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 	@Override
 	public void desactivarAAPorSolicitud(int idSolicitud) {
 		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET activo=0 WHERE SOLICITUD_BAJAS_ACTIVIDADES_id = ?",idSolicitud);
+	}
+
+	@Override
+	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera) {
+		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET bandera_importe_autorizado=? WHERE OT_IRREGULARES_id = ?",valorBandera,idOrden_irre);
 	}
 
 

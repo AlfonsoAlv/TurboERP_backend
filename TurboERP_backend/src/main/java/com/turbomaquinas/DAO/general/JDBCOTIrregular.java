@@ -84,7 +84,7 @@ public class JDBCOTIrregular implements OTIrregularDAO{
 	@Override
 	public void aceptaOTI(int id, int usuarioAcepta, String estado) throws DataAccessException {
 		jdbcTemplate.update("UPDATE OT_IRREGULARES SET usuario_acepta=?, estado=? WHERE id=?", usuarioAcepta, estado, id);
-		
+		jdbcTemplate.update("UPDATE ORDENES SET importe_autorizado=(importe_autorizado+(SELECT SUM(importe_autorizado) FROM ACTIVIDADES_AUTORIZADAS WHERE OT_IRREGULARES_id=?)) WHERE id=(SELECT ORDENES_id FROM OT_IRREGULARES WHERE id=?)", id, id);
 	}
 
 }

@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turbomaquinas.DAO.general.ActividadAutorizadaDAO;
 import com.turbomaquinas.POJO.general.DocumentoOTIrregular;
 import com.turbomaquinas.POJO.general.OTIrregular;
 import com.turbomaquinas.POJO.general.OTIrregularVista;
+import com.turbomaquinas.service.general.ActividadAutorizadaService;
 import com.turbomaquinas.service.general.OTIrregularService;
 
 @RestController
@@ -28,6 +30,9 @@ public class WSOTIrregular {
 	
 	@Autowired
 	OTIrregularService s;
+	
+	@Autowired
+	ActividadAutorizadaService aas;
 
 	private static final Log bitacora = LogFactory.getLog(WSOTIrregular.class);
 	
@@ -95,6 +100,9 @@ public class WSOTIrregular {
 	public ResponseEntity<Void> aceptaOTI(@PathVariable int id, @PathVariable int usuarioAcepta, @RequestParam String estado){
 		try{
 			s.aceptaOTI(id, usuarioAcepta, estado);
+			if(estado.equalsIgnoreCase("C")){
+				aas.actualizarBanderaImpAut(id,0);
+			}
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
