@@ -545,11 +545,12 @@ public class JDBCOrden implements OrdenDAO {
 	}
 
 	@Override
-	public void crearGarantia(int id) throws DataAccessException {
+	public void crearGarantia(int id,int creado_por) throws DataAccessException {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("CREAR_GARANTIA");	
+				.withProcedureName("CREAR_ORDEN_GARANTIA");	
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
 		inParamMap.put("p_idOrden", id);
+		inParamMap.put("p_creado_por", creado_por);
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
 	}
