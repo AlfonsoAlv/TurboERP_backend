@@ -18,9 +18,9 @@ public class OrdenRM implements RowMapper<Orden>{
 		o.setDescripcion(rs.getString("descripcion"));
 		o.setTipo(rs.getString("tipo"));
 		o.setMoneda(rs.getString("moneda"));
-		o.setImporte_autorizado(rs.getFloat("importe_autorizado"));
-		o.setImporte_bajas(rs.getFloat("importe_bajas"));
-		o.setImporte_facturado(rs.getFloat("importe_facturado"));
+		o.setImporte_autorizado(rs.getBigDecimal("importe_autorizado"));
+		o.setImporte_bajas(rs.getBigDecimal("importe_bajas"));
+		o.setImporte_facturado(rs.getBigDecimal("importe_facturado"));
 		o.setActivo(rs.getInt("activo"));
 		o.setCreado_por(rs.getInt("creado_por"));
 		o.setCreado(rs.getTimestamp("creado"));

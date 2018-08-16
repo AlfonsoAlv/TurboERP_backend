@@ -15,7 +15,7 @@ public class FacturasRM implements RowMapper<Facturas> {
 		fv.setId(rs.getInt("id"));
 		fv.setTipo(rs.getString("tipo"));
 		fv.setNumero(rs.getInt("numero"));
-		fv.setSaldo(rs.getFloat("saldo"));
+		fv.setSaldo(rs.getBigDecimal("saldo"));
 		fv.setMoneda(rs.getString("moneda"));
 		fv.setClientes_id(rs.getInt("clientes_id"));
 		fv.setEstado(rs.getString("estado"));

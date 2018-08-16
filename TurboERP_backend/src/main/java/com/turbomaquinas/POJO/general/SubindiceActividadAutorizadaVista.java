@@ -1,12 +1,13 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class SubindiceActividadAutorizadaVista {
 	private int id;
 	private String descripcion;
 	private int lugar;
-	private Float importe;
+	private BigDecimal importe;
 	private String tipo_actividad_subindice;
 	private int activo;
 	private int actividades_autorizadas_id;
@@ -17,22 +18,22 @@ public class SubindiceActividadAutorizadaVista {
 	private int planta;
 	private String clase_actividad;
 	private Date fecha_autorizado;
-	private Float importe_autorizado;
-	private Float importe_baja;
-	private Float importe_anticipo;
-	private Float importe_factura;
-	private Float importe_pendiente;
+	private BigDecimal importe_autorizado;
+	private BigDecimal importe_baja;
+	private BigDecimal importe_anticipo;
+	private BigDecimal importe_factura;
+	private BigDecimal importe_pendiente;
 	private int actividad_activo;
 	
 	public SubindiceActividadAutorizadaVista() {
 		super();
 	}
 
-	public SubindiceActividadAutorizadaVista(int id, String descripcion, int lugar, Float importe,
+	public SubindiceActividadAutorizadaVista(int id, String descripcion, int lugar, BigDecimal importe,
 			String tipo_actividad_subindice, int activo, int actividades_autorizadas_id, String actividades_descripcion,
 			int actividades_lugar, String tipo_actividad, int suministro, int planta, String clase_actividad,
-			Date fecha_autorizado, Float importe_autorizado, Float importe_baja, Float importe_anticipo,
-			Float importe_factura, Float importe_pendiente, int actividad_activo) {
+			Date fecha_autorizado, BigDecimal importe_autorizado, BigDecimal importe_baja, BigDecimal importe_anticipo,
+			BigDecimal importe_factura, BigDecimal importe_pendiente, int actividad_activo) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -80,11 +81,11 @@ public class SubindiceActividadAutorizadaVista {
 		this.lugar = lugar;
 	}
 
-	public Float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(Float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 
@@ -168,43 +169,43 @@ public class SubindiceActividadAutorizadaVista {
 		this.fecha_autorizado = fecha_autorizado;
 	}
 
-	public Float getImporte_autorizado() {
+	public BigDecimal getImporte_autorizado() {
 		return importe_autorizado;
 	}
 
-	public void setImporte_autorizado(Float importe_autorizado) {
+	public void setImporte_autorizado(BigDecimal importe_autorizado) {
 		this.importe_autorizado = importe_autorizado;
 	}
 
-	public Float getImporte_baja() {
+	public BigDecimal getImporte_baja() {
 		return importe_baja;
 	}
 
-	public void setImporte_baja(Float importe_baja) {
+	public void setImporte_baja(BigDecimal importe_baja) {
 		this.importe_baja = importe_baja;
 	}
 
-	public Float getImporte_anticipo() {
+	public BigDecimal getImporte_anticipo() {
 		return importe_anticipo;
 	}
 
-	public void setImporte_anticipo(Float importe_anticipo) {
+	public void setImporte_anticipo(BigDecimal importe_anticipo) {
 		this.importe_anticipo = importe_anticipo;
 	}
 
-	public Float getImporte_factura() {
+	public BigDecimal getImporte_factura() {
 		return importe_factura;
 	}
 
-	public void setImporte_factura(Float importe_factura) {
+	public void setImporte_factura(BigDecimal importe_factura) {
 		this.importe_factura = importe_factura;
 	}
 
-	public Float getImporte_pendiente() {
+	public BigDecimal getImporte_pendiente() {
 		return importe_pendiente;
 	}
 
-	public void setImporte_pendiente(Float importe_pendiente) {
+	public void setImporte_pendiente(BigDecimal importe_pendiente) {
 		this.importe_pendiente = importe_pendiente;
 	}
 

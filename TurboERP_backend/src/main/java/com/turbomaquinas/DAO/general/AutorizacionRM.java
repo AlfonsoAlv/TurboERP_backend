@@ -17,9 +17,9 @@ public class AutorizacionRM implements RowMapper<Autorizacion>{
 		a.setAnio(rs.getInt("anio"));
 		a.setNumero(rs.getInt("numero"));
 		a.setFolio(rs.getString("folio"));
-		a.setImporte_pedido(rs.getFloat("importe_pedido"));
-		a.setImporte_irregular(rs.getFloat("importe_irregular"));
-		a.setImporte_total(rs.getFloat("importe_total"));
+		a.setImporte_pedido(rs.getBigDecimal("importe_pedido"));
+		a.setImporte_irregular(rs.getBigDecimal("importe_irregular"));
+		a.setImporte_total(rs.getBigDecimal("importe_total"));
 		a.setOrdenes_id(rs.getInt("ordenes_id"));
 		return a;
 	}

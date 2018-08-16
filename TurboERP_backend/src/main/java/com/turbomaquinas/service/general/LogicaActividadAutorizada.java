@@ -108,4 +108,9 @@ public class LogicaActividadAutorizada implements ActividadAutorizadaService{
 	public List<ActividadAutorizadaFactura> consultarAAPorIds(List<Integer> idsActividades) {
 		return repositorio.consultarAAPorIds(idsActividades);
 	}
+
+	@Override
+	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera) {
+		repositorio.actualizarBanderaImpAut(idOrden_irre,valorBandera);
+	}
 }

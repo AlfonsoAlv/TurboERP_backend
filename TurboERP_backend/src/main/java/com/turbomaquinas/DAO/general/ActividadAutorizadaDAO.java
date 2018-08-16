@@ -31,5 +31,6 @@ public interface ActividadAutorizadaDAO {
 	public List<ActividadAutorizadaFactura> consultarAAPorIds(List<Integer> actividadesIds);
 	public void actualizarImporteBaja(int id);
 	public void desactivarAAPorSolicitud(int idSolicitud);
+	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera);
 
 }

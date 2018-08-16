@@ -1,5 +1,6 @@
 package com.turbomaquinas.POJO.general;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Orden {
@@ -10,9 +11,9 @@ public class Orden {
 	private String tipo;
 	private String moneda;
 	private String descripcion;
-	private Float importe_autorizado;
-	private Float importe_bajas;
-	private Float importe_facturado;
+	private BigDecimal importe_autorizado;
+	private BigDecimal importe_bajas;
+	private BigDecimal importe_facturado;
 	private int activo;
 	private int creado_por;
 	private Date creado;
@@ -31,8 +32,8 @@ public class Orden {
 
 	
 
-	public Orden(int id, int numero, int anio, String tipo, String moneda, String descripcion, Float importe_autorizado,
-			Float importe_bajas, Float importe_facturado, int activo, int creado_por, Date creado, int modificado_por,
+	public Orden(int id, int numero, int anio, String tipo, String moneda, String descripcion, BigDecimal importe_autorizado,
+			BigDecimal importe_bajas, BigDecimal importe_facturado, int activo, int creado_por, Date creado, int modificado_por,
 			Date modificado, int clientes_id, int marcas_equipos_id, int modelos_equipos_id, String numero_orden,
 			String alfresco_id_OIT, int cliente_factura_id) {
 		super();
@@ -131,37 +132,37 @@ public class Orden {
 
 
 
-	public Float getImporte_autorizado() {
+	public BigDecimal getImporte_autorizado() {
 		return importe_autorizado;
 	}
 
 
 
-	public void setImporte_autorizado(Float importe_autorizado) {
+	public void setImporte_autorizado(BigDecimal importe_autorizado) {
 		this.importe_autorizado = importe_autorizado;
 	}
 
 
 
-	public Float getImporte_bajas() {
+	public BigDecimal getImporte_bajas() {
 		return importe_bajas;
 	}
 
 
 
-	public void setImporte_bajas(Float importe_bajas) {
+	public void setImporte_bajas(BigDecimal importe_bajas) {
 		this.importe_bajas = importe_bajas;
 	}
 
 
 
-	public Float getImporte_facturado() {
+	public BigDecimal getImporte_facturado() {
 		return importe_facturado;
 	}
 
 
 
-	public void setImporte_facturado(Float importe_facturado) {
+	public void setImporte_facturado(BigDecimal importe_facturado) {
 		this.importe_facturado = importe_facturado;
 	}
 

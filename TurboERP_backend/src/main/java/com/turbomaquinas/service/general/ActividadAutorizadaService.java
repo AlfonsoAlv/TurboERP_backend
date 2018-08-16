@@ -28,4 +28,5 @@ public interface ActividadAutorizadaService {
 	public void asignarFacts(int id, ListaFacts lista);
 	public List<Facts> consultarFacts(int id);
 	public List<ActividadAutorizadaFactura> consultarAAPorIds(List<Integer> idsActividades);
+	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera);
 }

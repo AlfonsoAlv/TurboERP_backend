@@ -15,7 +15,7 @@ public class SubindiceActividadAutorizadaVistaRM implements RowMapper<SubindiceA
 		sa.setId(rs.getInt("id"));
 		sa.setDescripcion(rs.getString("descripcion"));
 		sa.setLugar(rs.getInt("lugar"));
-		sa.setImporte(rs.getFloat("importe"));
+		sa.setImporte(rs.getBigDecimal("importe"));
 		sa.setTipo_actividad_subindice(rs.getString("tipo_actividad_subindice"));
 		sa.setActivo(rs.getInt("activo"));
 		sa.setActividades_autorizadas_id(rs.getInt("actividades_autorizadas_id"));
@@ -26,11 +26,11 @@ public class SubindiceActividadAutorizadaVistaRM implements RowMapper<SubindiceA
 		sa.setPlanta(rs.getInt("planta"));
 		sa.setClase_actividad(rs.getString("clase_actividad"));
 		sa.setFecha_autorizado(rs.getDate("fecha_autorizado"));
-		sa.setImporte_autorizado(rs.getFloat("importe_autorizado"));
-		sa.setImporte_baja(rs.getFloat("importe_baja"));
-		sa.setImporte_anticipo(rs.getFloat("importe_anticipo"));
-		sa.setImporte_factura(rs.getFloat("importe_factura"));
-		sa.setImporte_pendiente(rs.getFloat("importe_pendiente"));
+		sa.setImporte_autorizado(rs.getBigDecimal("importe_autorizado"));
+		sa.setImporte_baja(rs.getBigDecimal("importe_baja"));
+		sa.setImporte_anticipo(rs.getBigDecimal("importe_anticipo"));
+		sa.setImporte_factura(rs.getBigDecimal("importe_factura"));
+		sa.setImporte_pendiente(rs.getBigDecimal("importe_pendiente"));
 		sa.setActividad_activo(rs.getInt("actividad_activo"));
 		return sa;
 	}

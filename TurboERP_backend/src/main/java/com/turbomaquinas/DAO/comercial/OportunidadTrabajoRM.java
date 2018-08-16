@@ -21,7 +21,7 @@ public class OportunidadTrabajoRM implements RowMapper<OportunidadTrabajo>{
 		op.setDescripcion(rs.getString("descripcion"));
 		op.setComentario(rs.getString("comentario"));
 		op.setProbabilidad(rs.getString("probabilidad"));
-		op.setMonto(rs.getFloat("monto"));
+		op.setMonto(rs.getBigDecimal("monto"));
 		op.setMoneda(rs.getString("moneda"));
 		op.setUsuario_cierre(rs.getInt("usuario_cierre"));
 		op.setFecha_cierre(rs.getDate("fecha_cierre"));
