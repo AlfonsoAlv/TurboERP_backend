@@ -271,5 +271,10 @@ public class LogicaOrdenService implements OrdenService{
 	public BigDecimal importePagadoporFactura(int idOrden,int idFactura) throws DataAccessException{
 		return repositorio.importePagadoporOrdenFactura(idOrden,idFactura);
 	}
+
+	@Override
+	public void crearGarantia(int id) throws DataAccessException {
+		repositorio.crearGarantia(id);
+	}
 	
 }
