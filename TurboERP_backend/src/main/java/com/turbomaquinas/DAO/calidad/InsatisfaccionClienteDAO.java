@@ -5,6 +5,7 @@ import java.util.List;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccionVista;
 
 public interface InsatisfaccionClienteDAO {
 	
@@ -13,6 +14,8 @@ public interface InsatisfaccionClienteDAO {
 	public InsatisfaccionClienteVista buscarPorFolio(int folio);
 	public List<InsatisfaccionClienteVista> consultar();
 	public void actualizar(InsatisfaccionCliente insatisfaccion);
-	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento);
+	public int crearSeguimiento(SeguimientoInsatisfaccion seguimiento);
 	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id);
+	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id);
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por);
 }

@@ -11,6 +11,7 @@ import com.turbomaquinas.DAO.calidad.InsatisfaccionClienteDAO;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccionVista;
 
 @Service
 public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService{
@@ -45,13 +46,24 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	}
 
 	@Override
-	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
-		repoInsatisfaccion.crearSeguimiento(seguimiento);	
+	public SeguimientoInsatisfaccionVista crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
+		int id = repoInsatisfaccion.crearSeguimiento(seguimiento);
+		return repoInsatisfaccion.buscarSeguimiento(id);
 	}
 
 	@Override
 	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
 		return repoInsatisfaccion.consultarSeguimientos(id);
+	}
+
+	@Override
+	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) {
+		return repoInsatisfaccion.buscarSeguimiento(id);
+	}
+
+	@Override
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por) {
+		repoInsatisfaccion.agregarDocumentoAlfresco(id,alfresco_id,creado_por);
 	}
 	
 }
