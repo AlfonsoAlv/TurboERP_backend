@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccionVista;
 
 @Repository
 public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
@@ -189,7 +190,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
+	public int crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
 		SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 		List<String> columnas = new ArrayList<>();
 		columnas.add("fecha");
@@ -211,13 +212,33 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		datos.put("creado_por", seguimiento.getCreado_por());
 		datos.put("INSATISFACCIONES_CLIENTES_id", seguimiento.getInsatisfacciones_clientes_id());
 		
-		insert.execute(datos);
+		//insert.execute(datos);
+		
+		
+		insert.setGeneratedKeyName("id");
+		Number id = insert.executeAndReturnKey(datos);
+		
+		return id.intValue();
 	}
 
 	@Override
 	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
 		String sql = "SELECT * FROM SEGUIMIENTO_INSATISFACCION WHERE INSATISFACCIONES_CLIENTES_id = ?";
 		return jdbcTemplate.query(sql, new SeguimientoInsatisfaccionRM(), id);
+	}
+
+	@Override
+	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) {
+		String sql = "SELECT * FROM SEGUIMIENTO_INSATISFACCION_V WHERE id = ?";
+		return jdbcTemplate.queryForObject(sql, new SeguimientoInsatisfaccionVistaRM(), id);
+	}
+
+	@Override
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por) {
+		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))), "
+																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))))) "
+																		+ "WHERE id=?";
+		jdbcTemplate.update(sql,alfresco_id,creado_por,alfresco_id,creado_por,id);
 	}
 
 }

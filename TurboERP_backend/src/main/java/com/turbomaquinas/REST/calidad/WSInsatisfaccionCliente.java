@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
+import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccionVista;
 import com.turbomaquinas.service.calidad.InsatisfaccionClienteService;
 
 @RestController
@@ -101,16 +103,17 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@PostMapping("/seguimiento")
-	public ResponseEntity<Void> crearSeguimiento(@RequestBody SeguimientoInsatisfaccion seguimiento) {
+	public ResponseEntity<SeguimientoInsatisfaccionVista> crearSeguimiento(@RequestBody SeguimientoInsatisfaccion seguimiento) {
 		bitacora.info(seguimiento);
+		SeguimientoInsatisfaccionVista seguimiento_v=null;
 		try {
-			ics.crearSeguimiento(seguimiento);
+			seguimiento_v=ics.crearSeguimiento(seguimiento);
 		} catch (Exception e) {
 		
 			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<SeguimientoInsatisfaccionVista>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<SeguimientoInsatisfaccionVista>(seguimiento_v,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}/seguimientos")
@@ -126,6 +129,33 @@ public class WSInsatisfaccionCliente {
 			return new ResponseEntity<List<SeguimientoInsatisfaccion>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<List<SeguimientoInsatisfaccion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping("/seguimiento/{id}")
+	public ResponseEntity<SeguimientoInsatisfaccionVista> buscarSeguimiento(@PathVariable int id) {
+		SeguimientoInsatisfaccionVista seguimiento;
+		try {
+			seguimiento = ics.buscarSeguimiento(id);
+			if (seguimiento == null) {
+				return new ResponseEntity<SeguimientoInsatisfaccionVista>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<SeguimientoInsatisfaccionVista>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<SeguimientoInsatisfaccionVista>(seguimiento, HttpStatus.OK);
+	}
+	
+	@PutMapping("/seguimiento/{id}/alfresco")
+	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por) {
+		try {
+			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por);
+		} catch (Exception e) {
+		
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 }
