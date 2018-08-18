@@ -407,10 +407,10 @@ public class WSOrden {
 		return new ResponseEntity<BigDecimal>(pco, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{id/garantia")
-	public ResponseEntity<Void> crearGarantia(@PathVariable int id){
+	@PostMapping("/{id}/garantia")
+	public ResponseEntity<Void> crearGarantia(@PathVariable int id,@RequestParam int creado_por){
 		try{
-			 os.crearGarantia(id);	
+			 os.crearGarantia(id,creado_por);	
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());

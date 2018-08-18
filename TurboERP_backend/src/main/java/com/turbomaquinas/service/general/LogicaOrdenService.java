@@ -273,8 +273,8 @@ public class LogicaOrdenService implements OrdenService{
 	}
 
 	@Override
-	public void crearGarantia(int id) throws DataAccessException {
-		repositorio.crearGarantia(id);
+	public void crearGarantia(int id,int creado_por) throws DataAccessException {
+		repositorio.crearGarantia(id,creado_por);
 	}
 	
 }

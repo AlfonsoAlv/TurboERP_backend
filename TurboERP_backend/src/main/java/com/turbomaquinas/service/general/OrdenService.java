@@ -58,5 +58,5 @@ public interface OrdenService {
 	public List<PagosConsultaOrdenes> pagosAplicadosOrdenes(int id);
 	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
 	public BigDecimal importePagadoporFactura(int idOrden,int idFactura);
-	public void crearGarantia(int id);
+	public void crearGarantia(int id,int creado_por);
 }
