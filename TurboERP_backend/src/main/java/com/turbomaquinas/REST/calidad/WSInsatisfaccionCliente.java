@@ -46,6 +46,21 @@ public class WSInsatisfaccionCliente {
 		}
 		return new ResponseEntity<List<InsatisfaccionClienteVista>>(listaInsatisfacciones, HttpStatus.OK);
 	}
+	
+	@GetMapping("/filtros")
+	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorFiltros(@RequestParam String estado,@RequestParam String numero_orden,@RequestParam String procede_garantia,@RequestParam String fecha_inicio,@RequestParam String fecha_fin) {
+		List<InsatisfaccionClienteVista> listaInsatisfacciones = new ArrayList<>();
+		try {
+			listaInsatisfacciones = ics.consultarPorFiltros(estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
+			if (listaInsatisfacciones.isEmpty()) {
+				return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<InsatisfaccionClienteVista>>(listaInsatisfacciones, HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<InsatisfaccionClienteVista> buscar(@PathVariable int id) {
