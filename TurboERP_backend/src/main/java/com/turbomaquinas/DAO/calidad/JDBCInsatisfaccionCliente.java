@@ -79,6 +79,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
+				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -111,6 +114,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
+				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -142,6 +148,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
+				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -239,6 +248,43 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))))) "
 																		+ "WHERE id=?";
 		jdbcTemplate.update(sql,alfresco_id,creado_por,alfresco_id,creado_por,id);
+	}
+
+	@Override
+	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String procede_garantia,String fecha_inicio,String fecha_fin) {
+		/*String sql="SELECT * FROM INSATISFACCIONES_CLIENTES_V "
+				+ "WHERE estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ?";*/
+		
+		String sql="SELECT 	`INSATISFACCIONES_CLIENTES`.`id` AS insatisfaccion_id, " +
+				"`folio`, " +
+				"`fecha_insatisfaccion`, " + 
+				"`fecha_operacion`, " +
+				"`equipo`, " +
+				"`descripcion_insatisfaccion`, " + 
+				"`tipo_insatisfaccion`, " + 
+				"`descripcion_otro`, " + 
+				"`grado_insatisfaccion`, " +
+				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
+				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"`ORDENES`.`id` AS ORDENES_id, " + 
+				" ORDENES.`numero_orden`, " +
+				" ORDENES.`descripcion` AS descripcion_orden, " +
+				"`ubicacion`, " +
+				"ORDENES.`CLIENTES_id` AS clientes_id, " +
+				" (SELECT CLIENTES.`numero` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_cliente', " + 
+				" (SELECT (SELECT GIROS.`numero` FROM GIROS WHERE `GIROS`.`id` = CLIENTES.`GIROS_id`) FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_giro', " + 
+				" (SELECT CLIENTES.`nombre_comercial` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_comercial', " + 
+				" (SELECT CLIENTES.`nombre_fiscal` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_fiscal', " + 
+				" (SELECT CLIENTES.`PERSONAL_id` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS atc_default_id, " +
+				" (SELECT CONCAT(PERSONAL.`nombre`, ' ', PERSONAL.`paterno`, ' ' , PERSONAL.`materno`) FROM PERSONAL WHERE `PERSONAL`.`id` = `PERSONAL_id`) AS nombre_personal, " +
+				" `PERSONAL_id` " +
+				"FROM INSATISFACCIONES_CLIENTES " +
+				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
+				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` "+
+				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ? "+
+				"AND fecha_insatisfaccion  BETWEEN ? AND ?";
+		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
 	}
 
 }
