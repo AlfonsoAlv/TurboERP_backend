@@ -162,7 +162,7 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@PutMapping("/seguimiento/{id}/alfresco")
-	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por,@RequestBody String descripcion) {
+	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por,@RequestParam String descripcion) {
 		try {
 			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por,descripcion);
 		} catch (Exception e) {
