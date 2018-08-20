@@ -162,9 +162,9 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@PutMapping("/seguimiento/{id}/alfresco")
-	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por) {
+	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por,@RequestBody String descripcion) {
 		try {
-			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por);
+			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por,descripcion);
 		} catch (Exception e) {
 		
 			bitacora.error(e.getMessage());

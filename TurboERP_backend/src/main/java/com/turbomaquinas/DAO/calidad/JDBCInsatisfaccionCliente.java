@@ -243,11 +243,11 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por) {
-		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))), "
-																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))))) "
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion) {
+		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)), "
+																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)))) "
 																		+ "WHERE id=?";
-		jdbcTemplate.update(sql,alfresco_id,creado_por,alfresco_id,creado_por,id);
+		jdbcTemplate.update(sql,alfresco_id,creado_por,descripcion,alfresco_id,creado_por,descripcion,id);
 	}
 
 	@Override

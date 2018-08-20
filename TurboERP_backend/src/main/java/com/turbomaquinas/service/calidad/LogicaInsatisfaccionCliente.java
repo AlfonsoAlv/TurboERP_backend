@@ -62,8 +62,8 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	}
 
 	@Override
-	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por) {
-		repoInsatisfaccion.agregarDocumentoAlfresco(id,alfresco_id,creado_por);
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion) {
+		repoInsatisfaccion.agregarDocumentoAlfresco(id,alfresco_id,creado_por,descripcion);
 	}
 
 	@Override
