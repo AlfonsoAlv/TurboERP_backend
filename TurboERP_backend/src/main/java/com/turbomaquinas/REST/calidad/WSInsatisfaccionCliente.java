@@ -48,10 +48,10 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@GetMapping("/filtros")
-	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorFiltros(@RequestParam String estado,@RequestParam String numero_orden,@RequestParam String procede_garantia,@RequestParam String fecha_inicio,@RequestParam String fecha_fin) {
+	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorFiltros(@RequestParam String estado,@RequestParam String numero_orden,@RequestParam String fecha_inicio,@RequestParam String fecha_fin) {
 		List<InsatisfaccionClienteVista> listaInsatisfacciones = new ArrayList<>();
 		try {
-			listaInsatisfacciones = ics.consultarPorFiltros(estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
+			listaInsatisfacciones = ics.consultarPorFiltros(estado,numero_orden,fecha_inicio,fecha_fin);
 			if (listaInsatisfacciones.isEmpty()) {
 				return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.NO_CONTENT);
 			}

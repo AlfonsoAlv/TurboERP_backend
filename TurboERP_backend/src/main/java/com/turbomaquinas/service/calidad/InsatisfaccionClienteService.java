@@ -18,5 +18,5 @@ public interface InsatisfaccionClienteService {
 	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id);
 	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id);
 	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por);
-	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden, String procede_garantia,String fecha_inicio,String fecha_fin);
+	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden, String fecha_inicio,String fecha_fin);
 }
