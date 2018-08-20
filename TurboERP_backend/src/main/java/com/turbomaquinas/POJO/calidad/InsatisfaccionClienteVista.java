@@ -15,7 +15,7 @@ public class InsatisfaccionClienteVista {
 	private String grado_insatisfaccion;
 	private String estado;
 	private int procede_garantia;
-	private int días_antiguedad;
+	private int dias_antiguedad;
 	private int ordenes_id;
 	private String numero_orden;
 	private String descripcion_orden;
@@ -38,7 +38,7 @@ public class InsatisfaccionClienteVista {
 
 	public InsatisfaccionClienteVista(int insatisfaccion_id, int folio, Date fecha_insatisfaccion, Date fecha_operacion,
 			String equipo, String descripcion_insatisfaccion, String tipo_insatisfaccion, String descripcion_otro,
-			String grado_insatisfaccion, String estado, int procede_garantia, int días_antiguedad, int ordenes_id,
+			String grado_insatisfaccion, String estado, int procede_garantia, int dias_antiguedad, int ordenes_id,
 			String numero_orden, String descripcion_orden, String cliente_nombre_comercial,
 			String cliente_nombre_fiscal, int personal_id, String nombre_personal, String ubicacion, int clientes_id,
 			int numero_cliente, int numero_giro) {
@@ -54,7 +54,7 @@ public class InsatisfaccionClienteVista {
 		this.grado_insatisfaccion = grado_insatisfaccion;
 		this.estado = estado;
 		this.procede_garantia = procede_garantia;
-		this.días_antiguedad = días_antiguedad;
+		this.dias_antiguedad = dias_antiguedad;
 		this.ordenes_id = ordenes_id;
 		this.numero_orden = numero_orden;
 		this.descripcion_orden = descripcion_orden;
@@ -158,12 +158,12 @@ public class InsatisfaccionClienteVista {
 		this.procede_garantia = procede_garantia;
 	}
 
-	public int getDías_antiguedad() {
-		return días_antiguedad;
+	public int getDias_antiguedad() {
+		return dias_antiguedad;
 	}
 
-	public void setDías_antiguedad(int días_antiguedad) {
-		this.días_antiguedad = días_antiguedad;
+	public void setDias_antiguedad(int dias_antiguedad) {
+		this.dias_antiguedad = dias_antiguedad;
 	}
 
 	public int getOrdenes_id() {
@@ -263,7 +263,7 @@ public class InsatisfaccionClienteVista {
 				+ ", equipo=" + equipo + ", descripcion_insatisfaccion=" + descripcion_insatisfaccion
 				+ ", tipo_insatisfaccion=" + tipo_insatisfaccion + ", descripcion_otro=" + descripcion_otro
 				+ ", grado_insatisfaccion=" + grado_insatisfaccion + ", estado=" + estado + ", procede_garantia="
-				+ procede_garantia + ", días_antiguedad=" + días_antiguedad + ", ordenes_id=" + ordenes_id
+				+ procede_garantia + ", días_antiguedad=" + dias_antiguedad + ", ordenes_id=" + ordenes_id
 				+ ", numero_orden=" + numero_orden + ", descripcion_orden=" + descripcion_orden
 				+ ", cliente_nombre_comercial=" + cliente_nombre_comercial + ", cliente_nombre_fiscal="
 				+ cliente_nombre_fiscal + ", personal_id=" + personal_id + ", nombre_personal=" + nombre_personal
