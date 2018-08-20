@@ -251,7 +251,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String procede_garantia,String fecha_inicio,String fecha_fin) {
+	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String fecha_inicio,String fecha_fin) {
 		/*String sql="SELECT * FROM INSATISFACCIONES_CLIENTES_V "
 				+ "WHERE estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ?";*/
 		
@@ -282,9 +282,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"FROM INSATISFACCIONES_CLIENTES " +
 				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
 				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` "+
-				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ? "+
+				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? "+
 				"AND fecha_insatisfaccion  BETWEEN ? AND ?";
-		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
+		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,fecha_inicio,fecha_fin);
 	}
 
 }
