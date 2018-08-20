@@ -36,7 +36,7 @@ public class InsatisfaccionClienteVistaRM implements RowMapper<InsatisfaccionCli
 		insatisfaccion.setClientes_id(rs.getInt("clientes_id"));
 		insatisfaccion.setEstado(rs.getString("estado"));
 		insatisfaccion.setProcede_garantia(rs.getInt("procede_garantia"));
-		insatisfaccion.setDías_antiguedad(rs.getInt("días_antiguedad"));
+		insatisfaccion.setDias_antiguedad(rs.getInt("dias_antiguedad"));
 		
 		return insatisfaccion;
 	}

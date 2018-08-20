@@ -81,7 +81,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -116,7 +116,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -150,7 +150,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -266,7 +266,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
