@@ -208,6 +208,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		columnas.add("trabajo_realizar");
 		columnas.add("creado_por");
 		columnas.add("INSATISFACCIONES_CLIENTES_id");
+		columnas.add("alfresco_ids");
 		
 		insert.setTableName("SEGUIMIENTO_INSATISFACCION");
 		insert.setColumnNames(columnas);
@@ -220,6 +221,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		datos.put("trabajo_realizar", seguimiento.getTrabajo_realizar());
 		datos.put("creado_por", seguimiento.getCreado_por());
 		datos.put("INSATISFACCIONES_CLIENTES_id", seguimiento.getInsatisfacciones_clientes_id());
+		datos.put("alfresco_ids","[]");
 		
 		//insert.execute(datos);
 		
