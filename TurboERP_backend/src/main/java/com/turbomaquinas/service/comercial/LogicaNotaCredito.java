@@ -69,4 +69,9 @@ public class LogicaNotaCredito implements NotaCreditoService {
 		return repNc.buscarUltimoId();
 	}
 
+	@Override
+	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
+		return repNc.consultarPorFecha(fechainicio, fechafin, estado);
+	}
+
 }
