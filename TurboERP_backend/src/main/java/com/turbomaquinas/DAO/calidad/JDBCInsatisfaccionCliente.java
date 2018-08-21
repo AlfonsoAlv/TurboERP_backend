@@ -81,7 +81,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -116,7 +116,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -150,7 +150,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -243,15 +243,15 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por) {
-		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))), "
-																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?))))) "
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion) {
+		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)), "
+																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)))) "
 																		+ "WHERE id=?";
-		jdbcTemplate.update(sql,alfresco_id,creado_por,alfresco_id,creado_por,id);
+		jdbcTemplate.update(sql,alfresco_id,creado_por,descripcion,alfresco_id,creado_por,descripcion,id);
 	}
 
 	@Override
-	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String procede_garantia,String fecha_inicio,String fecha_fin) {
+	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String fecha_inicio,String fecha_fin) {
 		/*String sql="SELECT * FROM INSATISFACCIONES_CLIENTES_V "
 				+ "WHERE estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ?";*/
 		
@@ -266,7 +266,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`grado_insatisfaccion`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
-				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `días_antiguedad`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
 				"`ORDENES`.`id` AS ORDENES_id, " + 
 				" ORDENES.`numero_orden`, " +
 				" ORDENES.`descripcion` AS descripcion_orden, " +
@@ -282,9 +282,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"FROM INSATISFACCIONES_CLIENTES " +
 				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
 				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` "+
-				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ? "+
+				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? "+
 				"AND fecha_insatisfaccion  BETWEEN ? AND ?";
-		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
+		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,fecha_inicio,fecha_fin);
 	}
 
 }

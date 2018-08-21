@@ -48,10 +48,10 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@GetMapping("/filtros")
-	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorFiltros(@RequestParam String estado,@RequestParam String numero_orden,@RequestParam String procede_garantia,@RequestParam String fecha_inicio,@RequestParam String fecha_fin) {
+	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorFiltros(@RequestParam String estado,@RequestParam String numero_orden,@RequestParam String fecha_inicio,@RequestParam String fecha_fin) {
 		List<InsatisfaccionClienteVista> listaInsatisfacciones = new ArrayList<>();
 		try {
-			listaInsatisfacciones = ics.consultarPorFiltros(estado,numero_orden,procede_garantia,fecha_inicio,fecha_fin);
+			listaInsatisfacciones = ics.consultarPorFiltros(estado,numero_orden,fecha_inicio,fecha_fin);
 			if (listaInsatisfacciones.isEmpty()) {
 				return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.NO_CONTENT);
 			}
@@ -162,9 +162,9 @@ public class WSInsatisfaccionCliente {
 	}
 	
 	@PutMapping("/seguimiento/{id}/alfresco")
-	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por) {
+	public ResponseEntity<Void> agregarDocumentoAlfresco(@PathVariable int id,@RequestParam String alfresco_id,@RequestParam int creado_por,@RequestParam String descripcion) {
 		try {
-			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por);
+			ics.agregarDocumentoAlfresco(id,alfresco_id,creado_por,descripcion);
 		} catch (Exception e) {
 		
 			bitacora.error(e.getMessage());
