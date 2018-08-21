@@ -7,6 +7,7 @@ public class NotasCreditoPorOrden {
 	private int id;
 	private BigDecimal importe;
 	private int factura_id;
+	private String moneda;
 
 	public NotasCreditoPorOrden() {
 		super();
@@ -42,6 +43,14 @@ public class NotasCreditoPorOrden {
 
 	public void setFactura_id(int factura_id) {
 		this.factura_id = factura_id;
+	}
+
+	public String getMoneda() {
+		return moneda;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import com.turbomaquinas.POJO.comercial.DocumentoAplicarNotasCredito;
 import com.turbomaquinas.POJO.comercial.NotaCredito;
 import com.turbomaquinas.POJO.comercial.NotaCreditoVista;
 
+import twitter4j.JSONException;
+
 public interface NotaCreditoService {
 
 	public NotaCreditoVista crearNotasCredito(DocumentoAplicarNotasCredito doc);
@@ -18,4 +20,7 @@ public interface NotaCreditoService {
 	public NotaCreditoVista buscarPorNumero(int numero);
 	public List<NotaCreditoVista> consultarSinTimbrar();
 	public Integer buscarUltimoId();
+	public NotaCreditoVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException, Exception;
+	public void actualizarEstado(int id,String estado);
+	
 }
