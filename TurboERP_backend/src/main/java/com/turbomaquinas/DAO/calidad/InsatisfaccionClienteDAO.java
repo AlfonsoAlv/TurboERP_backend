@@ -19,4 +19,5 @@ public interface InsatisfaccionClienteDAO {
 	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id);
 	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion);
 	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String fecha_inicio,String fecha_fin);
+	public void actualizarEstado(int id);
 }
