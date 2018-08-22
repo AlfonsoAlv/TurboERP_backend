@@ -172,5 +172,15 @@ public class WSInsatisfaccionCliente {
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	@PutMapping("/{id}/estado")
+	public ResponseEntity<Void> actualizarEstado(@PathVariable int id){
+		try {
+			ics.actualizarEstado(id);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 	
 }

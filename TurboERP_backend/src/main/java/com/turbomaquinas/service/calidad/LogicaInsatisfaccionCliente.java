@@ -70,5 +70,11 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden, String fecha_inicio,String fecha_fin) {
 		return repoInsatisfaccion.consultarPorFiltros(estado,numero_orden,fecha_inicio,fecha_fin);
 	}
+
+	@Override
+	public void actualizarEstado(int id) {
+		repoInsatisfaccion.actualizarEstado(id);
+		
+	}
 	
 }

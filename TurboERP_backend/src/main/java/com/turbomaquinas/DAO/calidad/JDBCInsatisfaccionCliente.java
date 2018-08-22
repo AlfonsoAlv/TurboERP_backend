@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 import com.turbomaquinas.POJO.calidad.SeguimientoInsatisfaccion;
@@ -294,6 +295,13 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"WHERE INSATISFACCIONES_CLIENTES.estado LIKE ? AND numero_orden LIKE ? "+
 				"AND fecha_insatisfaccion  BETWEEN ? AND ?";
 		return jdbcTemplate.query(sql,new InsatisfaccionClienteVistaRM(),estado,numero_orden,fecha_inicio,fecha_fin);
+	}
+
+	@Override
+	public void actualizarEstado(int id) {
+		String sql ="UPDATE INSATISFACCIONES_CLIENTES SET estado='S' WHERE id=?";
+		jdbcTemplate.update(sql,id);
+		
 	}
 
 }
