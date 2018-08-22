@@ -132,5 +132,14 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 				+ "ORDER BY id DESC LIMIT 1";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+
+	@Override
+	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
+		String sql = "select *"
+				+ " from NOTAS_CREDITO"
+				+ " where fecha between ? and ? and activo=1 and estado=?";
+		
+		return jdbcTemplate.query(sql, new NotaCreditoVistaRM(), fechainicio, fechafin, estado);				
+	}
 	
 }

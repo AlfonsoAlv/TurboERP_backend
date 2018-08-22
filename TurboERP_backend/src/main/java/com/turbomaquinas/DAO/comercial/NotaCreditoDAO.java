@@ -17,4 +17,5 @@ public interface NotaCreditoDAO {
 	public NotaCreditoVista buscarPorNumero(int numero);
 	public List<NotaCreditoVista> consultarSinTimbrar();
 	public Integer buscarUltimoId();
+	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado);
 }
