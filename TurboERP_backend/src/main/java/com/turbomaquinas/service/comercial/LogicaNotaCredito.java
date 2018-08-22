@@ -140,5 +140,9 @@ public class LogicaNotaCredito implements NotaCreditoService {
 	public void actualizarEstado(int id, String estado) {
 		repNc.actualizarEstado(id,estado);
 	}
+	
+	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
+		return repNc.consultarPorFecha(fechainicio, fechafin, estado);
+	}
 
 }

@@ -148,5 +148,14 @@ public class WSNotaCredito {
 		}
 		return new ResponseEntity<NotaCreditoVista>(notaCredito,HttpStatus.OK);
 	}
+	
+	@GetMapping("/fechas/{estado}")
+	public ResponseEntity<List<NotaCreditoVista>> consultarPorFechas(@RequestParam String fechainicio, @RequestParam String fechafin, @PathVariable String estado){
+		List<NotaCreditoVista> p = s.consultarPorFecha(fechainicio, fechafin, estado);
+		if (p.isEmpty())
+			return new ResponseEntity<List<NotaCreditoVista>> (HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<NotaCreditoVista>>(p, HttpStatus.OK);
+
+	}
 
 }

@@ -1,6 +1,9 @@
 package com.turbomaquinas.POJO.calidad;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SeguimientoInsatisfaccionVista {
 	
@@ -15,14 +18,14 @@ public class SeguimientoInsatisfaccionVista {
 	private int modificado_por;
 	private Date modificado;
 	private int insatisfacciones_clientes_id;
-	private String alfresco_ids;
+	private List<Alfresco_ids> alfresco_ids;
 	private int cantidad_Documentos;
 	private int folio_insatisfaccion;
 	private int ORDENES_id;
 	
 	public SeguimientoInsatisfaccionVista(int id, Date fecha, String descripcion, String tipo, String trabajo_realizar,
 			int activo, int creado_por, Date creado, int modificado_por, Date modificado,
-			int insatisfacciones_clientes_id, String alfresco_ids, int cantidad_Documentos, int folio_insatisfaccion,
+			int insatisfacciones_clientes_id, List<Alfresco_ids> alfresco_ids, int cantidad_Documentos, int folio_insatisfaccion,
 			int oRDENES_id) {
 		super();
 		this.id = id;
@@ -134,11 +137,11 @@ public class SeguimientoInsatisfaccionVista {
 		this.insatisfacciones_clientes_id = insatisfacciones_clientes_id;
 	}
 
-	public String getAlfresco_ids() {
+	public List<Alfresco_ids> getAlfresco_ids() {
 		return alfresco_ids;
 	}
 
-	public void setAlfresco_ids(String alfresco_ids) {
+	public void setAlfresco_ids(List<Alfresco_ids> alfresco_ids) {
 		this.alfresco_ids = alfresco_ids;
 	}
 
@@ -177,5 +180,64 @@ public class SeguimientoInsatisfaccionVista {
 	}
 	
 	
+	
+	public static class Alfresco_ids{
+		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+		private Date fecha;
+		private int creado_por;
+		private String alfresco_id;
+		private String descripcion;
+		
+		public Alfresco_ids() {
+			super();
+		}
+
+		public Alfresco_ids(Date fecha, int creado_por, String alfresco_id, String descripcion) {
+			super();
+			this.fecha = fecha;
+			this.creado_por = creado_por;
+			this.alfresco_id = alfresco_id;
+			this.descripcion = descripcion;
+		}
+
+		public Date getFecha() {
+			return fecha;
+		}
+
+		public void setFecha(Date fecha) {
+			this.fecha = fecha;
+		}
+
+		public int getCreado_por() {
+			return creado_por;
+		}
+
+		public void setCreado_por(int creado_por) {
+			this.creado_por = creado_por;
+		}
+
+		public String getAlfresco_id() {
+			return alfresco_id;
+		}
+
+		public void setAlfresco_id(String alfresco_id) {
+			this.alfresco_id = alfresco_id;
+		}
+
+		public String getDescripcion() {
+			return descripcion;
+		}
+
+		public void setDescripcion(String descripcion) {
+			this.descripcion = descripcion;
+		}
+
+		@Override
+		public String toString() {
+			return "alfresco_ids [fecha=" + fecha + ", creado_por=" + creado_por + ", alfresco_id=" + alfresco_id
+					+ ", descripcion=" + descripcion + "]";
+		}
+		
+	}
 	
 }

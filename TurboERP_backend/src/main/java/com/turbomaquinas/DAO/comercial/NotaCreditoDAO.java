@@ -21,4 +21,6 @@ public interface NotaCreditoDAO {
 	public void actualizarTipoCambio(int id, float tipoCambio);
 	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados);
 	public String obtenerMoneda(int nc_id);
+	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado);
+	
 }
