@@ -175,14 +175,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 
 	@Override
 	public void actualizar(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
-		
-		String actividades = "";
-		if (!insatisfaccion.getActividades().isEmpty()) {
-			actividades= insatisfaccion.getActividades().toString();
-			actividades = actividades.replace("[", "");
-			actividades = actividades.replace("]", "");
-		}
-		
+
 		jdbcTemplate.update(""
 				+ "UPDATE INSATISFACCIONES_CLIENTES "
 				+ "SET ubicacion = ?, "
@@ -194,7 +187,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				+ "grado_insatisfaccion = ?, "
 				+ "modificado_por = ?, "
 				+ "PERSONAL_id = ? , "
-				+ "actividades = JSON_ARRAY(" + actividades + ") , "
+				+ "actividades = JSON_UNQUOTE(?) , "
 				+ "procede_garantia = ? "
 				+ "WHERE INSATISFACCIONES_CLIENTES.id = ?",
 				insatisfaccion.getUbicacion(),
@@ -206,6 +199,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				insatisfaccion.getGrado_insatisfaccion(),
 				insatisfaccion.getModificado_por(),
 				insatisfaccion.getPersonal_id(),
+				"\"" + insatisfaccion.getActividades() + "\"",
 				insatisfaccion.getProcede_garantia(),
 				insatisfaccion.getId());
 		
