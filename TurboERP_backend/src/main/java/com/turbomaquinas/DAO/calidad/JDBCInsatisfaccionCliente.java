@@ -35,11 +35,11 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		columnas.add("grado_insatisfaccion");
 		columnas.add("creado_por");
 		columnas.add("creado");
-		columnas.add("modificado_por");
-		columnas.add("modificado");
 		columnas.add("ubicacion");
 		columnas.add("ORDENES_id");
 		columnas.add("PERSONAL_id");
+		columnas.add("actividades");
+		columnas.add("procede_garantia");
 		
 		insert.setTableName("INSATISFACCIONES_CLIENTES");
 		insert.setColumnNames(columnas);
@@ -55,11 +55,11 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		datos.put("grado_insatisfaccion", insatisfaccion.getGrado_insatisfaccion());
 		datos.put("creado_por", insatisfaccion.getCreado_por());
 		datos.put("creado", insatisfaccion.getCreado());
-		datos.put("modificado_por", insatisfaccion.getModificado_por());
-		datos.put("modificado", insatisfaccion.getModificado());
 		datos.put("ubicacion", insatisfaccion.getUbicacion());
 		datos.put("ORDENES_id", insatisfaccion.getOrdenes_id());
 		datos.put("PERSONAL_id", insatisfaccion.getPersonal_id());
+		datos.put("actividades", insatisfaccion.getActividades());
+		datos.put("procede_garantia", insatisfaccion.getProcede_garantia());
 		
 		insert.setGeneratedKeyName("id");
 		Number id = insert.executeAndReturnKey(datos);
@@ -79,6 +79,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`actividades`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
 				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
@@ -114,6 +115,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`actividades`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
 				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
@@ -148,6 +150,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`actividades`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
 				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
@@ -173,6 +176,13 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	@Override
 	public void actualizar(InsatisfaccionCliente insatisfaccion) throws DataAccessException {
 		
+		String actividades = "";
+		if (!insatisfaccion.getActividades().isEmpty()) {
+			actividades= insatisfaccion.getActividades().toString();
+			actividades = actividades.replace("[", "");
+			actividades = actividades.replace("]", "");
+		}
+		
 		jdbcTemplate.update(""
 				+ "UPDATE INSATISFACCIONES_CLIENTES "
 				+ "SET ubicacion = ?, "
@@ -183,7 +193,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				+ "descripcion_otro = ?, "
 				+ "grado_insatisfaccion = ?, "
 				+ "modificado_por = ?, "
-				+ "PERSONAL_id = ? "
+				+ "PERSONAL_id = ? , "
+				+ "actividades = JSON_ARRAY(" + actividades + ") , "
+				+ "procede_garantia = ? "
 				+ "WHERE INSATISFACCIONES_CLIENTES.id = ?",
 				insatisfaccion.getUbicacion(),
 				insatisfaccion.getFecha_operacion(),
@@ -194,6 +206,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				insatisfaccion.getGrado_insatisfaccion(),
 				insatisfaccion.getModificado_por(),
 				insatisfaccion.getPersonal_id(),
+				insatisfaccion.getProcede_garantia(),
 				insatisfaccion.getId());
 		
 	}

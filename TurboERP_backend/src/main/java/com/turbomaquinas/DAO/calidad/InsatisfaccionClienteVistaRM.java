@@ -2,9 +2,12 @@ package com.turbomaquinas.DAO.calidad;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionClienteVista;
 
 public class InsatisfaccionClienteVistaRM implements RowMapper<InsatisfaccionClienteVista>{
@@ -37,6 +40,18 @@ public class InsatisfaccionClienteVistaRM implements RowMapper<InsatisfaccionCli
 		insatisfaccion.setEstado(rs.getString("estado"));
 		insatisfaccion.setProcede_garantia(rs.getInt("procede_garantia"));
 		insatisfaccion.setDias_antiguedad(rs.getInt("dias_antiguedad"));
+		
+		String json=rs.getString("actividades");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		List<Integer> act = null;
+		
+		try {
+			act = mapper.readValue(json, new TypeReference<List<Integer>>(){});
+			insatisfaccion.setActividades(act);
+		} catch (Exception e) { }
+		
+
 		
 		return insatisfaccion;
 	}

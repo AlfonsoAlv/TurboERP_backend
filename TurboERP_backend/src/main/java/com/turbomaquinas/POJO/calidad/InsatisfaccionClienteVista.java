@@ -1,6 +1,7 @@
 package com.turbomaquinas.POJO.calidad;
 
 import java.util.Date;
+import java.util.List;
 
 public class InsatisfaccionClienteVista {
 
@@ -27,21 +28,18 @@ public class InsatisfaccionClienteVista {
 	private int clientes_id;
 	private int numero_cliente;
 	private int numero_giro;
-	
-	
+	private List<Integer> actividades;
 	
 	public InsatisfaccionClienteVista() {
 
 	}
-
-
 
 	public InsatisfaccionClienteVista(int insatisfaccion_id, int folio, Date fecha_insatisfaccion, Date fecha_operacion,
 			String equipo, String descripcion_insatisfaccion, String tipo_insatisfaccion, String descripcion_otro,
 			String grado_insatisfaccion, String estado, int procede_garantia, int dias_antiguedad, int ordenes_id,
 			String numero_orden, String descripcion_orden, String cliente_nombre_comercial,
 			String cliente_nombre_fiscal, int personal_id, String nombre_personal, String ubicacion, int clientes_id,
-			int numero_cliente, int numero_giro) {
+			int numero_cliente, int numero_giro, List<Integer> actividades) {
 		super();
 		this.insatisfaccion_id = insatisfaccion_id;
 		this.folio = folio;
@@ -66,9 +64,8 @@ public class InsatisfaccionClienteVista {
 		this.clientes_id = clientes_id;
 		this.numero_cliente = numero_cliente;
 		this.numero_giro = numero_giro;
+		this.actividades = actividades;
 	}
-
-
 
 	public int getInsatisfaccion_id() {
 		return insatisfaccion_id;
@@ -254,7 +251,13 @@ public class InsatisfaccionClienteVista {
 		this.numero_giro = numero_giro;
 	}
 
+	public List<Integer> getActividades() {
+		return actividades;
+	}
 
+	public void setActividades(List<Integer> actividades) {
+		this.actividades = actividades;
+	}
 
 	@Override
 	public String toString() {
@@ -263,13 +266,12 @@ public class InsatisfaccionClienteVista {
 				+ ", equipo=" + equipo + ", descripcion_insatisfaccion=" + descripcion_insatisfaccion
 				+ ", tipo_insatisfaccion=" + tipo_insatisfaccion + ", descripcion_otro=" + descripcion_otro
 				+ ", grado_insatisfaccion=" + grado_insatisfaccion + ", estado=" + estado + ", procede_garantia="
-				+ procede_garantia + ", días_antiguedad=" + dias_antiguedad + ", ordenes_id=" + ordenes_id
+				+ procede_garantia + ", dias_antiguedad=" + dias_antiguedad + ", ordenes_id=" + ordenes_id
 				+ ", numero_orden=" + numero_orden + ", descripcion_orden=" + descripcion_orden
 				+ ", cliente_nombre_comercial=" + cliente_nombre_comercial + ", cliente_nombre_fiscal="
 				+ cliente_nombre_fiscal + ", personal_id=" + personal_id + ", nombre_personal=" + nombre_personal
 				+ ", ubicacion=" + ubicacion + ", clientes_id=" + clientes_id + ", numero_cliente=" + numero_cliente
-				+ ", numero_giro=" + numero_giro + "]";
+				+ ", numero_giro=" + numero_giro + ", actividades=" + actividades + "]";
 	}
-
 	
 }

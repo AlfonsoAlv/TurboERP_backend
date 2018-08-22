@@ -1,6 +1,7 @@
 package com.turbomaquinas.POJO.calidad;
 
 import java.util.Date;
+import java.util.List;
 
 public class InsatisfaccionCliente {
 
@@ -21,6 +22,8 @@ public class InsatisfaccionCliente {
 	private String ubicacion;
 	private int ordenes_id;
 	private int personal_id;
+	private List<Integer> actividades;
+	private int procede_garantia;
 
 	public InsatisfaccionCliente() {
 		super();
@@ -30,8 +33,7 @@ public class InsatisfaccionCliente {
 	public InsatisfaccionCliente(int id, int folio, Date fecha_insatisfaccion, Date fecha_operacion, String equipo,
 			String descripcion_insatisfaccion, String tipo_insatisfaccion, String descripcion_otro,
 			String grado_insatisfaccion, int activo, int creado_por, Date creado, int modificado_por, Date modificado,
-			int ordenes_id, int personal_id) {
-		super();
+			String ubicacion, int ordenes_id, int personal_id, List<Integer> actividades, int procede_garantia) {
 		this.id = id;
 		this.folio = folio;
 		this.fecha_insatisfaccion = fecha_insatisfaccion;
@@ -46,8 +48,11 @@ public class InsatisfaccionCliente {
 		this.creado = creado;
 		this.modificado_por = modificado_por;
 		this.modificado = modificado;
+		this.ubicacion = ubicacion;
 		this.ordenes_id = ordenes_id;
 		this.personal_id = personal_id;
+		this.actividades = actividades;
+		this.procede_garantia = procede_garantia;
 	}
 
 	public int getId() {
@@ -186,6 +191,22 @@ public class InsatisfaccionCliente {
 		this.personal_id = personal_id;
 	}
 
+	public List<Integer> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<Integer> actividades) {
+		this.actividades = actividades;
+	}
+	
+	public int getProcede_garantia() {
+		return procede_garantia;
+	}
+
+	public void setProcede_garantia(int procede_garantia) {
+		this.procede_garantia = procede_garantia;
+	}
+
 	@Override
 	public String toString() {
 		return "InsatisfaccionCliente [id=" + id + ", folio=" + folio + ", fecha_insatisfaccion=" + fecha_insatisfaccion
@@ -194,7 +215,8 @@ public class InsatisfaccionCliente {
 				+ descripcion_otro + ", grado_insatisfaccion=" + grado_insatisfaccion + ", activo=" + activo
 				+ ", creado_por=" + creado_por + ", creado=" + creado + ", modificado_por=" + modificado_por
 				+ ", modificado=" + modificado + ", ubicacion=" + ubicacion + ", ordenes_id=" + ordenes_id
-				+ ", personal_id=" + personal_id + "]";
+				+ ", personal_id=" + personal_id + ", actividades=" + actividades + ", procede_garantia="
+				+ procede_garantia + "]";
 	}
 
 }
