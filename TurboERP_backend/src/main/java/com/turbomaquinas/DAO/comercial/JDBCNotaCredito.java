@@ -134,12 +134,35 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 	}
 
 	@Override
+	public void actualizarEstado(int id, String estado) {
+		String sql="UPDATE NOTAS_CREDITO SET estado = ? WHERE id = ?";
+		jdbcTemplate.update(sql,estado,id);
+		
+	}
+
+	@Override
+	public void actualizarTipoCambio(int id, float tipoCambio) {
+		String sql="UPDATE NOTAS_CREDITO SET tipo_cambio = ? WHERE id = ?";
+		jdbcTemplate.update(sql,tipoCambio,id);
+	}
+
+	@Override
+	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados) {
+		String sql="UPDATE NOTAS_CREDITO SET DATOS_TIMBRADO_id = ? WHERE id = ?";
+		jdbcTemplate.update(sql,idDatosTimbrados,id);
+	}
+
+	@Override
+	public String obtenerMoneda(int nc_id) throws DataAccessException {
+		return jdbcTemplate.queryForObject("SELECT RECUPERAR_MONEDA_NOTA_CREDITO(?)", String.class, nc_id);
+	}
+	
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
 		String sql = "select *"
 				+ " from NOTAS_CREDITO"
 				+ " where fecha between ? and ? and activo=1 and estado=?";
 		
-		return jdbcTemplate.query(sql, new NotaCreditoVistaRM(), fechainicio, fechafin, estado);				
+		return jdbcTemplate.query(sql, new NotaCreditoVistaRM(), fechainicio, fechafin, estado);
 	}
 	
 }
