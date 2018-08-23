@@ -72,8 +72,8 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	}
 
 	@Override
-	public void actualizarEstado(int id) {
-		repoInsatisfaccion.actualizarEstado(id);
+	public void actualizarEstado(int id,String estado) {
+		repoInsatisfaccion.actualizarEstado(id,estado);
 		
 	}
 	
