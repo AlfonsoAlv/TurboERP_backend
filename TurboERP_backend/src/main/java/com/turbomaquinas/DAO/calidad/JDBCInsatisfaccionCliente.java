@@ -274,6 +274,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"`tipo_insatisfaccion`, " + 
 				"`descripcion_otro`, " + 
 				"`grado_insatisfaccion`, " +
+				"`actividades`, " +
 				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
 				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
 				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
