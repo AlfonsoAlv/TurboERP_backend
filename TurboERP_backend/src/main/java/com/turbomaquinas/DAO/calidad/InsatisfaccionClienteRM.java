@@ -2,11 +2,13 @@ package com.turbomaquinas.DAO.calidad;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turbomaquinas.POJO.calidad.InsatisfaccionCliente;
-
 public class InsatisfaccionClienteRM implements RowMapper<InsatisfaccionCliente> {
 
 	@Override
@@ -31,6 +33,15 @@ public class InsatisfaccionClienteRM implements RowMapper<InsatisfaccionCliente>
 		insatisfaccion.setPersonal_id(rs.getInt("PERSONAL_id"));
 		insatisfaccion.setTipo_insatisfaccion(rs.getString("tipo_insatisfaccion"));
 		insatisfaccion.setUbicacion(rs.getString("ubicacion"));
+		
+		String json=rs.getString("actividades");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		List<Integer> act = null;
+		try {
+			act = mapper.readValue(json, new TypeReference<List<Integer>>(){});
+		} catch (Exception e) {}
+		insatisfaccion.setActividades(act);
 
 		return insatisfaccion;
 	}

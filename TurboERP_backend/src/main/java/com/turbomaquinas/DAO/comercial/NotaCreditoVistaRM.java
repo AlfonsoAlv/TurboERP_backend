@@ -38,6 +38,7 @@ public class NotaCreditoVistaRM implements RowMapper<NotaCreditoVista> {
 		nc.setDescripcion_conceptos_facturacion_contable(rs.getString("descripcion_conceptos_facturacion_contable"));
 		nc.setNotas_credito_id_sust(rs.getInt("NOTAS_CREDITO_id_sust"));
 		nc.setImporte_total(rs.getBigDecimal("importe_total"));
+		nc.setEstado(rs.getString("estado"));
 		
 		String json=rs.getString("facturas");
 		

@@ -137,12 +137,25 @@ public class WSNotaCredito {
 		return new ResponseEntity<List<NotaCreditoVista>> (lnc, HttpStatus.OK);
 	}
 	
+	@PutMapping("{id}/timbrado")
+	public ResponseEntity<NotaCreditoVista> timbrarDB(@PathVariable int id,@RequestBody String jsonAPI,@RequestParam int creado_por){
+		NotaCreditoVista notaCredito=null;
+		try {
+			notaCredito=s.timbrarDB(id,jsonAPI,creado_por);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<NotaCreditoVista>(HttpStatus.CONFLICT);
+		}
+		return new ResponseEntity<NotaCreditoVista>(notaCredito,HttpStatus.OK);
+	}
+	
 	@GetMapping("/fechas/{estado}")
 	public ResponseEntity<List<NotaCreditoVista>> consultarPorFechas(@RequestParam String fechainicio, @RequestParam String fechafin, @PathVariable String estado){
 		List<NotaCreditoVista> p = s.consultarPorFecha(fechainicio, fechafin, estado);
 		if (p.isEmpty())
 			return new ResponseEntity<List<NotaCreditoVista>> (HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<NotaCreditoVista>>(p, HttpStatus.OK);
+
 	}
 
 }
