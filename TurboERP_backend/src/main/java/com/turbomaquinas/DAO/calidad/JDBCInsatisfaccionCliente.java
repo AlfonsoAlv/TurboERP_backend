@@ -291,9 +291,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void actualizarEstado(int id) {
-		String sql ="UPDATE INSATISFACCIONES_CLIENTES SET estado='S' WHERE id=?";
-		jdbcTemplate.update(sql,id);
+	public void actualizarEstado(int id,String estado) {
+		String sql ="UPDATE INSATISFACCIONES_CLIENTES SET estado=? WHERE id=?";
+		jdbcTemplate.update(sql,estado,id);
 		
 	}
 

@@ -173,9 +173,9 @@ public class WSInsatisfaccionCliente {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	@PutMapping("/{id}/estado")
-	public ResponseEntity<Void> actualizarEstado(@PathVariable int id){
+	public ResponseEntity<Void> actualizarEstado(@PathVariable int id,@RequestParam String estado){
 		try {
-			ics.actualizarEstado(id);
+			ics.actualizarEstado(id,estado);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
