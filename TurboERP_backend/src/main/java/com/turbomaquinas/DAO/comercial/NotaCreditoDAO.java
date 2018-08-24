@@ -22,5 +22,7 @@ public interface NotaCreditoDAO {
 	public void actualizarIdDatosTimbrados(int id, int idDatosTimbrados);
 	public String obtenerMoneda(int nc_id);
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado);
+	public String obtenerJSONCancelarNotaCredito(int idNota, String modo, String justificacion);
+	public String obtenerJSONBuscarNotaCredito(int idNota, String modo);
 	
 }

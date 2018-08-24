@@ -17,6 +17,8 @@ public interface NotaCreditoService {
 	public void RestablecerNotaCredito(int id, int modificado_por);
 	public void actualizarNumero(int id, int opcion);
 	public String obtenerJSONTimbrado(int id,String modo);
+	public String obtenerJSONCancelarNotaCredito(int idNota,String modo,String justificacion);
+	public String obtenerJSONBuscarNotaCredito(int idNota,String modo);
 	public NotaCreditoVista buscarPorNumero(int numero);
 	public List<NotaCreditoVista> consultarSinTimbrar();
 	public Integer buscarUltimoId();
