@@ -66,6 +66,8 @@ public class LogicaNotaCredito implements NotaCreditoService {
 		return repNc.obtenerJSONTimbrado(id,modo);
 	}
 	
+	
+	
 	@Override
 	public void actualizarNumero(int id, int opcion) {
 		repNc.actualizarNumero(id,opcion);
@@ -143,6 +145,16 @@ public class LogicaNotaCredito implements NotaCreditoService {
 	
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
 		return repNc.consultarPorFecha(fechainicio, fechafin, estado);
+	}
+
+	@Override
+	public String obtenerJSONCancelarNotaCredito(int idNota, String modo, String justificacion) {
+		return repNc.obtenerJSONCancelarNotaCredito(idNota,modo,justificacion);
+	}
+
+	@Override
+	public String obtenerJSONBuscarNotaCredito(int idNota, String modo) {
+		return repNc.obtenerJSONBuscarNotaCredito(idNota,modo);
 	}
 
 }

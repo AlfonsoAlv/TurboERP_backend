@@ -144,14 +144,24 @@ public class LogicaTimbrado implements TimbradoService{
 		return cancelarCFDiFactura(cfdi);
 	}
 	
+	@Override
+	public ResponseEntity<String> buscarCFDiPagos(String cfdi) {
+		return buscarFactura(cfdi);
+	}
+	
 	// Notas de Crétido
 	@Override
 	public ResponseEntity<String> timbrarNotaCredito(String cfdi) {
 		return timbrarFactura(cfdi);
 	}
-
+	
 	@Override
-	public ResponseEntity<String> buscarCFDiPagos(String cfdi) {
+	public ResponseEntity<String> cancelarCFDiNotaCredito(String cfdi) {
+		return cancelarCFDiFactura(cfdi);
+	}
+	
+	@Override
+	public ResponseEntity<String> buscarCFDiNotaCredito(String cfdi) {
 		return buscarFactura(cfdi);
 	}
 	
