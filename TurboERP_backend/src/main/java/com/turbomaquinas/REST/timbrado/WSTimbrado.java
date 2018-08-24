@@ -81,7 +81,7 @@ public class WSTimbrado {
 		    	ffs.actualizarNumero(id,0);
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){
         	ffs.actualizarNumero(id,0);
@@ -113,7 +113,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -141,7 +141,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -177,7 +177,7 @@ public class WSTimbrado {
 		    	fvs.actualizarNumero(id,0);
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){
         	fvs.actualizarNumero(id,0);
@@ -208,7 +208,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -236,7 +236,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -271,7 +271,7 @@ public class WSTimbrado {
 		    	ffs.actualizarNumero(id,0);
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){
         	ps.actualizarNumero(id,0);
@@ -303,7 +303,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -331,7 +331,7 @@ public class WSTimbrado {
 		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
 		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
 		    }else{
-		    	return null;
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 		    }
         }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
         
@@ -363,15 +363,72 @@ public class WSTimbrado {
 			if(estatusDocumento.equalsIgnoreCase("aceptado")){
 				return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
 			}else if(estatusDocumento.equalsIgnoreCase("rechazado")){
-				ffs.actualizarNumero(id,0);
+				ncs.actualizarNumero(id,0);
 			    return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 			}else{
-			   	return null;
+				return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
 			}
 	    }catch(Exception e){
 	       	ncs.actualizarNumero(id,0);
 	       	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE); 
 	    }
+	}
+	
+	@PostMapping("/notacredito/{id}/cancelacion")
+	public ResponseEntity<String> cancelarCFDiNotaCredito(@PathVariable int id,@RequestParam String modo,@RequestParam String justificacion) throws JsonParseException, JsonMappingException, IOException{
+		//Recuperar JSON del PA TIMBRADO_FACTURA		
+		String cfdi=null;
+		try{
+			cfdi=ncs.obtenerJSONCancelarNotaCredito(id,modo,justificacion);
+			System.out.println(cfdi);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		}
+		try{
+        	ResponseEntity<String> response=ts.cancelarCFDiNotaCredito(cfdi);
+        	System.out.println(response.getBody());
+	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
+	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+		    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
+		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    }else{
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    }
+        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        
+	}
+	
+	@GetMapping("/notacredito/{id}")
+	public ResponseEntity<String> buscarCFDiNotaCredito(@PathVariable int id,@RequestParam String modo) throws JsonParseException, JsonMappingException, IOException{
+		//Recuperar JSON del PA TIMBRADO_FACTURA		
+		String cfdi=null;
+		try{
+			cfdi=ncs.obtenerJSONBuscarNotaCredito(id,modo);//mandar modo
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		}
+        try{
+        	ResponseEntity<String> response=ts.buscarCFDiNotaCredito(cfdi);
+        	System.out.println(response.getBody());
+	        JSONObject jsonRespuesta = new JSONObject(response.getBody());
+	        String AckEnlaceFiscal=(String) jsonRespuesta.getString("AckEnlaceFiscal");
+		    JSONObject json_AckEnlaceFiscal = new JSONObject(AckEnlaceFiscal);
+		    String estatusDocumento=(String) json_AckEnlaceFiscal.getString("estatusDocumento");
+		    if(estatusDocumento.equalsIgnoreCase("aceptado")){
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.OK);
+		    }else if(estatusDocumento.equalsIgnoreCase("rechazado")){
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NO_CONTENT);
+		    }else{
+		    	return new ResponseEntity<String>(response.getBody(),HttpStatus.NOT_ACCEPTABLE);
+		    }
+        }catch(Exception e){return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        
 	}
 	
 	

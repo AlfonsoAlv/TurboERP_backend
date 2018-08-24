@@ -164,5 +164,52 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 		
 		return jdbcTemplate.query(sql, new NotaCreditoVistaRM(), fechainicio, fechafin, estado);
 	}
+
+	@Override
+	public String obtenerJSONCancelarNotaCredito(int idNota, String modo, String justificacion) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_CANCELACION_NOTA_CREDITO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idNota", idNota);
+		inParamMap.put("p_modo", modo);
+		inParamMap.put("p_justificacion",justificacion);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonCancelacion") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
+
+	@Override
+	public String obtenerJSONBuscarNotaCredito(int idFactura, String modo) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_BUSCAR_NOTA_CREDITO");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_idNota", idFactura);
+		inParamMap.put("p_modo", modo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+	
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
+		String json=null;
+		try{
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+				if (entry.getKey().compareTo("jsonBusqueda") == 0) {
+		            json=(String)entry.getValue();
+		        }
+		    }
+			return json;
+		}catch(Exception e){return null;}
+	}
 	
 }
