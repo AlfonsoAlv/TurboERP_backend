@@ -276,5 +276,11 @@ public class LogicaOrdenService implements OrdenService{
 	public void crearGarantia(int id,int creado_por) throws DataAccessException {
 		repositorio.crearGarantia(id,creado_por);
 	}
+
+	@Override
+	public List<OrdenVista> consultarGarantias() throws DataAccessException {
+		return repositorio.consultarGarantias();
+
+	}
 	
 }

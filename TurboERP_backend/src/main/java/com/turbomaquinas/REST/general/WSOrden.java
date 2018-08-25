@@ -418,4 +418,16 @@ public class WSOrden {
 		}
 	}
 	
+	@GetMapping("/garantia")
+	public ResponseEntity<List<OrdenVista>> consultarGarantias(){
+		List<OrdenVista> ov = null;
+		try{
+			ov = os.consultarGarantias();
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<OrdenVista>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<OrdenVista>>(ov, HttpStatus.OK);
+	}
+	
 }

@@ -20,23 +20,23 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	InsatisfaccionClienteDAO repoInsatisfaccion;
 
 	@Override
-	public InsatisfaccionClienteVista crear(InsatisfaccionCliente insatisfaccion) {		
+	public InsatisfaccionClienteVista crear(InsatisfaccionCliente insatisfaccion) throws DataAccessException {		
 		int id = repoInsatisfaccion.crear(insatisfaccion);
 		return repoInsatisfaccion.buscar(id);
 	}
 
 	@Override
-	public InsatisfaccionClienteVista buscar(int id) {
+	public InsatisfaccionClienteVista buscar(int id) throws DataAccessException {
 		return repoInsatisfaccion.buscar(id);
 	}
 
 	@Override
-	public List<InsatisfaccionClienteVista> consultar() {
+	public List<InsatisfaccionClienteVista> consultar() throws DataAccessException {
 		return repoInsatisfaccion.consultar();
 	}
 
 	@Override
-	public InsatisfaccionClienteVista buscarPorFolio(int folio) {
+	public InsatisfaccionClienteVista buscarPorFolio(int folio) throws DataAccessException {
 		return repoInsatisfaccion.buscarPorFolio(folio);
 	}
 
@@ -52,12 +52,12 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	}
 
 	@Override
-	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) throws DataAccessException {
 		return repoInsatisfaccion.consultarSeguimientos(id);
 	}
 
 	@Override
-	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) {
+	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) throws DataAccessException {
 		return repoInsatisfaccion.buscarSeguimiento(id);
 	}
 
@@ -72,9 +72,14 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	}
 
 	@Override
-	public void actualizarEstado(int id,String estado) {
+	public void actualizarEstado(int id,String estado) throws DataAccessException {
 		repoInsatisfaccion.actualizarEstado(id,estado);
 		
+	}
+
+	@Override
+	public List<InsatisfaccionClienteVista> consultarPorOrden(String numeroOrden) throws DataAccessException {
+		return repoInsatisfaccion.consultarPorOrden(numeroOrden);
 	}
 	
 }

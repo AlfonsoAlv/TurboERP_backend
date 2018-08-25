@@ -136,11 +136,10 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
 				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` ", 
 				new InsatisfaccionClienteVistaRM());
-
 	}
 
 	@Override
-	public InsatisfaccionClienteVista buscarPorFolio(int folio) {
+	public InsatisfaccionClienteVista buscarPorFolio(int folio) throws DataAccessException {
 		return jdbcTemplate.queryForObject(
 				"SELECT 	`INSATISFACCIONES_CLIENTES`.`id` AS insatisfaccion_id, " +
 				"`folio`, " +
@@ -207,7 +206,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public int crearSeguimiento(SeguimientoInsatisfaccion seguimiento) {
+	public int crearSeguimiento(SeguimientoInsatisfaccion seguimiento) throws DataAccessException {
 		SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 		List<String> columnas = new ArrayList<>();
 		columnas.add("fecha");
@@ -241,19 +240,19 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) {
+	public List<SeguimientoInsatisfaccion> consultarSeguimientos(int id) throws DataAccessException {
 		String sql = "SELECT * FROM SEGUIMIENTO_INSATISFACCION WHERE INSATISFACCIONES_CLIENTES_id = ?";
 		return jdbcTemplate.query(sql, new SeguimientoInsatisfaccionRM(), id);
 	}
 
 	@Override
-	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) {
+	public SeguimientoInsatisfaccionVista buscarSeguimiento(int id) throws DataAccessException {
 		String sql = "SELECT * FROM SEGUIMIENTO_INSATISFACCION_V WHERE id = ?";
 		return jdbcTemplate.queryForObject(sql, new SeguimientoInsatisfaccionVistaRM(), id);
 	}
 
 	@Override
-	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion) {
+	public void agregarDocumentoAlfresco(int id, String alfresco_id, int creado_por,String descripcion) throws DataAccessException {
 		String sql="UPDATE SEGUIMIENTO_INSATISFACCION SET alfresco_ids=(IF (alfresco_ids IS NULL,JSON_ARRAY(JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)), "
 																		+ "JSON_ARRAY_APPEND(alfresco_ids,'$',JSON_OBJECT('alfresco_id',?,'fecha',NOW(),'creado_por',CONCAT(?),'descripcion',?)))) "
 																		+ "WHERE id=?";
@@ -261,7 +260,7 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String fecha_inicio,String fecha_fin) {
+	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden,String fecha_inicio,String fecha_fin) throws DataAccessException {
 		/*String sql="SELECT * FROM INSATISFACCIONES_CLIENTES_V "
 				+ "WHERE estado LIKE ? AND numero_orden LIKE ? AND procede_garantia LIKE ?";*/
 		
@@ -299,10 +298,45 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 	}
 
 	@Override
-	public void actualizarEstado(int id,String estado) {
+	public void actualizarEstado(int id,String estado) throws DataAccessException {
 		String sql ="UPDATE INSATISFACCIONES_CLIENTES SET estado=? WHERE id=?";
 		jdbcTemplate.update(sql,estado,id);
 		
+	}
+
+	@Override
+	public List<InsatisfaccionClienteVista> consultarPorOrden(String numeroOrden) throws DataAccessException {
+		return jdbcTemplate.query(
+				"SELECT 	`INSATISFACCIONES_CLIENTES`.`id` AS insatisfaccion_id, " +
+				"`folio`, " +
+				"`fecha_insatisfaccion`, " + 
+				"`fecha_operacion`, " +
+				"`equipo`, " +
+				"`descripcion_insatisfaccion`, " + 
+				"`tipo_insatisfaccion`, " + 
+				"`descripcion_otro`, " + 
+				"`grado_insatisfaccion`, " +
+				"`actividades`, " +
+				"`INSATISFACCIONES_CLIENTES`.`estado` AS `estado`, "+
+				"`INSATISFACCIONES_CLIENTES`.`procede_garantia` AS `procede_garantia`, "+
+				"(TO_DAYS(NOW()) - TO_DAYS(`INSATISFACCIONES_CLIENTES`.`fecha_insatisfaccion`)) AS `dias_antiguedad`, "+
+				"`ORDENES`.`id` AS ORDENES_id, " + 
+				" ORDENES.`numero_orden`, " +
+				" ORDENES.`descripcion` AS descripcion_orden, " +
+				"`ubicacion`, " +
+				"ORDENES.`CLIENTES_id` AS clientes_id, " +
+				" (SELECT CLIENTES.`numero` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_cliente', " + 
+				" (SELECT (SELECT GIROS.`numero` FROM GIROS WHERE `GIROS`.`id` = CLIENTES.`GIROS_id`) FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'numero_giro', " + 
+				" (SELECT CLIENTES.`nombre_comercial` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_comercial', " + 
+				" (SELECT CLIENTES.`nombre_fiscal` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS 'cliente_nombre_fiscal', " + 
+				" (SELECT CLIENTES.`PERSONAL_id` FROM CLIENTES WHERE CLIENTES.`id` = ORDENES.`CLIENTES_id`) AS atc_default_id, " +
+				" (SELECT CONCAT(PERSONAL.`nombre`, ' ', PERSONAL.`paterno`, ' ' , PERSONAL.`materno`) FROM PERSONAL WHERE `PERSONAL`.`id` = `PERSONAL_id`) AS nombre_personal, " +
+				" `PERSONAL_id` " +
+				"FROM INSATISFACCIONES_CLIENTES " +
+				"LEFT JOIN ORDENES ON ORDENES.`id` = INSATISFACCIONES_CLIENTES.`ORDENES_id` " + 
+				"LEFT JOIN PERSONAL ON PERSONAL.`id` = INSATISFACCIONES_CLIENTES.`PERSONAL_id` " +
+				"WHERE ORDENES.numero_orden = ?", 
+				new InsatisfaccionClienteVistaRM(), numeroOrden);
 	}
 
 }
