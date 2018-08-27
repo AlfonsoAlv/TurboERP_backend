@@ -554,5 +554,12 @@ public class JDBCOrden implements OrdenDAO {
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
 	}
+
+	@Override
+	public List<OrdenVista> consultarGarantias() throws DataAccessException {
+		List<OrdenVista> o = jdbcTemplate.query("SELECT * FROM ORDENES_V WHERE tipo = 'G'", 
+				new OrdenVistaRM());
+		return o;
+	}
 	 	
 }

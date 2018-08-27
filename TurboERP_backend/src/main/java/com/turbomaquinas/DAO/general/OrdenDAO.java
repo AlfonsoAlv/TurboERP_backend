@@ -48,4 +48,5 @@ public interface OrdenDAO {
 	public List<NotasCreditoPorOrden> NotasCreditoPorOrden (int idOrden);
 	public BigDecimal importePagadoporOrdenFactura(int idOrden,int idFactura);
 	public void crearGarantia(int id,int creado_por);
+	public List<OrdenVista> consultarGarantias();
 }

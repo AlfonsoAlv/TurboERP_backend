@@ -183,4 +183,19 @@ public class WSInsatisfaccionCliente {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@GetMapping("/orden")
+	public ResponseEntity<List<InsatisfaccionClienteVista>> consultarPorOrden(@RequestParam String numeroOrden) {
+		List<InsatisfaccionClienteVista> listaInsatisfacciones = new ArrayList<>();
+		try {
+			listaInsatisfacciones = ics.consultarPorOrden(numeroOrden);
+			if (listaInsatisfacciones.isEmpty()) {
+				return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<InsatisfaccionClienteVista>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<InsatisfaccionClienteVista>>(listaInsatisfacciones, HttpStatus.OK);
+	}
+	
 }
