@@ -25,5 +25,6 @@ public interface NotaCreditoService {
 	public NotaCreditoVista timbrarDB(int id, String jsonAPI,int creado_por) throws JSONException, Exception;
 	public void actualizarEstado(int id,String estado);
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado);
+	public void cancelar(int id, int modificado_por);
 
 }

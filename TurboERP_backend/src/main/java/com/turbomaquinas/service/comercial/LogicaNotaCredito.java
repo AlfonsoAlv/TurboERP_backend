@@ -157,4 +157,9 @@ public class LogicaNotaCredito implements NotaCreditoService {
 		return repNc.obtenerJSONBuscarNotaCredito(idNota,modo);
 	}
 
+	@Override
+	public void cancelar(int id, int modificado_por) {
+		repNc.cancelar(id, modificado_por);
+	}
+
 }
