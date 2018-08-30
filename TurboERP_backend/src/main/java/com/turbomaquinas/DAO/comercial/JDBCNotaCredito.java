@@ -159,7 +159,7 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 	
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado) {
 		String sql = "select *"
-				+ " from NOTAS_CREDITO"
+				+ " from NOTAS_CREDITO_V"
 				+ " where fecha between ? and ? and activo=1 and estado=?";
 		
 		return jdbcTemplate.query(sql, new NotaCreditoVistaRM(), fechainicio, fechafin, estado);
@@ -210,6 +210,19 @@ public class JDBCNotaCredito implements NotaCreditoDAO {
 		    }
 			return json;
 		}catch(Exception e){return null;}
+	}
+	
+	@Override
+	public void cancelar(int id, int modificado_por) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("CANCELAR_NOTA_CREDITO");
+		
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		
+		inParamMap.put("id", id);
+		inParamMap.put("modificado_por", modificado_por);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);
 	}
 	
 }

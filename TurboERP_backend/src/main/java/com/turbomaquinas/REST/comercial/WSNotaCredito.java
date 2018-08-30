@@ -157,5 +157,16 @@ public class WSNotaCredito {
 		return new ResponseEntity<List<NotaCreditoVista>>(p, HttpStatus.OK);
 
 	}
+	
+	@DeleteMapping("{id}/cancelacion")
+	public ResponseEntity<Void> cancelar(@PathVariable int id, @RequestParam int modificado_por) {
+		try{
+			s.cancelar(id, modificado_por);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+			return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 }

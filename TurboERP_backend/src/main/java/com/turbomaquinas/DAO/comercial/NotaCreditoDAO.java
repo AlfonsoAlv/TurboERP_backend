@@ -24,5 +24,6 @@ public interface NotaCreditoDAO {
 	public List<NotaCreditoVista> consultarPorFecha(String fechainicio, String fechafin, String estado);
 	public String obtenerJSONCancelarNotaCredito(int idNota, String modo, String justificacion);
 	public String obtenerJSONBuscarNotaCredito(int idNota, String modo);
+	public void cancelar(int id, int modificado_por);
 	
 }
