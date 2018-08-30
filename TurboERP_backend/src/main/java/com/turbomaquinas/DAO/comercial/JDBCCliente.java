@@ -38,6 +38,10 @@ public class JDBCCliente implements ClienteDAO{
 		columnas.add("GIROS_id");
 		columnas.add("PERSONAL_id");
 		columnas.add("CIUDAD_COMERCIAL_id");
+		columnas.add("METODOS_PAGO_id");
+		columnas.add("FORMAS_PAGO_id");
+		columnas.add("USO_CFDI_id");
+		columnas.add("comisionista");
 		
 		insert.setTableName("CLIENTES");
 		insert.setColumnNames(columnas);
@@ -57,6 +61,10 @@ public class JDBCCliente implements ClienteDAO{
 		datos.put("GIROS_id", c.getGiros_id());
 		datos.put("PERSONAL_id", c.getPersonal_id());
 		datos.put("CIUDAD_COMERCIAL_id", c.getCiudad_comercial_id());
+		datos.put("METODOS_PAGO_id", c.getMetodos_pago_id());
+		datos.put("FORMAS_PAGO_id", c.getFormas_pago_id());
+		datos.put("USO_CFDI_id", c.getUso_cfdi_id());
+		datos.put("comisionista", c.getComisionista());
 		
 		insert.setGeneratedKeyName("id");
 		Number id = insert.executeAndReturnKey(datos);
@@ -68,11 +76,14 @@ public class JDBCCliente implements ClienteDAO{
 	public Cliente actualizar(Cliente c) throws DataAccessException {
 		jdbcTemplate.update("UPDATE CLIENTES set nombre_fiscal = ?, direccion_fiscal = ?, colonia_fiscal = ?,"
 				+ "codigo_postal_fiscal = ?, rfc = ?, dias_credito = ?, nombre_comercial = ?, direccion_planta = ?, "
-				+ "colonia_planta = ?, modificado_por = ?, PERSONAL_id = ?, GIROS_id = ?, CIUDADES_id =?, CIUDAD_COMERCIAL_id = ? "
+				+ "colonia_planta = ?, modificado_por = ?, PERSONAL_id = ?, GIROS_id = ?, CIUDADES_id =?, CIUDAD_COMERCIAL_id = ?, "
+				+ "METODOS_PAGO_id= ?, FORMAS_PAGO_id = ?, USO_CFDI_id = ?, comisionista = ? "
 				+ "WHERE id = ?", c.getNombre_fiscal(),
 				c.getDireccion_fiscal(), c.getColonia_fiscal(),	c.getCodigo_postal_fiscal(), c.getRfc(), c.getDias_credito(), 
 				c.getNombre_comercial(), c.getDireccion_planta(), c.getColonia_planta(), c.getModificado_por(), c.getPersonal_id(), 
-				c.getGiros_id(), c.getCiudades_id(), c.getCiudad_comercial_id(), c.getId());
+				c.getGiros_id(), c.getCiudades_id(), c.getCiudad_comercial_id(), 
+				c.getMetodos_pago_id(),c.getFormas_pago_id(),c.getUso_cfdi_id(),c.getComisionista(),
+				c.getId());
 		return c;
 	}
 	
