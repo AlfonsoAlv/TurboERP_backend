@@ -27,6 +27,7 @@ public class Cliente {
 	private int metodos_pago_id;
 	private int formas_pago_id;
 	private int uso_cfdi_id;
+	private String comisionista;
 
 	public Cliente() {
 		super();
@@ -36,7 +37,7 @@ public class Cliente {
 			String codigo_postal_fiscal, String rfc, int dias_credito, String nombre_comercial, String direccion_planta,
 			String colonia_planta, int activo, int creado_por, Date creado, int modificado_por, Date modificado,
 			int ciudades_id, int giros_id, int personal_id, int ciudad_comercial_id, int metodos_pago_id,
-			int formas_pago_id, int uso_cfdi_id) {
+			int formas_pago_id, int uso_cfdi_id, String comisionista) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -61,9 +62,8 @@ public class Cliente {
 		this.metodos_pago_id = metodos_pago_id;
 		this.formas_pago_id = formas_pago_id;
 		this.uso_cfdi_id = uso_cfdi_id;
+		this.comisionista = comisionista;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -247,6 +247,14 @@ public class Cliente {
 
 	public void setUso_cfdi_id(int uso_cfdi_id) {
 		this.uso_cfdi_id = uso_cfdi_id;
+	}
+
+	public String getComisionista() {
+		return comisionista;
+	}
+
+	public void setComisionista(String comisionista) {
+		this.comisionista = comisionista;
 	}
 	
 }

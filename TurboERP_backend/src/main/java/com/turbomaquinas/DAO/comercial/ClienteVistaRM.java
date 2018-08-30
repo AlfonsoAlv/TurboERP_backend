@@ -45,6 +45,10 @@ public class ClienteVistaRM implements  RowMapper<ClienteVista>{
 		cv.setCve_metodoP(rs.getString("cve_metodoP"));
 		cv.setNom_usocfdi(rs.getString("nom_usocfdi"));
 		cv.setCve_usocfdi(rs.getString("cve_usocfdi"));
+		cv.setMetodos_pago_id(rs.getInt("METODOS_PAGO_id"));
+		cv.setFormas_pago_id(rs.getInt("FORMAS_PAGO_id"));
+		cv.setUso_cfdi_id(rs.getInt("USO_CFDI_id"));
+		cv.setComisionista(rs.getString("comisionista"));
 		return cv;
 	}
 }

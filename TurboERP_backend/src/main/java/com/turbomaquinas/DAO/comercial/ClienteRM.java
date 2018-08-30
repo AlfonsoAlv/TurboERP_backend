@@ -35,6 +35,7 @@ public class ClienteRM implements RowMapper<Cliente>{
 		ct.setFormas_pago_id(rs.getInt("FORMAS_PAGO_id"));
 		ct.setMetodos_pago_id(rs.getInt("METODOS_PAGO_id"));
 		ct.setUso_cfdi_id(rs.getInt("USO_CFDI_id"));
+		ct.setComisionista(rs.getString("comisionista"));
 		return ct;
 	}
 	

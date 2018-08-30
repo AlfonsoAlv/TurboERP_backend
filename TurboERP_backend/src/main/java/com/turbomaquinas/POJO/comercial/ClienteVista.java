@@ -34,6 +34,10 @@ public class ClienteVista {
 	private String nom_metodoP;
 	private String cve_usocfdi;
 	private String nom_usocfdi;
+	private int metodos_pago_id;
+	private int formas_pago_id;
+	private int uso_cfdi_id;
+	private String comisionista;
 
 	public ClienteVista() {
 		super();
@@ -44,7 +48,8 @@ public class ClienteVista {
 			String colonia_planta, int activo, int ciudades_id, String ciudad, int estados_id, String estado,
 			int pais_id, String pais, int giros_id, int num_giro, String des_giro, int personal_id, String personal,
 			int ciudad_comercial_id, String ciudad_c, int estado_c_id, String estado_c, int cve_formaP,
-			String nom_formaP, String cve_metodoP, String nom_metodoP, String cve_usocfdi, String nom_usocfdi) {
+			String nom_formaP, String cve_metodoP, String nom_metodoP, String cve_usocfdi, String nom_usocfdi,
+			int metodos_pago_id, int formas_pago_id, int uso_cfdi_id, String comisionista) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -79,9 +84,11 @@ public class ClienteVista {
 		this.nom_metodoP = nom_metodoP;
 		this.cve_usocfdi = cve_usocfdi;
 		this.nom_usocfdi = nom_usocfdi;
+		this.metodos_pago_id = metodos_pago_id;
+		this.formas_pago_id = formas_pago_id;
+		this.uso_cfdi_id = uso_cfdi_id;
+		this.comisionista = comisionista;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -347,6 +354,38 @@ public class ClienteVista {
 		this.nom_usocfdi = nom_usocfdi;
 	}
 
+	public int getMetodos_pago_id() {
+		return metodos_pago_id;
+	}
+
+	public void setMetodos_pago_id(int metodos_pago_id) {
+		this.metodos_pago_id = metodos_pago_id;
+	}
+
+	public int getFormas_pago_id() {
+		return formas_pago_id;
+	}
+
+	public void setFormas_pago_id(int formas_pago_id) {
+		this.formas_pago_id = formas_pago_id;
+	}
+
+	public int getUso_cfdi_id() {
+		return uso_cfdi_id;
+	}
+
+	public void setUso_cfdi_id(int uso_cfdi_id) {
+		this.uso_cfdi_id = uso_cfdi_id;
+	}
+
+	public String getComisionista() {
+		return comisionista;
+	}
+
+	public void setComisionista(String comisionista) {
+		this.comisionista = comisionista;
+	}
+
 	@Override
 	public String toString() {
 		return "ClienteVista [id=" + id + ", numero=" + numero + ", nombre_fiscal=" + nombre_fiscal
@@ -360,9 +399,7 @@ public class ClienteVista {
 				+ ciudad_comercial_id + ", ciudad_c=" + ciudad_c + ", estado_c_id=" + estado_c_id + ", estado_c="
 				+ estado_c + ", cve_formaP=" + cve_formaP + ", nom_formaP=" + nom_formaP + ", cve_metodoP="
 				+ cve_metodoP + ", nom_metodoP=" + nom_metodoP + ", cve_usocfdi=" + cve_usocfdi + ", nom_usocfdi="
-				+ nom_usocfdi + "]";
+				+ nom_usocfdi + ", metodos_pago_id=" + metodos_pago_id + ", formas_pago_id=" + formas_pago_id
+				+ ", uso_cfdi_id=" + uso_cfdi_id + ", comisionista=" + comisionista + "]";
 	}
-
-	
-
 }
