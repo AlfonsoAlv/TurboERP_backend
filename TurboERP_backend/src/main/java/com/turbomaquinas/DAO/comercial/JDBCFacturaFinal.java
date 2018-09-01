@@ -78,22 +78,75 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 		return ff;
 	}
 
+	//String sql de la vista de FF
+	public static final String  VISTA_FF_SQL="SELECT `ff`.`id` AS `id`, "
+			+ "`ff`.`tipo` AS `tipo`, "
+			+ "`ff`.`numero` AS `numero`, "
+			+ "`ff`.`fecha_factura` AS `fecha_factura`, "
+			+ "`ff`.`fecha_vencimiento` AS `fecha_vencimiento`, "
+			+ "`ff`.`subtotal` AS `subtotal`, "
+			+ "`ff`.`descuento` AS `descuento`, "
+			+ "`ff`.`iva` AS `iva`, "
+			+ "`ff`.`iva_retenido` AS `iva_retenido`, "
+			+ "`ff`.`total` AS `total`, "
+			+ "`ff`.`tipo_cambio` AS `tipo_cambio`, "
+			+ "`ff`.`moneda` AS `moneda`, "
+			+ "`ff`.`condiciones_pago` AS `condiciones_pago`, "
+			+ "`ff`.`saldo`                                      AS `saldo`, "
+			+ "`ff`.`importe_timbrado`                           AS `importe_timbrado`, "
+			+ "`ff`.`estado`                                     AS `estado_factura`, "
+			+ "`ff`.`creado_por`                                 AS `creado_por`, "
+			+ "`ff`.`extranjero`                                 AS `extranjero`, "
+			+ "`ff`.`anticipo_relacionado`                       AS `anticipo_relacionado`, "
+			+ "`ff`.`datos_timbrado_id`                          AS `DATOS_TIMBRADO_id`, "
+			+ "(SELECT IF(( `ff`.`estado` = 'I' ), 'Iniciada', (SELECT IF(( `ff`.`estado` = 'T' ), 'Timbrada', "
+			+ "(SELECT IF(( `ff`.`estado` = 'B' ), 'Baja', (SELECT IF(( `ff`.`estado` = 'C' ), 'Cancelada' , "
+			+ "(SELECT IF(( `ff`.`estado` = 'L' ), 'Liquidada' , NULL))))))))))                  AS `desc_estado_fact`, "
+			+ "`ff`.`comentario`                                 AS `comentario`, "
+			+ "`ff`.`clientes_id`                                AS `CLIENTES_id`, "
+			+ "(SELECT `dt`.`folio_fiscal` FROM   `DATOS_TIMBRADO` `dt` WHERE  ( `dt`.`id` = `ff`.`datos_timbrado_id` )) AS `folio_fiscal`, "
+			+ "(SELECT `fp`.`clave` FROM   `FORMAS_PAGO` `fp` WHERE  ( `fp`.`id` = `ff`.`formas_pago_id` ))    AS `cve_formap`, "
+			+ "(SELECT `fp`.`descripcion` FROM   `FORMAS_PAGO` `fp` WHERE  ( `fp`.`id` = `ff`.`formas_pago_id` ))    AS `des_formap`, "
+			+ "(SELECT `mp`.`clave` FROM   `METODOS_PAGO` `mp` WHERE  ( `mp`.`id` = `ff`.`metodos_pago_id` ))   AS `cve_metodop`, "
+			+ "(SELECT `mp`.`descripcion` FROM   `METODOS_PAGO` `mp` WHERE  ( `mp`.`id` = `ff`.`metodos_pago_id` ))   AS `des_metodop`, "
+			+ "(SELECT `uc`.`clave` FROM   `USO_CFDI` `uc` WHERE  ( `uc`.`id` = `ff`.`uso_cfdi_id` ))       AS `cve_uso`, "
+			+ "(SELECT `uc`.`descripcion` FROM   `USO_CFDI` `uc` WHERE  ( `uc`.`id` = `ff`.`uso_cfdi_id` ))       AS `des_uso`, "
+			+ "`c`.`numero`                                      AS `numero_cliente`, "
+			+ "(SELECT `GIROS`.`numero` FROM   `GIROS` WHERE  ( `GIROS`.`id` = `c`.`giros_id` ))        AS `num_giro`, "
+			+ "`c`.`nombre_fiscal`                               AS `nombre`, "
+			+ "`c`.`direccion_fiscal`                            AS `direccion`, "
+			+ "`c`.`colonia_fiscal`                              AS `colonia`, "
+			+ "`c`.`codigo_postal_fiscal`                        AS `codigo_postal`, "
+			+ "(SELECT `CIUDADES`.`nombre` FROM   `CIUDADES` WHERE  ( `CIUDADES`.`id` = `c`.`ciudades_id` ))  AS `ciudad`, "
+			+ "(SELECT `CIUDADES`.`estados_id` FROM   `CIUDADES` WHERE  ( `CIUDADES`.`id` = `c`.`ciudades_id` ))  AS `estado_id`, "
+			+ "(SELECT `ESTADOS`.`nombre` FROM   `ESTADOS` WHERE  ( `ESTADOS`.`id` = `estado_id` ))         AS `estado`, "
+			+ "(SELECT `ESTADOS`.`paises_id` FROM   `ESTADOS` WHERE  ( `ESTADOS`.`id` = `estado_id` ))         AS `pais_id`, "
+			+ "(SELECT `PAISES`.`descripcion` FROM   `PAISES` WHERE  ( `PAISES`.`id` = `pais_id` ))            AS `pais`, "
+			+ "`ff`.`activo`                                     AS `activo`, "
+			+ "`ff`.`comprobantes_relacionados`                  AS `comprobantes_relacionados`, "
+			+ "`ff`.`alfresco_id`                                AS `alfresco_id_previa` , "
+			+ "(SELECT `dt`.`alfresco_id_pdf` FROM   `DATOS_TIMBRADO` `dt` WHERE  ( `dt`.`id` = `ff`.`datos_timbrado_id` )) AS `alfresco_id_timbrado_pdf`, "
+			+ "(SELECT `dt`.`alfresco_id_xml` FROM   `DATOS_TIMBRADO` `dt` WHERE  ( `dt`.`id` = `ff`.`datos_timbrado_id` )) AS `alfresco_id_timbrado_xml`, "
+			+ "(SELECT `dt`.`alfresco_id_pdf_cancelacion` FROM   `DATOS_TIMBRADO` `dt` WHERE  ( `dt`.`id` = `ff`.`datos_timbrado_id` )) AS `alfresco_id_timbrado_pdf_cancelacion`, "
+			+ "(SELECT `dt`.`alfresco_id_xml_cancelacion` FROM   `DATOS_TIMBRADO` `dt` WHERE  ( `dt`.`id` = `ff`.`datos_timbrado_id` )) AS `alfresco_id_timbrado_xml_cancelacion` "
+			+ "FROM   (`FACTURA_FINAL` `ff` JOIN `CLIENTES` `c` ON (( `c`.`id` = `ff`.`clientes_id` ))) ";
+	
 	@Override
 	public FacturaFinalVista buscar(int id) throws DataAccessException {
-		FacturaFinalVista ffb = jdbcTemplate.queryForObject("SELECT * FROM FACTURA_FINAL_V WHERE id = ?", 
+		FacturaFinalVista ffb = jdbcTemplate.queryForObject(VISTA_FF_SQL+" WHERE ff.id = ?", 
 				new FacturaFinalVistaRM(), id);
 		return ffb;
 	}
 
 	@Override
 	public List<FacturaFinalVista> consultar() throws DataAccessException {
-		List<FacturaFinalVista> ffl = jdbcTemplate.query("SELECT * FROM FACTURA_FINAL_V", new FacturaFinalVistaRM());
+		List<FacturaFinalVista> ffl = jdbcTemplate.query(VISTA_FF_SQL, new FacturaFinalVistaRM());
 		return ffl;
 	}
 
 	@Override
 	public FacturaFinalVista buscarPorTipoNumero(int numero, String tipo,String estado) {
-		FacturaFinalVista ffv = jdbcTemplate.queryForObject("SELECT * FROM FACTURA_FINAL_V WHERE numero = ? and tipo = ? and estado_factura=?",
+		FacturaFinalVista ffv = jdbcTemplate.queryForObject(VISTA_FF_SQL+" WHERE ff.numero = ? and ff.tipo = ? and ff.estado=?",
 				new FacturaFinalVistaRM(), numero, tipo,estado);
 		return ffv;
 	}
@@ -182,13 +235,13 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 			}
 				
 		}
-		List<FacturaFinalVista> facturas = jdbcTemplate.query("SELECT * FROM FACTURA_FINAL_V WHERE id IN("+lista+")", new FacturaFinalVistaRM());
+		List<FacturaFinalVista> facturas = jdbcTemplate.query(VISTA_FF_SQL+" WHERE ff.id IN("+lista+")", new FacturaFinalVistaRM());
 		return facturas;
 	}
 
 	@Override
 	public List<FacturaFinalVista> consultarPorEstado(String estado) {
-		return jdbcTemplate.query("SELECT * FROM FACTURA_FINAL_V WHERE estado_factura = ?", new FacturaFinalVistaRM(), estado);
+		return jdbcTemplate.query(VISTA_FF_SQL+" WHERE ff.estado = ?", new FacturaFinalVistaRM(), estado);
 	}
 
 	@Override
@@ -343,8 +396,8 @@ public class JDBCFacturaFinal implements FacturaFinalDAO {
 
 	@Override
 	public FacturaFinalVista buscarFacturaPorFolioEstado(String folio, String estado) {
-		String sql="SELECT * FROM FACTURA_FINAL_V "
-				+ "WHERE CONCAT(numero,tipo)=? AND estado_factura=?";
+		String sql=VISTA_FF_SQL
+				+ " WHERE CONCAT(ff.numero,ff.tipo)=? AND ff.estado=?";
 		return jdbcTemplate.queryForObject(sql,new FacturaFinalVistaRM(),folio,estado);
 	}
 
