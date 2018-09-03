@@ -69,4 +69,13 @@ public class JDBCCatalogoArticulos implements CatalogoArticulosDAO{
 		return ca;
 	}
 
+	@Override
+	public List<CatalogoArticulosVista> consultarArtPorCodigo(int almacen_id,String codigo) {
+		String sql = "SELECT * "
+				+ "FROM CATALOGO_ARTICULOS_V "
+				+ "WHERE almacen"+almacen_id+"=? and codigo= ? ";
+		List<CatalogoArticulosVista> ca = jdbcTemplate.query(sql, new CatalogoArticulosVistaRM(),almacen_id,codigo);
+		return ca;
+	}
+
 }

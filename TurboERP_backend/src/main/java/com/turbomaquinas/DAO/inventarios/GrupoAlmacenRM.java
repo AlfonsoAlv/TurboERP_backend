@@ -20,6 +20,8 @@ public class GrupoAlmacenRM implements RowMapper<GrupoAlmacen>{
 		gm.setModificado_por(rs.getInt("modificado_por"));
 		gm.setModificado(rs.getDate("modificado"));
 		gm.setTipos_almacen_id(rs.getInt("TIPOS_ALMACEN_id"));
+		gm.setClave_num(rs.getString("clave_num"));
+		gm.setClave_grupo(rs.getString("clave_grupo"));
 		return gm;
 	}
 }
