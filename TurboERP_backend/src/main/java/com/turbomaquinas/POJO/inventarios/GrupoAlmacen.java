@@ -11,13 +11,15 @@ public class GrupoAlmacen {
 	private int modificado_por;
 	private Date modificado;
 	private int tipos_almacen_id;
+	private String clave_num;
+	private String clave_grupo;
 	
 	public GrupoAlmacen() {
 		super();
 	}
 
 	public GrupoAlmacen(int id, String descripcion, int activo, int creado_por, Date creado, int modificado_por,
-			Date modificado, int tipos_almacen_id) {
+			Date modificado, int tipos_almacen_id, String clave_num, String clave_grupo) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -27,6 +29,8 @@ public class GrupoAlmacen {
 		this.modificado_por = modificado_por;
 		this.modificado = modificado;
 		this.tipos_almacen_id = tipos_almacen_id;
+		this.clave_num = clave_num;
+		this.clave_grupo = clave_grupo;
 	}
 
 	public int getId() {
@@ -92,6 +96,20 @@ public class GrupoAlmacen {
 	public void setTipos_almacen_id(int tipos_almacen_id) {
 		this.tipos_almacen_id = tipos_almacen_id;
 	}
-	
 
+	public String getClave_num() {
+		return clave_num;
+	}
+
+	public void setClave_num(String clave_num) {
+		this.clave_num = clave_num;
+	}
+
+	public String getClave_grupo() {
+		return clave_grupo;
+	}
+
+	public void setClave_grupo(String clave_grupo) {
+		this.clave_grupo = clave_grupo;
+	}
 }

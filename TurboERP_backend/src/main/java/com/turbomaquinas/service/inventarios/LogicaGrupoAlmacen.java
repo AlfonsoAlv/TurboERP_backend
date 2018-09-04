@@ -18,5 +18,10 @@ public class LogicaGrupoAlmacen implements GrupoAlmacenService{
 	public List<GrupoAlmacen> consultar() throws DataAccessException{
 		return repositorio.consultar();
 	}
+	
+	@Override
+	public GrupoAlmacen buscarPorClaveNumerica(int clave_num) throws DataAccessException{
+		return repositorio.buscarPorClaveNumerica(clave_num);
+	}
 
 }
