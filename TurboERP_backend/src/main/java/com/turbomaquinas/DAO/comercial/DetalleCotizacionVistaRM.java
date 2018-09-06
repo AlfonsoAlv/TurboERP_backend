@@ -31,6 +31,7 @@ public class DetalleCotizacionVistaRM implements RowMapper<DetalleCotizacionVist
 		dcv.setAniocotizacion(rs.getInt("aniocotizacion"));
 		dcv.setCant_subindices(rs.getInt("cant_subindices"));
 		dcv.setAutorizado(rs.getInt("autorizado"));
+		dcv.setFacturado(rs.getInt("facturado"));
 		return dcv;
 	}
 	

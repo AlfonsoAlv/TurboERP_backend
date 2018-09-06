@@ -22,6 +22,7 @@ public class DetalleCotizacionVista {
 	private int aniocotizacion;
 	private int cant_subindices;
 	private int autorizado;	
+	private int facturado;
 	
 	public DetalleCotizacionVista() {
 		super();
@@ -192,4 +193,13 @@ public class DetalleCotizacionVista {
 	public void setAutorizado(int autorizado) {
 		this.autorizado = autorizado;
 	}
+
+	public int getFacturado() {
+		return facturado;
+	}
+
+	public void setFacturado(int facturado) {
+		this.facturado = facturado;
+	}
+	
 }
