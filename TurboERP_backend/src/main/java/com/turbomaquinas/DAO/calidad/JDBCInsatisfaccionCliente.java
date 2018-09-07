@@ -41,12 +41,9 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 		columnas.add("PERSONAL_id");
 		columnas.add("actividades");
 		columnas.add("procede_garantia");
-		
 		insert.setTableName("INSATISFACCIONES_CLIENTES");
 		insert.setColumnNames(columnas);
-		
 		Map<String, Object> datos = new HashMap<>();
-		
 		datos.put("fecha_insatisfaccion", insatisfaccion.getFecha_insatisfaccion());
 		datos.put("fecha_operacion", insatisfaccion.getFecha_operacion());
 		datos.put("equipo", insatisfaccion.getEquipo());

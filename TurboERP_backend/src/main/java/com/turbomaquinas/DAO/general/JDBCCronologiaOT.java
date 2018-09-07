@@ -34,9 +34,37 @@ public class JDBCCronologiaOT implements CronologiaOTDAO{
 
 	@Override
 	public List<CronologiaOT> consultarPorOrdenyTipo(int id, String tipo) throws DataAccessException {
-		List<CronologiaOT> crono = jdbcTemplate.query("SELECT * FROM CRONOLOGIA_OT_V WHERE ORDENES_id = ? and tipo = ? ORDER BY fecha, creado", 
-				new CronologiaOTRM(), id, tipo);
-		return crono;
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("JSON_CRONOLOGIA_ORDEN_Y_TIPO");
+		
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_ordenes_id", id);
+		inParamMap.put("p_tipo", tipo);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		List<CronologiaOT> cron=new ArrayList<CronologiaOT>(); 
+
+		try{
+			
+			for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
+		        if (entry.getKey().compareTo("p_json") == 0) {
+		        	
+		        	ObjectMapper mapper = new ObjectMapper();
+		            String json=(String)entry.getValue();
+		    		try {
+		    			cron = mapper.readValue(json, new TypeReference<List<CronologiaOT>>(){});
+		    		} catch (IOException e) {}
+		    		
+		    		return cron;
+		        }
+		    }	
+			
+			return null;
+			
+		}catch(Exception e){return null;}
+		
 	}
 
 	@Override
