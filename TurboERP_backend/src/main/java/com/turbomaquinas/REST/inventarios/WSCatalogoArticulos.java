@@ -98,11 +98,16 @@ public class WSCatalogoArticulos {
 		return new ResponseEntity<List<CatalogoArticulosVista>>(ca, HttpStatus.OK);
 	}
 	
-	@GetMapping("/almacen/{almacen_id}/codigobarras/")
+	@GetMapping("/almacen/{almacen_id}/codigobarras")
 	public ResponseEntity<List<CatalogoArticulosVista>> consultarArtPorCodigoDeBarras(@PathVariable int almacen_id,@RequestParam String codigo_barras){
 		List<CatalogoArticulosVista> ca = null;
 		try{
-			ca = s.consultarArtPorCodigoDeBarras(almacen_id,codigo_barras);
+			if(codigo_barras.length()>6){
+				ca = s.consultarArtPorCodigoDeBarras(almacen_id,codigo_barras);
+			}else{
+				return new ResponseEntity<List<CatalogoArticulosVista>>(HttpStatus.NO_CONTENT);
+			}
+			
 		}catch (DataAccessException e) {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<List<CatalogoArticulosVista>>(HttpStatus.NO_CONTENT);
