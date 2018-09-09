@@ -5,14 +5,18 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
+import com.turbomaquinas.POJO.calidad.DocumentoActividadesGarantia;
 import com.turbomaquinas.POJO.calidad.EncabezadoGarantiaVista;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
 import com.turbomaquinas.POJO.calidad.SubindiceGarantiaVista;
@@ -85,6 +89,20 @@ public class WSGarantias {
 			return new ResponseEntity<Integer> (HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<Integer> (cantidad, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Integer> crear(@RequestBody DocumentoActividadesGarantia obj_actividades_Garantia){
+		
+		int idGarantia = 0;
+		try{
+			idGarantia = gs.crearActividadesGarantia(obj_actividades_Garantia);
+			
+			return new ResponseEntity<Integer>(idGarantia,HttpStatus.OK);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Integer>(HttpStatus.CONFLICT);
+		}
 	}
 
 }

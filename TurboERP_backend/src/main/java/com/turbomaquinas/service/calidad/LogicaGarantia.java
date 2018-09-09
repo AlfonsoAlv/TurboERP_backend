@@ -11,6 +11,7 @@ import com.turbomaquinas.DAO.calidad.EncabezadoGarantiaDAO;
 import com.turbomaquinas.DAO.calidad.GarantiaDAO;
 import com.turbomaquinas.DAO.calidad.SubindiceGarantiaDAO;
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
+import com.turbomaquinas.POJO.calidad.DocumentoActividadesGarantia;
 import com.turbomaquinas.POJO.calidad.EncabezadoGarantiaVista;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
 import com.turbomaquinas.POJO.calidad.SubindiceGarantiaVista;
@@ -56,6 +57,12 @@ public class LogicaGarantia implements GarantiaService {
 	@Override
 	public GarantiaVista buscarGarantia(int id) {
 		return repositorio.buscar(id);
+	}
+
+	@Override
+	public int crearActividadesGarantia(DocumentoActividadesGarantia obj_actividades_Garantia) {
+		// TODO Auto-generated method stub
+		return repositorio.crearActividadesGarantia(obj_actividades_Garantia.toString());
 	}
 
 	
