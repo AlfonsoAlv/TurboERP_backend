@@ -28,7 +28,7 @@ public class ClienteVista {
 	private String ciudad_c;
 	private int estado_c_id;
 	private String estado_c;
-	private int cve_formaP;
+	private String cve_formaP;
 	private String nom_formaP;
 	private String cve_metodoP;
 	private String nom_metodoP;
@@ -47,7 +47,7 @@ public class ClienteVista {
 			String codigo_postal_fiscal, String rfc, int dias_credito, String nombre_comercial, String direccion_planta,
 			String colonia_planta, int activo, int ciudades_id, String ciudad, int estados_id, String estado,
 			int pais_id, String pais, int giros_id, int num_giro, String des_giro, int personal_id, String personal,
-			int ciudad_comercial_id, String ciudad_c, int estado_c_id, String estado_c, int cve_formaP,
+			int ciudad_comercial_id, String ciudad_c, int estado_c_id, String estado_c, String cve_formaP,
 			String nom_formaP, String cve_metodoP, String nom_metodoP, String cve_usocfdi, String nom_usocfdi,
 			int metodos_pago_id, int formas_pago_id, int uso_cfdi_id, String comisionista) {
 		super();
@@ -306,11 +306,11 @@ public class ClienteVista {
 		this.estado_c = estado_c;
 	}
 
-	public int getCve_formaP() {
+	public String getCve_formaP() {
 		return cve_formaP;
 	}
 
-	public void setCve_formaP(int cve_formaP) {
+	public void setCve_formaP(String cve_formaP) {
 		this.cve_formaP = cve_formaP;
 	}
 

@@ -204,7 +204,38 @@ public class JDBCDetalleCotizacion implements DetalleCotizacionDAO {
 
 	@Override
 	public List<DetalleCotizacionVista> consultar() throws DataAccessException {
-		List<DetalleCotizacionVista> dcl = jdbcTemplate.query("SELECT * FROM DETALLE_COTIZACIONES_V ",
+		List<DetalleCotizacionVista> dcl = jdbcTemplate.query("SELECT"
+				+ "`d`.`id`                     AS `id`,"
+				+ "`d`.`descripcion`            AS `descripcion`,"
+				+ "`d`.`tipo_actividad`         AS `tipo_actividad`,"
+				+ "`d`.`lugar`                  AS `lugar`,"
+				+ "`d`.`suministro`             AS `suministro`,"
+				+ "`d`.`planta`                 AS `planta`,"
+				+ "`d`.`importe`                AS `importe`,"
+				+ "`d`.`clase_actividad`        AS `clase_actividad`,"
+				+ "`d`.`activo`                 AS `activo`,"
+				+ "`d`.`DETALLE_DIAGNOSTICO_id` AS `detalle_diagnostico_id`,"
+				+ "`e`.`id`                     AS `encabezados_cotizaciones_id`,"
+				+ "`e`.`descripcion`            AS `descripcionEncabezado`,"
+				+ "`e`.`lugar`                  AS `lugarEncabezado`,"
+				+ "`c`.`id`                     AS `cotizaciones_id`,"
+				+ "`c`.`numero`                 AS `numerocotizacion`,"
+				+ "`c`.`anio`                   AS `aniocotizacion`, "
+				+ "(SELECT "
+				+ "(CASE WHEN EXISTS(SELECT 1 FROM `ACTIVIDADES_AUTORIZADAS` "
+				+ "WHERE (`ACTIVIDADES_AUTORIZADAS`.`DETALLES_COTIZACIONES_id` = `d`.`id` AND JSON_LENGTH(ACTIVIDADES_AUTORIZADAS.`facturas`) > 0)) "
+				+ "THEN 1 ELSE 0 END)) AS `facturado`, "
+				+ "(SELECT "
+				+ "(CASE WHEN EXISTS(SELECT 1 FROM `ACTIVIDADES_AUTORIZADAS` "
+				+ "WHERE (`ACTIVIDADES_AUTORIZADAS`.`DETALLES_COTIZACIONES_id` = `d`.`id`)) THEN 1 ELSE 0 END)) AS `autorizado`,"
+				+ "(SELECT COALESCE(COUNT(0),0) FROM `SUBINDICES_COTIZACIONES` "
+				+ "WHERE ((`SUBINDICES_COTIZACIONES`.`DETALLE_COTIZACIONES_id` = `d`.`id`) "
+				+ "AND (`SUBINDICES_COTIZACIONES`.`activo` = 1))) AS `cant_subindices` "
+				+ "FROM ((`DETALLE_COTIZACIONES` `d` "
+				+ "JOIN `ENCABEZADOS_COTIZACIONES` `e` "
+				+ "ON ((`e`.`id` = `d`.`ENCABEZADOS_COTIZACIONES_id`))) "
+				+ "JOIN `COTIZACIONES` `c` "
+				+ "ON ((`c`.`id` = `e`.`COTIZACIONES_id`))) WHERE (`d`.`activo` = 1)",
 				new DetalleCotizacionVistaRM());
 		return dcl;
 	}
@@ -288,7 +319,11 @@ public class JDBCDetalleCotizacion implements DetalleCotizacionDAO {
 				+ "e.id AS encabezados_cotizaciones_id, e.descripcion AS descripcionEncabezado, "
 				+ "e.lugar AS lugarEncabezado,c.id AS cotizaciones_id, c.numero AS numerocotizacion, c.anio AS aniocotizacion, "
 				+ "(SELECT COALESCE(COUNT(0), 0) FROM SUBINDICES_COTIZACIONES WHERE((SUBINDICES_COTIZACIONES.DETALLE_COTIZACIONES_id = d.id) AND (SUBINDICES_COTIZACIONES.activo = 1))) AS cant_subindices, "
-				+ "(SELECT (CASE WHEN EXISTS( SELECT  1  FROM ACTIVIDADES_AUTORIZADAS WHERE (ACTIVIDADES_AUTORIZADAS.DETALLES_COTIZACIONES_id = d.id)) THEN 1 ELSE 0 END)) AS autorizado "
+				+ "(SELECT (CASE WHEN EXISTS( SELECT  1  FROM ACTIVIDADES_AUTORIZADAS WHERE (ACTIVIDADES_AUTORIZADAS.DETALLES_COTIZACIONES_id = d.id)) THEN 1 ELSE 0 END)) AS autorizado, "
+				+ "(SELECT "
+				+ "(CASE WHEN EXISTS(SELECT 1 FROM `ACTIVIDADES_AUTORIZADAS` "
+				+ "WHERE (`ACTIVIDADES_AUTORIZADAS`.`DETALLES_COTIZACIONES_id` = `d`.`id` AND JSON_LENGTH(ACTIVIDADES_AUTORIZADAS.`facturas`) > 0)) "
+				+ "THEN 1 ELSE 0 END)) AS `facturado` "
 				+ "FROM DETALLE_COTIZACIONES d "
 				+ "JOIN ENCABEZADOS_COTIZACIONES e ON e.id=d.ENCABEZADOS_COTIZACIONES_id "
 				+ "JOIN COTIZACIONES c on c.id=e.COTIZACIONES_id "

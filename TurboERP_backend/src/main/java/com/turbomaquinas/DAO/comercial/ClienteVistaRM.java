@@ -40,7 +40,7 @@ public class ClienteVistaRM implements  RowMapper<ClienteVista>{
 		cv.setEstado_c_id(rs.getInt("estado_c_id"));
 		cv.setEstado_c(rs.getString("estado_c"));
 		cv.setNom_formaP(rs.getString("nom_formaP"));
-		cv.setCve_formaP(rs.getInt("cve_formaP"));
+		cv.setCve_formaP(rs.getString("cve_formaP"));
 		cv.setNom_metodoP(rs.getString("nom_metodoP"));
 		cv.setCve_metodoP(rs.getString("cve_metodoP"));
 		cv.setNom_usocfdi(rs.getString("nom_usocfdi"));
