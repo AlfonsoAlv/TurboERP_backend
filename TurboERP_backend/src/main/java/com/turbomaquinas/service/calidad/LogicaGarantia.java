@@ -13,7 +13,9 @@ import com.turbomaquinas.DAO.calidad.SubindiceGarantiaDAO;
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
 import com.turbomaquinas.POJO.calidad.DocumentoActividadesGarantia;
 import com.turbomaquinas.POJO.calidad.EncabezadoGarantiaVista;
+import com.turbomaquinas.POJO.calidad.EstadoCierreFoco;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
+import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 import com.turbomaquinas.POJO.calidad.SubindiceGarantiaVista;
 
 @Service
@@ -65,6 +67,19 @@ public class LogicaGarantia implements GarantiaService {
 		return repositorio.crearActividadesGarantia(obj_actividades_Garantia.toString());
 	}
 
-	
+	@Override
+	public List<Integer> obtenerFocos(int id) {
+		return repositorio.obtenerFocos(id);
+	}
+
+	@Override
+	public EstadoCierreFoco obtenerEstadoCierreFoco(int focoId) {
+		return repositorio.obtenerEstadoCierreFoco(focoId);
+	}
+
+	@Override
+	public PorcentajeActividades obtenerPorcentajeActividades(int garantiaId) {
+		return repositorio.obtenerPorcentajeActividades(garantiaId);
+	}
 
 }

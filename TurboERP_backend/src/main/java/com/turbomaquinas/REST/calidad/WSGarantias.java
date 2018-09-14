@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
 import com.turbomaquinas.POJO.calidad.DocumentoActividadesGarantia;
 import com.turbomaquinas.POJO.calidad.EncabezadoGarantiaVista;
+import com.turbomaquinas.POJO.calidad.EstadoCierreFoco;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
+import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 import com.turbomaquinas.POJO.calidad.SubindiceGarantiaVista;
 import com.turbomaquinas.service.calidad.GarantiaService;
 
@@ -89,6 +91,52 @@ public class WSGarantias {
 			return new ResponseEntity<Integer> (HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<Integer> (cantidad, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/focos")
+	public ResponseEntity<List<Integer>> focosPorGarantia(@PathVariable("id") int id) {
+		
+		List<Integer> focosIds;
+		
+		try {
+			focosIds = gs.obtenerFocos(id);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<Integer>>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<List<Integer>> (focosIds, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/estadocierre/foco/{focoId}")
+	public ResponseEntity<EstadoCierreFoco> obtenerEstadoCierreFoco(@PathVariable("focoId") int focoId) {
+		
+		EstadoCierreFoco ecf = null;
+		
+		try {
+			ecf = gs.obtenerEstadoCierreFoco(focoId);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<EstadoCierreFoco>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<EstadoCierreFoco>(ecf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/porcentajeactividades")
+	public ResponseEntity<PorcentajeActividades> obtenerPorcentajeActividades(@PathVariable("id") int garantiaId) {
+		
+		PorcentajeActividades pa = new PorcentajeActividades();
+		
+		try {
+			pa = gs.obtenerPorcentajeActividades(garantiaId);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<PorcentajeActividades>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<PorcentajeActividades>(pa, HttpStatus.OK);
 	}
 	
 	@PostMapping
