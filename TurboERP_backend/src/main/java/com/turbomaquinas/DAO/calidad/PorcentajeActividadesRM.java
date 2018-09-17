@@ -14,11 +14,7 @@ public class PorcentajeActividadesRM implements RowMapper<PorcentajeActividades>
 		pa.setActividadesDefinidas(rs.getInt("definidas"));
 		pa.setActividadesTotales(rs.getInt("totales"));
 		try {
-			System.out.println(pa.getActividadesDefinidas());
-			System.out.println(pa.getActividadesTotales());
-			float porcentaje = pa.getActividadesDefinidas() / pa.getActividadesTotales();
-			System.out.println(porcentaje);
-			porcentaje *= 100;
+			float porcentaje = (( (float) pa.getActividadesDefinidas()) / ( (float)pa.getActividadesTotales()) ) * 100;
 			pa.setPorcentajeCompletado(porcentaje);
 		} catch (Exception e) { e.printStackTrace();}
 		

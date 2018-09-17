@@ -15,6 +15,7 @@ public class EstadoCierreFocoRM implements RowMapper<EstadoCierreFoco> {
 		return EstadoCierreFoco
 				.builder()
 				.folio(rs.getInt("folio"))
+				.estadoFoco(rs.getString("estadoFoco"))
 				.estatusValidacion(rs.getInt("estatusValidacion"))
 				.validadoComercial(rs.getInt("validadoComercial"))
 				.validadoCliente(rs.getInt("validadoCliente"))

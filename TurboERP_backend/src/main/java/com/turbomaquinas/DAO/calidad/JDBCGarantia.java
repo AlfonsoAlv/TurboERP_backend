@@ -87,6 +87,9 @@ public class JDBCGarantia implements GarantiaDAO {
 	public EstadoCierreFoco obtenerEstadoCierreFoco(int focoId) throws DataAccessException {
 		
 		String sql = "SELECT ? AS idIns, " +
+					" (SELECT INSATISFACCIONES_CLIENTES.`estado` " +
+							" FROM INSATISFACCIONES_CLIENTES " +
+							" WHERE INSATISFACCIONES_CLIENTES.`id` = idIns) AS 'estadoFoco', " +
 					" (SELECT `folio` FROM INSATISFACCIONES_CLIENTES WHERE id = idIns) AS folio, " +
 					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo` " +
 					"	FROM `SEGUIMIENTO_INSATISFACCION` " +
@@ -120,17 +123,13 @@ public class JDBCGarantia implements GarantiaDAO {
 
 
 	@Override
-	public PorcentajeActividades obtenerPorcentajeActividades(int garantiaId) throws DataAccessException {
+	public PorcentajeActividades obtenerPorcentajeActividades(int focoId) throws DataAccessException {
 		String sql = "SELECT " +
 						"SUM(IF(DETALLE_GARANTIAS.`procede` = 'P',0,1)) AS 'definidas', " +
 						"SUM(1) AS 'totales' " +
-					"FROM DETALLE_GARANTIAS  " +
-					"WHERE DETALLE_GARANTIAS.ENCABEZADOS_GARANTIA_id  " +
-						"IN (SELECT ENCABEZADOS_GARANTIA.`id`  " +
-							"FROM ENCABEZADOS_GARANTIA  " +
-							"WHERE ENCABEZADOS_GARANTIA.`GARANTIAS_id` = ?);";
+					"FROM DETALLE_GARANTIAS WHERE DETALLE_GARANTIAS.`INSATISFACCIONES_id` = ?";
 		
-		return jdbcTemplate.queryForObject(sql, new PorcentajeActividadesRM(), garantiaId);
+		return jdbcTemplate.queryForObject(sql, new PorcentajeActividadesRM(), focoId);
 		
 	}
 	

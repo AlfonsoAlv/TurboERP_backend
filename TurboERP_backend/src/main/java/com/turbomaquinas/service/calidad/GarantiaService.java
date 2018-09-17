@@ -20,6 +20,6 @@ public interface GarantiaService {
 	public int crearActividadesGarantia(DocumentoActividadesGarantia obj_actividades_Garantia);
 	public List<Integer> obtenerFocos(int id);
 	public EstadoCierreFoco obtenerEstadoCierreFoco(int focoId);
-	public PorcentajeActividades obtenerPorcentajeActividades(int garantiaId);
+	public PorcentajeActividades obtenerPorcentajeActividades(int focoId);
 	
 }

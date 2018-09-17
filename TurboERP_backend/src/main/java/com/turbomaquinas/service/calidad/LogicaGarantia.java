@@ -78,8 +78,8 @@ public class LogicaGarantia implements GarantiaService {
 	}
 
 	@Override
-	public PorcentajeActividades obtenerPorcentajeActividades(int garantiaId) {
-		return repositorio.obtenerPorcentajeActividades(garantiaId);
+	public PorcentajeActividades obtenerPorcentajeActividades(int focoId) {
+		return repositorio.obtenerPorcentajeActividades(focoId);
 	}
 
 }

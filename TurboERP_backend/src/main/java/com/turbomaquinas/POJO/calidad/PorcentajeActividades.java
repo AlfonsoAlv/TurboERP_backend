@@ -1,16 +1,14 @@
 package com.turbomaquinas.POJO.calidad;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Data
 @NoArgsConstructor
 public class PorcentajeActividades {
-	@Getter @Setter
 	private int actividadesDefinidas;
-	@Getter @Setter
 	private int actividadesTotales;
-	@Getter @Setter
 	private float porcentajeCompletado;
-
 }

@@ -124,13 +124,13 @@ public class WSGarantias {
 		return new ResponseEntity<EstadoCierreFoco>(ecf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}/porcentajeactividades")
-	public ResponseEntity<PorcentajeActividades> obtenerPorcentajeActividades(@PathVariable("id") int garantiaId) {
+	@GetMapping("/{focoId}/porcentajeactividades")
+	public ResponseEntity<PorcentajeActividades> obtenerPorcentajeActividades(@PathVariable("focoId") int focoId) {
 		
 		PorcentajeActividades pa = new PorcentajeActividades();
 		
 		try {
-			pa = gs.obtenerPorcentajeActividades(garantiaId);
+			pa = gs.obtenerPorcentajeActividades(focoId);
 		} catch (Exception e) {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<PorcentajeActividades>(HttpStatus.INTERNAL_SERVER_ERROR);
