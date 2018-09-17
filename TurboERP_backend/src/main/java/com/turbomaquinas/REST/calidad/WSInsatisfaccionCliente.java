@@ -197,5 +197,4 @@ public class WSInsatisfaccionCliente {
 		}
 		return new ResponseEntity<List<InsatisfaccionClienteVista>>(listaInsatisfacciones, HttpStatus.OK);
 	}
-	
 }
