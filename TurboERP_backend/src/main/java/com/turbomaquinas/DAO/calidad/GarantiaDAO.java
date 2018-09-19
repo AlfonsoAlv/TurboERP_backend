@@ -13,5 +13,6 @@ public interface GarantiaDAO {
 	public List<Integer> obtenerFocos(int id);
 	public EstadoCierreFoco obtenerEstadoCierreFoco(int focoId);
 	public PorcentajeActividades obtenerPorcentajeActividades(int focoId);
+	public void cerrarGarantia(int id, int cerrado_por);
 	
 }

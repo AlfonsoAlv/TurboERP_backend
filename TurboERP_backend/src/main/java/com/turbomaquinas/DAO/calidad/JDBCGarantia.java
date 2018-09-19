@@ -132,5 +132,16 @@ public class JDBCGarantia implements GarantiaDAO {
 		return jdbcTemplate.queryForObject(sql, new PorcentajeActividadesRM(), focoId);
 		
 	}
+
+
+	@Override
+	public void cerrarGarantia(int id, int cerrado_por) throws DataAccessException {
+		String sql = 	" UPDATE GARANTIAS " + 
+						" SET estado = 'C', " + 
+						" cerrado = CURRENT_TIMESTAMP, " + 
+						" cerrado_por = ? " + 
+						" WHERE id = ?";
+		jdbcTemplate.update(sql, cerrado_por, id);
+	}
 	
 }

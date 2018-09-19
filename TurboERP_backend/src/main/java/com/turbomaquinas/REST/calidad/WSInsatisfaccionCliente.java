@@ -197,4 +197,18 @@ public class WSInsatisfaccionCliente {
 		}
 		return new ResponseEntity<List<InsatisfaccionClienteVista>>(listaInsatisfacciones, HttpStatus.OK);
 	}
+	
+	@PutMapping("{id}/cerrar") 
+	public ResponseEntity<Void> cerrarInsatisfaccion(@PathVariable("id") int id, @RequestBody int cerrado_por) {
+		
+		try {
+			ics.cerrarInsatisfaccion(id, cerrado_por);
+		} catch (Exception e) {
+			bitacora.error(e);
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		
+		return null;
+		
+	}
 }

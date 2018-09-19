@@ -82,4 +82,9 @@ public class LogicaGarantia implements GarantiaService {
 		return repositorio.obtenerPorcentajeActividades(focoId);
 	}
 
+	@Override
+	public void cerrarGarantia(int id, int cerrado_por) throws DataAccessException {
+		repositorio.cerrarGarantia(id, cerrado_por);
+	}
+
 }
