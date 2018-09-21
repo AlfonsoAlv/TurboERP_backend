@@ -247,15 +247,15 @@ public class WSCotizacion {
 	}
 
 	@GetMapping("/sinautorizar/cliente/{id}/{moneda}")
-	public ResponseEntity<List<Cotizacion>> buscarCotizacionPorClienteSinAutorizar(@PathVariable int id, @PathVariable String moneda){
-		List<Cotizacion> cvc = null;
+	public ResponseEntity<List<CotizacionVista>> buscarCotizacionPorClienteSinAutorizar(@PathVariable int id, @PathVariable String moneda){
+		List<CotizacionVista> cvc = null;
 		try{
 			cvc = s.buscarCotizacionPorClienteSinAutorizar(moneda, id);
 		}catch (DataAccessException e) {
 				bitacora.error(e.getMessage());
-				return new ResponseEntity<List<Cotizacion>>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<List<CotizacionVista>>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Cotizacion>>(cvc, HttpStatus.OK);	
+		return new ResponseEntity<List<CotizacionVista>>(cvc, HttpStatus.OK);	
 	}
 
 	@GetMapping("/sinautorizar/orden/{id}")

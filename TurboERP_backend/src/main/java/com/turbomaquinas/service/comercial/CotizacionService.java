@@ -30,6 +30,6 @@ public interface CotizacionService {
 	public List<Integer> revisiones(int id);
 	public List<CotizacionVista> buscarCotizacionPorPrecotizacion(int id);
 	public List<CotizacionVista> buscarCotizacionPorOrden(int id);
-	public List<Cotizacion> buscarCotizacionPorClienteSinAutorizar(String moneda, int id);
+	public List<CotizacionVista> buscarCotizacionPorClienteSinAutorizar(String moneda, int id);
 	public List<CotizacionVista> buscarCotizacionPorOrdenSinAutorizar(int id);
 }
