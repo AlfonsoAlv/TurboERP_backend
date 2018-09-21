@@ -114,5 +114,16 @@ public class WSCatalogoArticulos {
 		}
 		return new ResponseEntity<List<CatalogoArticulosVista>>(ca, HttpStatus.OK);
 	}
+	
+	@PutMapping("/sincronizar")
+	public ResponseEntity<Void> sincronizar(@RequestParam String accion){
+		try{
+			s.sincronizar(accion);
+		}catch (DataAccessException e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 }

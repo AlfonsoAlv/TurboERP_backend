@@ -59,4 +59,9 @@ public class LogicaCatalogoArticulos implements CatalogoArticulosService{
 		return repositorio.consultarArtPorCodigo(almacen_id,(repoGrupo.buscarPorClaveNumerica(Integer.parseInt(clave_num)).getClave_grupo()+"-"+codigo.substring(2,6)));
 	}
 
+	@Override
+	public void sincronizar(String accion) {
+		repositorio.sincronizar(accion);
+	}
+
 }

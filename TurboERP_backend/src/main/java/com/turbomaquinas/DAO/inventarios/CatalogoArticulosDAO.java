@@ -13,5 +13,6 @@ public interface CatalogoArticulosDAO {
 	public void actualizarUbicacion(int articulo_id, int almacen_id, String ubicaciones[]);
 	public List<CatalogoArticulosVista> consultarArtPorGrupo(int almacen_id,int grupo_id);
 	public List<CatalogoArticulosVista> consultarArtPorCodigo(int almacen_id,String codigo);
+	public void sincronizar(String accion);
 }
 
