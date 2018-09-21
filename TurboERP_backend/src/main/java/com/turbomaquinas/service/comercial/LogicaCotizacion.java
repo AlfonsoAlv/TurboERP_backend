@@ -293,7 +293,7 @@ public class LogicaCotizacion implements CotizacionService {
 	}
 
 	@Override
-	public List<Cotizacion> buscarCotizacionPorClienteSinAutorizar(String moneda, int id) {
+	public List<CotizacionVista> buscarCotizacionPorClienteSinAutorizar(String moneda, int id) {
 		return repCotiza.buscarCotizacionPorClienteSinAutorizar(moneda, id);
 	}
 
