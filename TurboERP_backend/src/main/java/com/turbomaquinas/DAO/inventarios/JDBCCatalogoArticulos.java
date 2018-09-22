@@ -1,9 +1,16 @@
 package com.turbomaquinas.DAO.inventarios;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.turbomaquinas.POJO.inventarios.CatalogoArticulosVista;
@@ -76,6 +83,16 @@ public class JDBCCatalogoArticulos implements CatalogoArticulosDAO{
 				+ "WHERE almacen"+almacen_id+"=? and codigo= ? ";
 		List<CatalogoArticulosVista> ca = jdbcTemplate.query(sql, new CatalogoArticulosVistaRM(),almacen_id,codigo);
 		return ca;
+	}
+
+	@Override
+	public void sincronizar(String accion) {
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("SINCRONIZAR_CATALOGO_ARTICULOS");
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_accion", accion);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);		
 	}
 
 }

@@ -13,4 +13,5 @@ public interface CatalogoArticulosService {
 	public void actualizarUbicacion(int articulo_id, int almacen_id, String ubicaciones[]);
 	public List<CatalogoArticulosVista> consultarArtPorGrupo(int almacen_id,int grupo_id);
 	public List<CatalogoArticulosVista> consultarArtPorCodigoDeBarras(int almacen_id,String codigo_barras);
+	public void sincronizar(String accion);
 }
