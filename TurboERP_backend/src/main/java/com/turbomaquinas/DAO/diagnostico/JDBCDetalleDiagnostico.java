@@ -185,9 +185,14 @@ public class JDBCDetalleDiagnostico implements DetalleDiagnosticoDAO{
 	
 	@Override
 	public List<DetalleDiagnosticoVista> consultarAutorizadosPorDetalleDI(int id) throws DataAccessException {
-		List<DetalleDiagnosticoVista> ddv = jdbcTemplate.query("SELECT * FROM DETALLE_DIAGNOSTICO_V dd"
+		/*"SELECT * FROM DETALLE_DIAGNOSTICO_V dd"
 				+ " WHERE diagnostico_id = ? AND EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION WHERE DETALLE_DIAGNOSTICO_id = dd.id)"
-				+ " ORDER BY lugar", 
+				+ " ORDER BY lugar"*/
+		
+		String sql="SELECT * FROM DETALLE_DIAGNOSTICO_V dd "
+				+ "WHERE diagnostico_id = ? AND (EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION ap JOIN ORIGEN_AA oa ON oa.ACTIVIDADES_PRODUCCION_id=ap.id WHERE oa.DETALLE_DIAGNOSTICO_id = dd.id) "
+				+ "OR (EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION ap JOIN ORIGEN_ANTICIPADAS oa ON oa.ACTIVIDADES_PRODUCCION_id=ap.id WHERE oa.DETALLE_DIAGNOSTICO_id = dd.id))) ORDER BY lugar";
+		List<DetalleDiagnosticoVista> ddv = jdbcTemplate.query(sql, 
 				new DetalleDiagnosticoVistaRM(), id);
 		return ddv;
 	}
