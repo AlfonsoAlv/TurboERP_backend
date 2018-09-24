@@ -81,5 +81,10 @@ public class LogicaInsatisfaccionCliente implements InsatisfaccionClienteService
 	public List<InsatisfaccionClienteVista> consultarPorOrden(String numeroOrden) throws DataAccessException {
 		return repoInsatisfaccion.consultarPorOrden(numeroOrden);
 	}
+
+	@Override
+	public void cerrarInsatisfaccion(int id, int cerrado_por) throws DataAccessException {
+		repoInsatisfaccion.cerrarInsatisfaccion(id, cerrado_por);
+	}
 	
 }

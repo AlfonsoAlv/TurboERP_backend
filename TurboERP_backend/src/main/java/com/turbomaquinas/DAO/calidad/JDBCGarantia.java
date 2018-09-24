@@ -1,6 +1,7 @@
 package com.turbomaquinas.DAO.calidad;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -12,7 +13,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import com.turbomaquinas.POJO.calidad.EstadoCierreFoco;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
+import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 
 @Repository
 public class JDBCGarantia implements GarantiaDAO {
@@ -65,6 +68,80 @@ public class JDBCGarantia implements GarantiaDAO {
 		
 	}
 
-	
+	@Override
+	public List<Integer> obtenerFocos(int id) {
+		
+		String sql = "SELECT DETALLE_GARANTIAS.INSATISFACCIONES_id " +
+						" FROM DETALLE_GARANTIAS " +
+						" WHERE ENCABEZADOS_GARANTIA_id IN " +
+							" (SELECT ENCABEZADOS_GARANTIA.`id` " +  
+							" FROM ENCABEZADOS_GARANTIA " + 
+							" WHERE GARANTIAS_id = ?) " + 
+						" GROUP BY DETALLE_GARANTIAS.`INSATISFACCIONES_id`;";
+		
+		return jdbcTemplate.queryForList(sql, Integer.class, id);
+		
+	}
+
+	@Override
+	public EstadoCierreFoco obtenerEstadoCierreFoco(int focoId) throws DataAccessException {
+		
+		String sql = "SELECT ? AS idIns, " +
+					" (SELECT INSATISFACCIONES_CLIENTES.`estado` " +
+							" FROM INSATISFACCIONES_CLIENTES " +
+							" WHERE INSATISFACCIONES_CLIENTES.`id` = idIns) AS 'estadoFoco', " +
+					" (SELECT `folio` FROM INSATISFACCIONES_CLIENTES WHERE id = idIns) AS folio, " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo` " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION` " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns " +
+					"		AND (SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'VV' " +
+					"			OR SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'VC')) AS 'estatusValidacion', " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo` " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION` " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns " +
+					"		AND SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'VV' ) AS 'validadoComercial', " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo` " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION`  " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns  " +
+					"		AND SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'VC' ) AS 'validadoCliente', " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo`  " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION`  " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns  " +
+					"		AND (SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'IV'  " +
+					"			OR SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'IC')) AS 'estatusClienteInformado', " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo`  " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION`  " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns  " +
+					"		AND SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'IV' ) AS 'clienteInformadoComercial', " +
+					" EXISTS (SELECT `SEGUIMIENTO_INSATISFACCION`.`tipo`  " +
+					"	FROM `SEGUIMIENTO_INSATISFACCION`  " +
+					"	WHERE SEGUIMIENTO_INSATISFACCION.`INSATISFACCIONES_CLIENTES_id` = idIns  " +
+					"		AND SEGUIMIENTO_INSATISFACCION.`tipo` LIKE 'IC' ) AS 'clienteInformadoCalidad';";
+		
+		return jdbcTemplate.queryForObject(sql, new EstadoCierreFocoRM(), focoId);
+	}
+
+
+	@Override
+	public PorcentajeActividades obtenerPorcentajeActividades(int focoId) throws DataAccessException {
+		String sql = "SELECT " +
+						"SUM(IF(DETALLE_GARANTIAS.`procede` = 'P',0,1)) AS 'definidas', " +
+						"SUM(1) AS 'totales' " +
+					"FROM DETALLE_GARANTIAS WHERE DETALLE_GARANTIAS.`INSATISFACCIONES_id` = ?";
+		
+		return jdbcTemplate.queryForObject(sql, new PorcentajeActividadesRM(), focoId);
+		
+	}
+
+
+	@Override
+	public void cerrarGarantia(int id, int cerrado_por) throws DataAccessException {
+		String sql = 	" UPDATE GARANTIAS " + 
+						" SET estado = 'C', " + 
+						" cerrado = CURRENT_TIMESTAMP, " + 
+						" cerrado_por = ? " + 
+						" WHERE id = ?";
+		jdbcTemplate.update(sql, cerrado_por, id);
+	}
 	
 }

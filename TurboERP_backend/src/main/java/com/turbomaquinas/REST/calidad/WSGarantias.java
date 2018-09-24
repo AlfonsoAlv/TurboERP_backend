@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
 import com.turbomaquinas.POJO.calidad.DocumentoActividadesGarantia;
 import com.turbomaquinas.POJO.calidad.EncabezadoGarantiaVista;
+import com.turbomaquinas.POJO.calidad.EstadoCierreFoco;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
+import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 import com.turbomaquinas.POJO.calidad.SubindiceGarantiaVista;
 import com.turbomaquinas.service.calidad.GarantiaService;
 
@@ -89,6 +92,65 @@ public class WSGarantias {
 			return new ResponseEntity<Integer> (HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<Integer> (cantidad, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/focos")
+	public ResponseEntity<List<Integer>> focosPorGarantia(@PathVariable("id") int id) {
+		
+		List<Integer> focosIds;
+		
+		try {
+			focosIds = gs.obtenerFocos(id);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<Integer>>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<List<Integer>> (focosIds, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/estadocierre/foco/{focoId}")
+	public ResponseEntity<EstadoCierreFoco> obtenerEstadoCierreFoco(@PathVariable("focoId") int focoId) {
+		
+		EstadoCierreFoco ecf = null;
+		
+		try {
+			ecf = gs.obtenerEstadoCierreFoco(focoId);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<EstadoCierreFoco>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<EstadoCierreFoco>(ecf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{focoId}/porcentajeactividades")
+	public ResponseEntity<PorcentajeActividades> obtenerPorcentajeActividades(@PathVariable("focoId") int focoId) {
+		
+		PorcentajeActividades pa = new PorcentajeActividades();
+		
+		try {
+			pa = gs.obtenerPorcentajeActividades(focoId);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<PorcentajeActividades>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<PorcentajeActividades>(pa, HttpStatus.OK);
+	}
+	
+	@PutMapping("{id}/cerrar")
+	public ResponseEntity<Void> cerrarGarantia(@PathVariable("id") int id, @RequestBody int cerrado_por) {
+		
+		try {
+			gs.cerrarGarantia(id, cerrado_por);
+		} catch (Exception e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PostMapping

@@ -21,4 +21,5 @@ public interface InsatisfaccionClienteService {
 	public List<InsatisfaccionClienteVista> consultarPorFiltros(String estado, String numero_orden, String fecha_inicio,String fecha_fin);
 	public void actualizarEstado(int id,String estado);
 	public List<InsatisfaccionClienteVista> consultarPorOrden(String numeroOrden);
+	public void cerrarInsatisfaccion(int id, int cerrado_por);
 }

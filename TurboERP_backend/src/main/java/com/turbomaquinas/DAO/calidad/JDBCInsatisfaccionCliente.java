@@ -335,5 +335,16 @@ public class JDBCInsatisfaccionCliente implements InsatisfaccionClienteDAO {
 				"WHERE ORDENES.numero_orden = ?", 
 				new InsatisfaccionClienteVistaRM(), numeroOrden);
 	}
+
+	@Override
+	public void cerrarInsatisfaccion(int id, int cerrado_por) {
+		String sql = "UPDATE INSATISFACCIONES_CLIENTES " + 
+					" SET cerrado = CURRENT_TIMESTAMP, " + 
+					" cerrado_por = ?, " + 
+					" estado = 'C' " + 
+					" WHERE id = ? ";
+		jdbcTemplate.update(sql, cerrado_por, id);
+		
+	}
 	
 }
