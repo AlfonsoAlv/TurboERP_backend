@@ -102,9 +102,10 @@ public class WSCatalogoArticulos {
 	public ResponseEntity<List<CatalogoArticulosVista>> consultarArtPorCodigoDeBarras(@PathVariable int almacen_id,@RequestParam String codigo_barras){
 		List<CatalogoArticulosVista> ca = null;
 		try{
-			if(codigo_barras.length()>6){
+			if(codigo_barras.length()>=6){
 				ca = s.consultarArtPorCodigoDeBarras(almacen_id,codigo_barras);
-			}else{
+			}
+			else{
 				return new ResponseEntity<List<CatalogoArticulosVista>>(HttpStatus.NO_CONTENT);
 			}
 			
