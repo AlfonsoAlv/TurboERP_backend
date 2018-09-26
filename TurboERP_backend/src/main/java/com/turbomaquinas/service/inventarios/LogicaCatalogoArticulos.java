@@ -56,6 +56,7 @@ public class LogicaCatalogoArticulos implements CatalogoArticulosService{
 		String codigo = codigo_barras.substring((tamanoCodigo-6),tamanoCodigo);
 		//recuperar clave numérica del grupo del articulo
 		String clave_num = codigo.substring(0,2);
+		//System.out.println(codigo.substring(2,6));
 		return repositorio.consultarArtPorCodigo(almacen_id,(repoGrupo.buscarPorClaveNumerica(Integer.parseInt(clave_num)).getClave_grupo()+"-"+codigo.substring(2,6)));
 	}
 
