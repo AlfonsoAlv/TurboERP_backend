@@ -155,7 +155,7 @@ public class JDBCDiagnostico implements DiagnosticoDAO{
 	public List<DiagnosticoVista> buscarDiagnosticoPorOrdenSinAutorizar(int id) {
 		List<DiagnosticoVista> bdo = jdbcTemplate.query("SELECT * FROM DIAGNOSTICO_V d WHERE d.ordenes_id = ? "
 				+ " AND d.id IN (SELECT diagnostico_id FROM DETALLE_DIAGNOSTICO_V ddv WHERE "
-				+ "	NOT EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION WHERE DETALLE_DIAGNOSTICO_id = ddv.id))",
+				+ "	NOT EXISTS (SELECT * FROM DETALLE_DIAGNOSTICO_AA WHERE DETALLE_DIAGNOSTICO_id = ddv.id))",
 				new DiagnosticoVistaRM(), id);
 		return bdo;
 	}
@@ -170,18 +170,18 @@ public class JDBCDiagnostico implements DiagnosticoDAO{
 	@Override
 	public List<DetalleDiagnosticoVista> consultarActividadesPendientesAutorizar(int id) {
 		List<DetalleDiagnosticoVista> capa = jdbcTemplate.query("SELECT * FROM DETALLE_DIAGNOSTICO_V ddv "
-				+ "WHERE diagnostico_id = ? AND NOT EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION WHERE DETALLE_DIAGNOSTICO_id = ddv.id)"
+				+ "WHERE diagnostico_id = ? AND NOT EXISTS (SELECT * FROM DETALLE_DIAGNOSTICO_AA WHERE DETALLE_DIAGNOSTICO_id = ddv.id)"
 				,new DetalleDiagnosticoVistaRM(), id);
 		return capa;
 	}
 
 	@Override
 	public List<ActividadProduccion> consultarActividadesProduccion(int id) {		
-		String sql ="SELECT (SELECT id FROM ACTIVIDADES_PRODUCCION AP WHERE DD.id = AP.DETALLE_DIAGNOSTICO_id LIMIT 1) actividades_produccion_id, "
+		String sql ="SELECT (SELECT ACTIVIDADES_PRODUCCION_id FROM ORIGEN_AA AP WHERE DD.id = AP.DETALLE_DIAGNOSTICO_id LIMIT 1) actividades_produccion_id, "
 				+ " DD.id detalle_diagnostico_id, DD.descripcion detalle_descripcion, DD.lugar, ED.id encabezado_diagnostico_id, ED.descripcion encabezado_descripcion "
 				+ " FROM DETALLE_DIAGNOSTICO DD "
 				+ " JOIN ENCABEZADOS_DIAGNOSTICO ED ON (ED.id = DD.ENCABEZADOS_DIAGNOSTICO_id AND ED.DIAGNOSTICO_id = ?) "
-				+ " WHERE EXISTS (SELECT * FROM ACTIVIDADES_PRODUCCION AP WHERE DD.id = AP.DETALLE_DIAGNOSTICO_id) "
+				+ " WHERE EXISTS (SELECT * FROM ORIGEN_AA AP WHERE DD.id = AP.DETALLE_DIAGNOSTICO_id) "
 				+ " ORDER BY ED.id";
 	
 		List<ActividadProduccion> actividades = jdbcTemplate.query(sql, new RowMapper() {
