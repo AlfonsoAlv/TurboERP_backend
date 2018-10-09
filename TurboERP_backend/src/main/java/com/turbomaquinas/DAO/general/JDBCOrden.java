@@ -182,6 +182,7 @@ public class JDBCOrden implements OrdenDAO {
 		
 		for (Entry<String, Object> entry : simpleJdbcCallResult.entrySet()) {
 	        if (entry.getKey().compareTo("p_autorizacion_id") == 0) {
+	        	System.out.println((Integer) entry.getValue());
 	            return (Integer) entry.getValue();
 	        }
 	    }		
