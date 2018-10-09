@@ -49,4 +49,7 @@ public interface OrdenDAO {
 	public BigDecimal importePagadoporOrdenFactura(int idOrden,int idFactura);
 	public void crearGarantia(int id,int creado_por);
 	public List<OrdenVista> consultarGarantias();
+	public List<Integer> aniosOrdenTipo(String tipo);
+	public List<OrdenVista> ordenTipoAnio(String tipo,int anio);
+	public OT buscarPorNumeroTipo(String numero,String tipo);
 }

@@ -60,4 +60,7 @@ public interface OrdenService {
 	public BigDecimal importePagadoporFactura(int idOrden,int idFactura);
 	public void crearGarantia(int id,int creado_por);
 	public List<OrdenVista> consultarGarantias();
+	public List<Integer> aniosOrdenesTipo(String tipo);
+	public List<OrdenVista> ordenesTipoAnio(String tipo, int anio);
+	public OT buscarPorNumeroTipo(String numeroOrden, String tipo);
 }

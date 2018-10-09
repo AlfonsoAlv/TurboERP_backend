@@ -22,6 +22,7 @@ public class OTRM implements RowMapper<OT>{
 		o.setCliente_no(rs.getInt("numero_cliente"));
 		o.setNombre_comercial(rs.getString("comercial"));
 		o.setNombre_fiscal(rs.getString("fiscal"));
+		o.setCliente(rs.getString("cliente"));
 		o.setGiro(rs.getString("giro"));
 		return o;
 	}

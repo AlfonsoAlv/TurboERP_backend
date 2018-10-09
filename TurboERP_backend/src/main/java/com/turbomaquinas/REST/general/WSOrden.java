@@ -429,5 +429,31 @@ public class WSOrden {
 		}
 		return new ResponseEntity<List<OrdenVista>>(ov, HttpStatus.OK);
 	}
+	@GetMapping("/anios")
+	public ResponseEntity<List<Integer>> aniosOrdenesTipo(@RequestParam String tipo){
+		List<Integer> anios = os.aniosOrdenesTipo(tipo);
+		if (anios == null)
+			return new ResponseEntity<List<Integer>> (HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Integer>>(anios, HttpStatus.OK);
+	}
 	
+	@GetMapping("/filtro")
+	public ResponseEntity<List<OrdenVista>> ordenesTipoAnio(@RequestParam String tipo,@RequestParam int anio){
+		List<OrdenVista> filtradas = os.ordenesTipoAnio(tipo,anio);
+		if(filtradas == null)
+			return new ResponseEntity<List<OrdenVista>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<OrdenVista>>(filtradas,HttpStatus.OK);
+	}
+	
+	@GetMapping("/numero-orden/tipo")
+	public ResponseEntity<OT> buscarPorNumeroTipo(@RequestParam String numeroOrden,@RequestParam String tipo){
+		OT o = null;
+		try{
+			o = os.buscarPorNumeroTipo(numeroOrden,tipo);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<OT>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<OT>(o, HttpStatus.OK);
+	}
 }

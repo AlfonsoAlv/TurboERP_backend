@@ -13,6 +13,7 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada;
 import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
+import com.turbomaquinas.POJO.general.AutorizadasOrden;
 import com.turbomaquinas.POJO.general.DocumentoAAPedidoPrepedido;
 
 @Service
@@ -112,5 +113,11 @@ public class LogicaActividadAutorizada implements ActividadAutorizadaService{
 	@Override
 	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera) {
 		repositorio.actualizarBanderaImpAut(idOrden_irre,valorBandera);
+	}
+
+	@Override
+	public List<AutorizadasOrden> consultarPorOrdenSinOIT(int idOrden, String planta, String suministro,
+			String tipoActividad) {
+		return repositorio.AutorizadasPorOrdenSinOIT(idOrden, planta, suministro, tipoActividad);
 	}
 }

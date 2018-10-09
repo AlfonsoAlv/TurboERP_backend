@@ -282,5 +282,20 @@ public class LogicaOrdenService implements OrdenService{
 		return repositorio.consultarGarantias();
 
 	}
+
+	@Override
+	public List<Integer> aniosOrdenesTipo(String tipo) {
+		return repositorio.aniosOrdenTipo(tipo);
+	}
+
+	@Override
+	public List<OrdenVista> ordenesTipoAnio(String tipo, int anio) {
+		return repositorio.ordenTipoAnio(tipo, anio);
+	}
+
+	@Override
+	public OT buscarPorNumeroTipo(String numeroOrden, String tipo) {
+		return repositorio.buscarPorNumeroTipo(numeroOrden, tipo);
+	}
 	
 }
