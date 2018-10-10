@@ -161,7 +161,10 @@ public class JDBCOrden implements OrdenDAO {
 				"(SELECT numero FROM CLIENTES WHERE id = o.CLIENTES_id) numero_cliente, "+ 
 				"(SELECT nombre_comercial FROM CLIENTES WHERE id = o.CLIENTES_id) comercial, "+ 
 				"(SELECT nombre_fiscal FROM CLIENTES WHERE id = o.CLIENTES_id) fiscal, "+
-			    "(SELECT numero FROM GIROS WHERE id  = (SELECT GIROS_id FROM CLIENTES WHERE id = o.CLIENTES_id)) giro "+
+			    "(SELECT numero FROM GIROS WHERE id  = (SELECT GIROS_id FROM CLIENTES WHERE id = o.CLIENTES_id)) giro, "+
+				"(SELECT IF(((SELECT numero FROM GIROS g WHERE g.id=c.GIROS_id)) >2,c.nombre_fiscal,c.nombre_comercial) "+
+			    "FROM CLIENTES c "+
+				"WHERE c.id=o.CLIENTES_id) as Cliente "+
 			    "FROM ORDENES o "+
 			    "WHERE o.numero_orden = ?", 
 				new OTRM(), numero);
@@ -170,6 +173,7 @@ public class JDBCOrden implements OrdenDAO {
 
 	@Override
 	public int autorizarActividades(int ordenId, String doc) throws DataAccessException  {
+		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("AUTORIZAR_ACTIVIDADES");
 
@@ -560,6 +564,36 @@ public class JDBCOrden implements OrdenDAO {
 	public List<OrdenVista> consultarGarantias() throws DataAccessException {
 		List<OrdenVista> o = jdbcTemplate.query("SELECT * FROM ORDENES_V WHERE tipo = 'G'", 
 				new OrdenVistaRM());
+		return o;
+	}
+
+	@Override
+	public List<Integer> aniosOrdenTipo(String tipo) throws DataAccessException {
+		List<Integer> o = jdbcTemplate.queryForList("SELECT DISTINCT(anio) FROM ORDENES WHERE tipo=? ORDER BY anio DESC", 
+				Integer.class,tipo);
+		return o;
+	}
+
+	@Override
+	public List<OrdenVista> ordenTipoAnio(String tipo, int anio) {
+		List<OrdenVista> ov = jdbcTemplate.query("SELECT *FROM ORDENES_V WHERE anio=? AND tipo LIKE ?", 
+				new OrdenVistaRM(), anio,tipo);
+		return ov;
+	}
+
+	@Override
+	public OT buscarPorNumeroTipo(String numero, String tipo) throws DataAccessException {
+		OT o = jdbcTemplate.queryForObject("SELECT o.id, o.descripcion, o.CLIENTES_id clientes_id, o.moneda, o.importe_autorizado, o.importe_pedido, o.numero_orden, "+ 
+				"(SELECT numero FROM CLIENTES WHERE id = o.CLIENTES_id) numero_cliente, "+ 
+				"(SELECT nombre_comercial FROM CLIENTES WHERE id = o.CLIENTES_id) comercial, "+ 
+				"(SELECT nombre_fiscal FROM CLIENTES WHERE id = o.CLIENTES_id) fiscal, "+
+			    "(SELECT numero FROM GIROS WHERE id  = (SELECT GIROS_id FROM CLIENTES WHERE id = o.CLIENTES_id)) giro, "+
+				"(SELECT IF(((SELECT numero FROM GIROS g WHERE g.id=c.GIROS_id)) >2,c.nombre_fiscal,c.nombre_comercial) "+
+				"FROM CLIENTES c "+
+				"WHERE c.id=o.CLIENTES_id) as Cliente "+
+			    "FROM ORDENES o "+
+			    "WHERE o.numero_orden = ? AND o.tipo LIKE ? ", 
+				new OTRM(), numero,tipo);
 		return o;
 	}
 	 	

@@ -22,6 +22,7 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada;
 import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
+import com.turbomaquinas.POJO.general.AutorizadasOrden;
 import com.turbomaquinas.POJO.general.DocumentoAAPedidoPrepedido;
 import com.turbomaquinas.service.general.ActividadAutorizadaService;
 
@@ -213,6 +214,18 @@ public class WSActividadAutorizada {
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<List<ActividadAutorizadaFactura>>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping("/sinOIT/orden/{idOrden}")
+	public ResponseEntity<List<AutorizadasOrden>> consultarPorOrdenSinUnaOIT(@PathVariable int idOrden,@RequestParam String planta,@RequestParam String suministro,@RequestParam String tipoActividad){
+		List<AutorizadasOrden> ao = null;
+		try{
+			ao = s.consultarPorOrdenSinOIT(idOrden,planta,suministro,tipoActividad);
+		}catch (DataAccessException e) {
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<List<AutorizadasOrden>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<AutorizadasOrden>>(ao, HttpStatus.OK);
 	}
 
 }

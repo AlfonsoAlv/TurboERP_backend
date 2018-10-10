@@ -9,6 +9,7 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada;
 import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
+import com.turbomaquinas.POJO.general.AutorizadasOrden;
 import com.turbomaquinas.POJO.general.DocumentoAAPedidoPrepedido;
 
 public interface ActividadAutorizadaService {
@@ -29,4 +30,5 @@ public interface ActividadAutorizadaService {
 	public List<Facts> consultarFacts(int id);
 	public List<ActividadAutorizadaFactura> consultarAAPorIds(List<Integer> idsActividades);
 	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera);
+	public List<AutorizadasOrden> consultarPorOrdenSinOIT(int idOrden, String planta, String suministro, String tipoActividad);
 }

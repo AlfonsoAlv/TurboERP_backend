@@ -21,6 +21,7 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada;
 import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
+import com.turbomaquinas.POJO.general.AutorizadasOrden;
 
 @Repository
 public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
@@ -343,6 +344,26 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 	@Override
 	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera) {
 		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET bandera_importe_autorizado=? WHERE OT_IRREGULARES_id = ?",valorBandera,idOrden_irre);
+	}
+
+	@Override
+	public List<AutorizadasOrden> AutorizadasPorOrdenSinOIT(int idOrden, String planta, String suministro,
+			String tipoActividad) throws DataAccessException {
+		String sql = "SELECT AA.id actividad_autorizada_id, A.id autorizacion_id, A.folio, "
+				+ "IF((AA.planta)=1,(select id from DETALLE_DIAGNOSTICO where id=DDAA.DETALLE_DIAGNOSTICO_id), "
+				+ "(select id from DETALLE_COTIZACIONES where id=AA.DETALLES_COTIZACIONES_id)) detalle_id, "
+				+ "IF((AA.planta)=1,(select descripcion from DETALLE_DIAGNOSTICO where id=DDAA.DETALLE_DIAGNOSTICO_id), "
+				+ "(select descripcion from DETALLE_COTIZACIONES where id=AA.DETALLES_COTIZACIONES_id)) descripcion, "
+				+ "IF((AA.planta)=1,(select lugar from DETALLE_DIAGNOSTICO where id=DDAA.DETALLE_DIAGNOSTICO_id), "
+				+ "(select lugar from DETALLE_COTIZACIONES where id=AA.DETALLES_COTIZACIONES_id)) lugar "
+				+ "FROM ACTIVIDADES_AUTORIZADAS AA "
+				+ "JOIN AUTORIZACIONES A ON A.id = AA.AUTORIZACIONES_id "
+				+ "JOIN DETALLE_DIAGNOSTICO_AA DDAA ON DDAA.ACTIVIDADES_AUTORIZADAS_id=AA.id "
+				+ "WHERE ORDENES_id=? AND AA.planta like ? AND AA.suministro like ? AND AA.tipo_actividad like ? "
+				+ "AND NOT EXISTS (SELECT * FROM ORIGEN_AA WHERE ACTIVIDADES_AUTORIZADAS_id = AA.id)";
+		
+		List<AutorizadasOrden> ao = jdbcTemplate.query(sql, new AutorizadasOrdenRM(),idOrden,planta,suministro,tipoActividad);
+		return ao;
 	}
 
 

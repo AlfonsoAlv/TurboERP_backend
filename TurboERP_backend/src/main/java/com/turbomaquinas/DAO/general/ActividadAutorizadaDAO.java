@@ -7,6 +7,7 @@ import com.turbomaquinas.POJO.general.ActividadAutorizada;
 import com.turbomaquinas.POJO.general.ActividadAutorizada.ListaFacts;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaFactura;
 import com.turbomaquinas.POJO.general.ActividadAutorizadaVista;
+import com.turbomaquinas.POJO.general.AutorizadasOrden;
 
 public interface ActividadAutorizadaDAO {
 	public int crear(ActividadAutorizada a);
@@ -32,5 +33,6 @@ public interface ActividadAutorizadaDAO {
 	public void actualizarImporteBaja(int id);
 	public void desactivarAAPorSolicitud(int idSolicitud);
 	public void actualizarBanderaImpAut(int idOrden_irre, int valorBandera);
+	public List<AutorizadasOrden> AutorizadasPorOrdenSinOIT(int idOrden,String planta,String suministro,String tipoActividad);
 
 }
