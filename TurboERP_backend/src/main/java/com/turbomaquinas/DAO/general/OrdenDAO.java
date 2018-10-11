@@ -27,7 +27,6 @@ public interface OrdenDAO {
 	public OT buscarPorNumero(String numero);
 	public int autorizarActividades(int ordenId, String doc);
 	public List<FoliosOrdenes> consultarFoliosporOrden(int id);
-	public void actualizarAlfresco(int idOrden, String alfresco_id);
 	public void actualizarCambioCliente(int id,String cliente);
 	public void actualizarCambioMoneda(int id,String moneda);
 	public void actualizarClienteOriginal(int id, int clienteId, int modificado_por);
@@ -52,4 +51,5 @@ public interface OrdenDAO {
 	public List<Integer> aniosOrdenTipo(String tipo);
 	public List<OrdenVista> ordenTipoAnio(String tipo,int anio);
 	public OT buscarPorNumeroTipo(String numero,String tipo);
+	public void actualizarIdAlfresco(int id, String alfrescoId);
 }

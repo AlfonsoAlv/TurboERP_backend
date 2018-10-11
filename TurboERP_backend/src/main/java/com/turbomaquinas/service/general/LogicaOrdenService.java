@@ -126,13 +126,6 @@ public class LogicaOrdenService implements OrdenService{
 		
 		return repositorio.consultarFoliosporOrden(id);
 	}
-
-	@Override
-	public void actualizarAlfresco(int idOrden,String alfrescoID) throws DataAccessException{
-		repositorio.actualizarAlfresco(idOrden,alfrescoID);
-		
-	}
-
 	
 	@Override
 	public void actualizarCambioCliente(int id,String cliente) throws DataAccessException{
@@ -296,6 +289,11 @@ public class LogicaOrdenService implements OrdenService{
 	@Override
 	public OT buscarPorNumeroTipo(String numeroOrden, String tipo) {
 		return repositorio.buscarPorNumeroTipo(numeroOrden, tipo);
+	}
+
+	@Override
+	public void actualizarIdAlfresco(int id, String alfresco_id) {
+		repositorio.actualizarIdAlfresco(id,alfresco_id);
 	}
 	
 }

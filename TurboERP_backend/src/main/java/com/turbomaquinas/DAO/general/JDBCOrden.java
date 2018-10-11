@@ -215,15 +215,6 @@ public class JDBCOrden implements OrdenDAO {
 		return (List<FoliosOrdenes>) folios;
 	}
 
-	@Override
-	public void actualizarAlfresco(int idOrden, String alfresco_id) throws DataAccessException{
-		jdbcTemplate.update("UPDATE ORDENES SET alfresco_id_OIT=? WHERE id=?", 
-				alfresco_id, idOrden);
-		
-	}
-
-	
-
 
 	@Override
 	public void actualizarCambioCliente(int id,String cliente) throws DataAccessException{
@@ -595,6 +586,11 @@ public class JDBCOrden implements OrdenDAO {
 			    "WHERE o.numero_orden = ? AND o.tipo LIKE ? ", 
 				new OTRM(), numero,tipo);
 		return o;
+	}
+
+	@Override
+	public void actualizarIdAlfresco(int id, String alfresco_id) {
+		jdbcTemplate.update("UPDATE ORDENES SET alfresco_id=? WHERE id=?", alfresco_id, id);
 	}
 	 	
 }

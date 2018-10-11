@@ -207,18 +207,6 @@ public class WSOrden {
 		return new ResponseEntity<List<FoliosOrdenes>>(folio, HttpStatus.OK);	
 	}
 	
-	@PutMapping("/{id}/alfresco")
-	public ResponseEntity<Void> actualizarAlfresco(@PathVariable("id") int id, @RequestParam String alfrescoId){
-		bitacora.info(id);
-		try{
-			os.actualizarAlfresco(id, alfrescoId);
-		}catch(DataAccessException e){
-			bitacora.error(e.getMessage());
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		}	
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
 	
 	
 	@JsonView(AtributoEspecialInsercionVistaJSON.AtributoCliente.class)
@@ -455,5 +443,19 @@ public class WSOrden {
 			return new ResponseEntity<OT>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<OT>(o, HttpStatus.OK);
+	}
+	
+
+    
+    @PutMapping("/{id}/alfresco")
+	public ResponseEntity<Void> actualizarIdAlfresco(@PathVariable("id") int id, @RequestParam String alfresco_id){
+    	bitacora.info(id);
+		try{
+			os.actualizarIdAlfresco(id, alfresco_id);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}	
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
