@@ -244,8 +244,8 @@ public class JDBCActividadAutorizada implements ActividadAutorizadaDAO{
 			}
 				
 		}
-		lista = lista.substring(0, lista.length()-1);
-		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET OT_IRREGULARES_id=?, numero_referencia = ULTIMA_REF_OT(?) + 1, bandera_importe_autorizado=1 WHERE id IN ("+lista+")", 
+		lista = lista.substring(0, lista.length()-1);//numero_referencia = ULTIMA_REF_OT(?) + 1
+		jdbcTemplate.update("UPDATE ACTIVIDADES_AUTORIZADAS SET OT_IRREGULARES_id=?, bandera_importe_autorizado=1 WHERE id IN ("+lista+")", 
 				idOTirregular,ordenId);
 	}
 

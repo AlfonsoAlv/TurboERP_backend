@@ -45,7 +45,7 @@ public class JDBCOrdenInicioTrabajo implements OrdenInicioTrabajoDAO{
 				+ "WHEN oit.prioridad='B' THEN 'BAJA' "
 				+ "END ) AS descripcion_prioridad,  "
 				+ "oit.avance, "
-				+ "(SELECT descripcion_equipo FROM EQUIPO_RECIBIDO WHERE ORDENES_id=o.id) AS descripcion_equipo_recibido, oit.fecha "
+				+ "(SELECT GROUP_CONCAT(descripcion_equipo SEPARATOR ',') FROM EQUIPO_RECIBIDO WHERE ORDENES_id=o.id) AS descripcion_equipo_recibido, oit.fecha "
 				+ "FROM OIT oit "
 				+ "JOIN ORDENES o ON o.id=oit.ORDENES_id "
 				+ "JOIN CLIENTES c ON c.id=o.CLIENTES_id "
