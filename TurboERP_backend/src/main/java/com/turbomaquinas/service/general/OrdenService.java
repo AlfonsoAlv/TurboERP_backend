@@ -37,9 +37,8 @@ public interface OrdenService {
 	public OT buscarporNumero(String numeroOrden);
 	public SolicitudDesautorizacionAA desautorizacionActividades(int ordenId, DocumentoSolicitudBajaAA doc);
 	public List<FoliosOrdenes> consultarActividadesProduccion(int id);
-	public void actualizarAlfresco(int idOrden,String alfrescoID);
 	public void actualizarCambioCliente(int id,String cliente);
-	public void actualizarCambioMoneda(int id,String moneda);
+	public void actualizarCambioMoneda(int id, String moneda);
 	public void actualizarClienteOriginal(int id, int clienteId, int modificado_por);
 	public void actualizarMonedaOriginal(int id, String moneda, int modificado_por);
 	public ClienteVista buscarClienteEspeciales(int id);
@@ -63,4 +62,6 @@ public interface OrdenService {
 	public List<Integer> aniosOrdenesTipo(String tipo);
 	public List<OrdenVista> ordenesTipoAnio(String tipo, int anio);
 	public OT buscarPorNumeroTipo(String numeroOrden, String tipo);
+	public void actualizarIdAlfresco(int id, String alfrescoId);
+	
 }

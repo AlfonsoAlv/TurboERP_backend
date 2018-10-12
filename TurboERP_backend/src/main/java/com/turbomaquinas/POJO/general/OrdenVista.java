@@ -31,7 +31,7 @@ public class OrdenVista {
 	private String marca_equipo;
 	private int modelos_equipos_id;
 	private String modelo_equipo;
-	private String alfresco_id_OIT;
+	private String alfresco_id;
 	private String cliente;
 	private int cliente_factura_id;
 	
@@ -44,7 +44,7 @@ public class OrdenVista {
 			BigDecimal importe_bajas, BigDecimal importe_facturado, BigDecimal importe_descuento,
 			BigDecimal importe_pedido, BigDecimal importe_pagado, BigDecimal importe_pendiente, int clientes_id,
 			int cliente_no, String nombre_fiscal, String nombre_comercial, String giro, int marcas_equipos_id,
-			String marca_equipo, int modelos_equipos_id, String modelo_equipo, String alfresco_id_OIT, String cliente,
+			String marca_equipo, int modelos_equipos_id, String modelo_equipo, String alfresco_id, String cliente,
 			int cliente_factura_id) {
 		super();
 		this.id = id;
@@ -74,7 +74,7 @@ public class OrdenVista {
 		this.marca_equipo = marca_equipo;
 		this.modelos_equipos_id = modelos_equipos_id;
 		this.modelo_equipo = modelo_equipo;
-		this.alfresco_id_OIT = alfresco_id_OIT;
+		this.alfresco_id = alfresco_id;
 		this.cliente = cliente;
 		this.cliente_factura_id = cliente_factura_id;
 	}
@@ -295,12 +295,12 @@ public class OrdenVista {
 		this.modelo_equipo = modelo_equipo;
 	}
 
-	public String getAlfresco_id_OIT() {
-		return alfresco_id_OIT;
+	public String getAlfresco_id() {
+		return alfresco_id;
 	}
 
-	public void setAlfresco_id_OIT(String alfresco_id_OIT) {
-		this.alfresco_id_OIT = alfresco_id_OIT;
+	public void setAlfresco_id(String alfresco_id) {
+		this.alfresco_id = alfresco_id;
 	}
 
 	public String getCliente() {

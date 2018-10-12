@@ -23,7 +23,7 @@ public class Orden {
 	private int marcas_equipos_id;
 	private int modelos_equipos_id;
 	private String numero_orden;
-	private String alfresco_id_OIT;
+	private String alfresco_id;
 	private int cliente_factura_id;
 
 	public Orden() {
@@ -35,7 +35,7 @@ public class Orden {
 	public Orden(int id, int numero, int anio, String tipo, String moneda, String descripcion, BigDecimal importe_autorizado,
 			BigDecimal importe_bajas, BigDecimal importe_facturado, int activo, int creado_por, Date creado, int modificado_por,
 			Date modificado, int clientes_id, int marcas_equipos_id, int modelos_equipos_id, String numero_orden,
-			String alfresco_id_OIT, int cliente_factura_id) {
+			String alfresco_id, int cliente_factura_id) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -55,7 +55,7 @@ public class Orden {
 		this.marcas_equipos_id = marcas_equipos_id;
 		this.modelos_equipos_id = modelos_equipos_id;
 		this.numero_orden = numero_orden;
-		this.alfresco_id_OIT = alfresco_id_OIT;
+		this.alfresco_id = alfresco_id;
 		this.cliente_factura_id = cliente_factura_id;
 	}
 	
@@ -276,14 +276,14 @@ public class Orden {
 
 
 
-	public String getAlfresco_id_OIT() {
-		return alfresco_id_OIT;
+	public String getAlfresco_id() {
+		return alfresco_id;
 	}
 
 
 
-	public void setAlfresco_id_OIT(String alfresco_id_OIT) {
-		this.alfresco_id_OIT = alfresco_id_OIT;
+	public void setAlfresco_id(String alfresco_id) {
+		this.alfresco_id = alfresco_id;
 	}
 
 
@@ -307,8 +307,8 @@ public class Orden {
 				+ importe_bajas + ", importe_facturado=" + importe_facturado + ", activo=" + activo + ", creado_por="
 				+ creado_por + ", creado=" + creado + ", modificado_por=" + modificado_por + ", modificado="
 				+ modificado + ", clientes_id=" + clientes_id + ", marcas_equipos_id=" + marcas_equipos_id
-				+ ", modelos_equipos_id=" + modelos_equipos_id + ", numero_orden=" + numero_orden + ", alfresco_id_OIT="
-				+ alfresco_id_OIT + ", cliente_factura_id=" + cliente_factura_id + "]";
+				+ ", modelos_equipos_id=" + modelos_equipos_id + ", numero_orden=" + numero_orden + ", alfresco_id="
+				+ alfresco_id + ", cliente_factura_id=" + cliente_factura_id + "]";
 	}
 
 	}

@@ -30,7 +30,7 @@ public class OrdenVistaRM implements RowMapper<OrdenVista>{
 		ov.setImporte_pedido(rs.getBigDecimal("importe_pedido"));
 		ov.setImporte_pagado(rs.getBigDecimal("importe_pagado"));
 		ov.setImporte_pendiente(rs.getBigDecimal("importe_pendiente"));
-		ov.setAlfresco_id_OIT(rs.getString("alfresco_id_OIT"));
+		ov.setAlfresco_id(rs.getString("alfresco_id"));
 		ov.setClientes_id(rs.getInt("clientes_id"));
 		ov.setCliente_no(rs.getInt("cliente_no"));
 		ov.setNombre_fiscal(rs.getString("nombre_fiscal"));
