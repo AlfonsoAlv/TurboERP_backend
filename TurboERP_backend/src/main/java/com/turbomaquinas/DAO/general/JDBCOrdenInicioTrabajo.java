@@ -22,7 +22,7 @@ public class JDBCOrdenInicioTrabajo implements OrdenInicioTrabajoDAO{
 	
 	@Override
 	public List<OrdenInicioTrabajoVista> consultarConFiltros(String numero_orden,String prioridad,String estado,String anio,String tipo) throws DataAccessException {
-		String sql="SELECT oit.id,o.numero_orden,oit.numero AS numero_oit, alfresco_id, "
+		String sql="SELECT oit.id,o.numero_orden,oit.numero AS numero_oit, oit.alfresco_id, "
 				+ "o.descripcion AS descripcion_orden, "
 				+ "(SELECT IF(((SELECT numero FROM GIROS g WHERE g.id=c.GIROS_id)) >2,c.nombre_fiscal,c.nombre_comercial) FROM CLIENTES c WHERE c.id=o.CLIENTES_id) AS nombre_cliente, "
 				+ "oit.estado, "
@@ -45,7 +45,7 @@ public class JDBCOrdenInicioTrabajo implements OrdenInicioTrabajoDAO{
 				+ "WHEN oit.prioridad='B' THEN 'BAJA' "
 				+ "END ) AS descripcion_prioridad,  "
 				+ "oit.avance, "
-				+ "(SELECT descripcion_equipo FROM EQUIPO_RECIBIDO WHERE ORDENES_id=o.id) AS descripcion_equipo_recibido, oit.fecha "
+				+ "(SELECT GROUP_CONCAT(descripcion_equipo SEPARATOR ',') FROM EQUIPO_RECIBIDO WHERE ORDENES_id=o.id) AS descripcion_equipo_recibido, oit.fecha "
 				+ "FROM OIT oit "
 				+ "JOIN ORDENES o ON o.id=oit.ORDENES_id "
 				+ "JOIN CLIENTES c ON c.id=o.CLIENTES_id "

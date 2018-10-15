@@ -51,7 +51,7 @@ public class ActividadAutorizadaVista {
 		super();
 	}
 
-	public ActividadAutorizadaVista(int id, int numero_referencia, String tipo_actividad, int suministro, int planta,
+	public ActividadAutorizadaVista(int id, String tipo_actividad, int suministro, int planta,
 			String clase_actividad, BigDecimal importe_autorizado, BigDecimal importe_baja, BigDecimal importe_anticipo,
 			BigDecimal importe_factura, BigDecimal importe_pendiente, BigDecimal descuento, int activo,
 			int solicitud_bajas_actividades_id, int solicitud_bajas_actividades_folio, int detalle_cotizaciones_id,
@@ -64,7 +64,6 @@ public class ActividadAutorizadaVista {
 			int cotizaciones_id, int cotizaciones_numero, int cotizaciones_revision) {
 		super();
 		this.id = id;
-		this.numero_referencia = numero_referencia;
 		this.tipo_actividad = tipo_actividad;
 		this.suministro = suministro;
 		this.planta = planta;

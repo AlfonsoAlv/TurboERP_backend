@@ -13,7 +13,6 @@ public class ActividadAutorizadaVistaRM implements RowMapper<ActividadAutorizada
 	public ActividadAutorizadaVista mapRow(ResultSet rs, int i) throws SQLException {
 		ActividadAutorizadaVista ac = new ActividadAutorizadaVista();
 		ac.setId(rs.getInt("id"));
-		ac.setNumero_referencia(rs.getInt("numero_referencia"));
 		ac.setTipo_actividad(rs.getString("tipo_actividad"));
 		ac.setSuministro(rs.getInt("suministro"));
 		ac.setPlanta(rs.getInt("planta"));
