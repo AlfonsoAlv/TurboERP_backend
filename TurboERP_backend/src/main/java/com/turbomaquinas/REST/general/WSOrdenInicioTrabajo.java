@@ -11,10 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turbomaquinas.POJO.general.DocumentoCrearOIT;
 import com.turbomaquinas.POJO.general.OrdenInicioTrabajoVista;
 import com.turbomaquinas.service.general.OrdenInicioTrabajoService;
 
@@ -51,6 +54,17 @@ public class WSOrdenInicioTrabajo {
 	public ResponseEntity<Void> cancelar(@PathVariable int id, @RequestParam int modificado_por){
 		try{
 			oits.cancelar(id, modificado_por);
+		}catch(DataAccessException e){
+			bitacora.error(e.getMessage());
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+			return new ResponseEntity<Void>(HttpStatus.OK);		
+	}
+	
+	@PostMapping("/crear")
+	public ResponseEntity<Void> crear(@RequestBody DocumentoCrearOIT p_obj_act_oit){
+		try{
+			oits.crear(p_obj_act_oit);
 		}catch(DataAccessException e){
 			bitacora.error(e.getMessage());
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
