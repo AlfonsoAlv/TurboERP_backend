@@ -17,7 +17,7 @@ public class GarantiaOrdenRM implements RowMapper<GarantiaOrden>{
 		go.setEncabezado_garantia_id(rs.getInt("encabezado_garantia_id"));
 		go.setDescripcion_encabezado(rs.getString("descripcion_encabezado"));
 		go.setDetalle_garantia_id(rs.getInt("detalle_garantia_id"));
-		go.setDescripcion_detalle(rs.getString("descripcion_garantia"));
+		go.setDescripcion_detalle(rs.getString("descripcion_detalle"));
 		go.setFecha_terminacion(rs.getDate("fecha_terminacion"));
 		return go;
 	}
