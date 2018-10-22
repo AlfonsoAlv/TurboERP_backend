@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
+import com.turbomaquinas.POJO.calidad.GarantiaOrden;
 
 @Repository
 public class JDBCDetalleGarantia implements DetalleGarantiaDAO {
@@ -91,7 +92,18 @@ public class JDBCDetalleGarantia implements DetalleGarantiaDAO {
 		simpleJdbcCall.execute(in);
 	}
 	
-	
+	@Override
+	public List<GarantiaOrden> consultarPorOrdenSinOIT(int idOrden) throws DataAccessException{
+		String sql = "SELECT g.id garantia_id, g.descripcion descripcion_garantia, eg.id encabezado_garantia_id, eg.descripcion descripcion_encabezado, "
+				+ "dg.id detalle_garantia_id, dg.descripcion descripcion_detalle, dg.fecha_terminacion "
+				+ "FROM GARANTIAS g "
+				+ "JOIN ENCABEZADOS_GARANTIA eg ON eg.GARANTIAS_id=g.id "
+				+ "JOIN DETALLE_GARANTIAS dg ON eg.id=dg.ENCABEZADOS_GARANTIA_id "
+				+ "WHERE g.ORDENES_id=? "
+				+ "AND NOT EXISTS (SELECT * FROM ORIGEN_GARANTIA WHERE DETALLE_GARANTIAS_id = dg.id)";
+		List<GarantiaOrden> go = jdbcTemplate.query(sql, new GarantiaOrdenRM(),idOrden);
+		return go;
+	}
 	
 	
 	

@@ -75,4 +75,17 @@ public class JDBCOrdenInicioTrabajo implements OrdenInicioTrabajoDAO{
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 		simpleJdbcCall.execute(in);
 	}
+
+
+	@Override
+	public void crearOIT(String p_obj_act_oit) {
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("CREAR_OIT");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+		inParamMap.put("p_obj_act_oit", p_obj_act_oit);
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		simpleJdbcCall.execute(in);
+	}
 }

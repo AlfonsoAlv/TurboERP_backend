@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.turbomaquinas.DAO.calidad.DetalleGarantiaDAO;
 import com.turbomaquinas.POJO.calidad.DetalleGarantiaVista;
 import com.turbomaquinas.POJO.calidad.DocumentoDetalleGarantia;
+import com.turbomaquinas.POJO.calidad.GarantiaOrden;
 
 @Service
 public class LogicaDetalleGarantia implements DetalleGarantiaService{
@@ -25,5 +26,11 @@ public class LogicaDetalleGarantia implements DetalleGarantiaService{
 	@Override
 	public void actualizarDetalles(List<DocumentoDetalleGarantia> actividades) {
 		repositorio.actualizarDetalles(actividades.toString());
+	}
+
+
+	@Override
+	public List<GarantiaOrden> consultarPorOrdenSinOIT(int idOrden) {
+		return repositorio.consultarPorOrdenSinOIT(idOrden);
 	}
 }

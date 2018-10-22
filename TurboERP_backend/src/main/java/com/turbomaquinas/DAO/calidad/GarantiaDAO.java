@@ -3,8 +3,8 @@ package com.turbomaquinas.DAO.calidad;
 import java.util.List;
 
 import com.turbomaquinas.POJO.calidad.EstadoCierreFoco;
-import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 import com.turbomaquinas.POJO.calidad.GarantiaVista;
+import com.turbomaquinas.POJO.calidad.PorcentajeActividades;
 
 public interface GarantiaDAO {
 
